@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Gotong Royong</string>
+
+    <string name="load_retrieve">Retrieving data&#8230;</string>
+
+    <string name="test_result">Result : %s</string>
 </resources>
