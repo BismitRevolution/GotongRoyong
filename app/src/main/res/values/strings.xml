@@ -3,10 +3,11 @@
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
 
-    <string name="test_result">Result : %s</string>
+    <string name="nav_title">Menu</string>
+    <string name="nav_campaign">Daftar Campaign</string>
+    <string name="nav_profile">Profil Saya</string>
+    <string name="nav_about">Tentang GotongRoyong</string>
+    <string name="nav_logout">Logout</string>
 
-    <string-array name="tab_title">
-        <item>Campaigns</item>
-        <item>Pahlawan</item>
-    </string-array>
+    <string name="test_result">Result : %s</string>
 </resources>

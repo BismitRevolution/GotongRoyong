@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FFFFFF</color>
 
     <color name="themeOrangeLight">#CD6163</color>
+    <color name="themeOrangeHover">#EACEC5</color>
     <color name="themeOrange">#E94917</color>
 </resources>
