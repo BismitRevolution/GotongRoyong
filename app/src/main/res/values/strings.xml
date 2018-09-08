@@ -4,4 +4,9 @@
     <string name="load_retrieve">Retrieving data&#8230;</string>
 
     <string name="test_result">Result : %s</string>
+
+    <string-array name="tab_title">
+        <item>Campaigns</item>
+        <item>Pahlawan</item>
+    </string-array>
 </resources>

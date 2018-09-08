@@ -19,7 +19,6 @@ public class TestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_test);
 
-
         Call<TestData> call = new GotongRoyongAPI().getService().test();
         call.enqueue(new Callback<TestData>() {
             @Override
