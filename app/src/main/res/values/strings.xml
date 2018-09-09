@@ -20,5 +20,8 @@
     <string name="campaign_duration">Sisa Hari</string>
     <string name="campaign_btn_donate">Donate</string>
 
+    <string name="pahlawan_subtitle">Mereka adalah pahlawan kebaikan.</string>
+    <string name="pahlawan_lihat_profil">lihat profil di</string>
+    <string name="pahlawan_campaign">campaign</string>
     <string name="test_result">Result : %s</string>
 </resources>
