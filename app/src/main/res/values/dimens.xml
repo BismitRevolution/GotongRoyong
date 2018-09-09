@@ -2,6 +2,7 @@
 <resources>
     <dimen name="base_padding">10dp</dimen>
     <dimen name="md_padding">20dp</dimen>
+    <dimen name="lg_padding">40dp</dimen>
 
     <dimen name="divider">8dp</dimen>
 
