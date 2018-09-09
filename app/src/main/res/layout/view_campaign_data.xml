@@ -93,7 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/campaign_pahlawan"
-                android:textSize="@dimen/campaign_data_name"/>
+                android:textSize="@dimen/campaign_data_name"
+                android:textAlignment="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -125,7 +126,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/campaign_donasi"
-                android:textSize="@dimen/campaign_data_name"/>
+                android:textSize="@dimen/campaign_data_name"
+                android:textAlignment="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -157,7 +159,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/campaign_donasi"
-                android:textSize="@dimen/campaign_data_name"/>
+                android:textSize="@dimen/campaign_data_name"
+                android:textAlignment="center"/>
         </LinearLayout>
 
         <LinearLayout
