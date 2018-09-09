@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,23 +13,27 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
-import in.gotongroyong.gotongroyong.adapter.CampaignAdapter;
-import in.gotongroyong.gotongroyong.adapter.ProfileAdapter;
+import java.util.ArrayList;
+
+import in.gotongroyong.gotongroyong.adapter.CampaignPageAdapter;
+import in.gotongroyong.gotongroyong.adapter.ProfilePageAdapter;
+import in.gotongroyong.gotongroyong.fragment.BaseFragment;
 
 public class MainScreen extends AppCompatActivity {
+    Toolbar toolbar;
     private DrawerLayout drawer;
+    private TabLayout tab;
     private ViewPager pager;
-    private CampaignAdapter campaignAdapter;
-    private ProfileAdapter profileAdapter;
+    private CampaignPageAdapter campaignPageAdapter;
+    private ProfilePageAdapter profilePageAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.main_toolbar);
+        this.toolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
@@ -56,12 +61,10 @@ public class MainScreen extends AppCompatActivity {
             }
         });
 
-        this.campaignAdapter = new CampaignAdapter(getSupportFragmentManager());
-        this.profileAdapter = new ProfileAdapter(getSupportFragmentManager());
+        this.campaignPageAdapter = new CampaignPageAdapter(getSupportFragmentManager());
+        this.profilePageAdapter = new ProfilePageAdapter(getSupportFragmentManager());
         this.pager = findViewById(R.id.main_pager);
-        setCampaignPage();
-        final TabLayout tab = findViewById(R.id.main_tab);
-        tab.setupWithViewPager(pager);
+        this.tab = findViewById(R.id.main_tab);
 
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -79,15 +82,36 @@ public class MainScreen extends AppCompatActivity {
 
             }
         });
+
+        setCampaignPage();
 //        startActivity(new Intent(this, TestActivity.class));
     }
 
+    private void clear() {
+        ArrayList<BaseFragment> fragments = new ArrayList<>();
+        fragments.addAll(campaignPageAdapter.getFragments());
+        fragments.addAll(profilePageAdapter.getFragments());
+        for (int i = 0; i < fragments.size(); i++) {
+            getSupportFragmentManager().beginTransaction().remove((Fragment) fragments.get(i)).commit();
+        }
+        campaignPageAdapter.getFragments().clear();
+        profilePageAdapter.getFragments().clear();
+    }
+
     private void setCampaignPage() {
-        pager.setAdapter(campaignAdapter);
+        clear();
+        getSupportActionBar().setTitle(R.string.toolbar_campaign);
+        campaignPageAdapter.reset();
+        pager.setAdapter(campaignPageAdapter);
+        tab.setupWithViewPager(pager);
     }
 
     private void setProfilePage() {
-        pager.setAdapter(profileAdapter);
+        clear();
+        getSupportActionBar().setTitle(R.string.toolbar_profile);
+        profilePageAdapter.reset();
+        pager.setAdapter(profilePageAdapter);
+        tab.setupWithViewPager(pager);
     }
 
     @Override

@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import in.gotongroyong.gotongroyong.R;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements BaseFragment {
+    @Override
+    public String getTitle() {
+        return "Data Pribadi";
+    }
 
     @Nullable
     @Override

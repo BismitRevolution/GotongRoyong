@@ -9,5 +9,16 @@
     <string name="nav_about">Tentang GotongRoyong</string>
     <string name="nav_logout">Logout</string>
 
+    <string name="toolbar_campaign">List of Campaign</string>
+    <string name="toolbar_profile">Profil Saya</string>
+
+    <string name="campaign_subtitle">Pilih, Lihat dan Mereka Terbantu!</string>
+    <string name="campaign_terkumpul">Terkumpul</string>
+    <string name="campaign_target">Target</string>
+    <string name="campaign_pahlawan">pahlawan</string>
+    <string name="campaign_donasi">free donation</string>
+    <string name="campaign_duration">Sisa Hari</string>
+    <string name="campaign_btn_donate">Donate</string>
+
     <string name="test_result">Result : %s</string>
 </resources>

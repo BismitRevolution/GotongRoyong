@@ -7,4 +7,6 @@
     <color name="themeOrangeLight">#CD6163</color>
     <color name="themeOrangeHover">#EACEC5</color>
     <color name="themeOrange">#E94917</color>
+
+    <color name="baseGray">#E0E0E0</color>
 </resources>

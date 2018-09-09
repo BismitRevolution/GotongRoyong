@@ -11,7 +11,12 @@ import android.widget.TextView;
 
 import in.gotongroyong.gotongroyong.R;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements BaseFragment {
+
+    @Override
+    public String getTitle() {
+        return "Riwayat Donasi";
+    }
 
     @Nullable
     @Override

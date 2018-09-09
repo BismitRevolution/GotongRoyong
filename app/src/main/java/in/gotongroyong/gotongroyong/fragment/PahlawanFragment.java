@@ -11,7 +11,12 @@ import android.widget.TextView;
 
 import in.gotongroyong.gotongroyong.R;
 
-public class PahlawanFragment extends Fragment {
+public class PahlawanFragment extends Fragment implements BaseFragment {
+
+    @Override
+    public String getTitle() {
+        return "Pahlawan";
+    }
 
     @Nullable
     @Override

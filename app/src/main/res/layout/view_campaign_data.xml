@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/data_bg"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/campaign_banner_height"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/bg_placeholder"
+        android:contentDescription="@string/load_retrieve"/>
+
+    <TextView
+        android:id="@+id/data_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/base_padding"
+        android:paddingStart="@dimen/md_padding"
+        android:paddingEnd="@dimen/base_padding"
+        android:layout_below="@id/data_bg"
+        android:layout_toStartOf="@id/btn_data_share"
+        android:textColor="@android:color/background_dark"
+        android:textSize="@dimen/campaign_title"
+        android:textStyle="bold"
+        android:text="@string/load_retrieve"/>
+
+    <ImageView
+        android:id="@+id/btn_data_share"
+        android:layout_width="@dimen/mini_toolbar"
+        android:layout_height="@dimen/mini_toolbar"
+        android:layout_below="@id/data_bg"
+        android:layout_marginTop="@dimen/base_padding"
+        android:layout_marginEnd="@dimen/md_padding"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_action_share"/>
+
+    <ImageView
+        android:id="@+id/img_data_client"
+        android:layout_width="@dimen/campaign_pic"
+        android:layout_height="@dimen/campaign_pic"
+        android:layout_below="@id/data_title"
+        android:layout_marginStart="@dimen/md_padding"
+        android:layout_marginTop="@dimen/base_padding"
+        android:src="@drawable/logo_placeholder"/>
+
+    <TextView
+        android:id="@+id/tv_data_client"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/campaign_pic"
+        android:layout_margin="@dimen/base_padding"
+        android:layout_below="@id/data_title"
+        android:layout_toEndOf="@id/img_data_client"
+        android:textSize="@dimen/campaign_client"
+        android:text="@string/load_retrieve"
+        android:gravity="center_vertical"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_padding"
+        android:layout_below="@id/img_data_client"
+        android:layout_gravity="center_vertical"
+        android:weightSum="6">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_terkumpul"
+                android:textSize="@dimen/campaign_data_name"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/campaign_data_pahlawan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9.000"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/campaign_counter_data"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_pahlawan"
+                android:textSize="@dimen/campaign_data_name"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_terkumpul"
+                android:textSize="@dimen/campaign_data_name"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/campaign_data_donasi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9.000"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/campaign_counter_data"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_donasi"
+                android:textSize="@dimen/campaign_data_name"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_target"
+                android:textSize="@dimen/campaign_data_name"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/campaign_data_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9.000"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/campaign_counter_data"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_donasi"
+                android:textSize="@dimen/campaign_data_name"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/campaign_duration"
+                android:textSize="@dimen/campaign_data_name"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/campaign_data_countdown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="24"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/campaign_counter_day"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_donate"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="@color/themeOrange"
+            android:text="@string/campaign_btn_donate"
+            android:textColor="@android:color/white"
+            android:layout_weight="2" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider"
+        android:layout_alignParentBottom="true"
+        android:background="@color/baseGray"/>
+</RelativeLayout>
