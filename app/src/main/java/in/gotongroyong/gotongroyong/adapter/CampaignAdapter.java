@@ -6,20 +6,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import in.gotongroyong.gotongroyong.fragment.CampaignFragment;
+import in.gotongroyong.gotongroyong.fragment.PahlawanFragment;
 
-public class MainPageAdapter extends FragmentPagerAdapter {
+public class CampaignAdapter extends FragmentPagerAdapter {
 
-    public MainPageAdapter(FragmentManager fm) {
+    public CampaignAdapter(FragmentManager fm) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-            case 0:
-                return new CampaignFragment();
             case 1:
-                return new CampaignFragment();
+                return new PahlawanFragment();
             default:
                 return new CampaignFragment();
         }
