@@ -50,6 +50,7 @@
                     android:textColor="@android:color/background_dark"/>
 
                 <TextView
+                    android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/load_retrieve"
@@ -81,6 +82,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/profile_data_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/xs_padding"
@@ -94,6 +96,7 @@
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_name"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/load_retrieve"
@@ -101,6 +104,7 @@
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_birth_place"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/load_retrieve"
@@ -116,6 +120,7 @@
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_city"
+                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/load_retrieve"
@@ -146,8 +151,7 @@
                         android:id="@+id/radio_male"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/themeOrange"
-                        android:checked="true"/>
+                        android:buttonTint="@color/themeOrange" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -170,6 +174,8 @@
                 </RadioGroup>
 
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_phone"
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/load_retrieve"/>
