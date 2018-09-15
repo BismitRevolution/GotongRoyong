@@ -9,16 +9,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import in.gotongroyong.gotongroyong.R;
 import in.gotongroyong.gotongroyong.adapter.CampaignDataAdapter;
+import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
+import in.gotongroyong.gotongroyong.data.BaseResponse;
+import in.gotongroyong.gotongroyong.data.CampaignData;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CampaignFragment extends Fragment implements BaseFragment {
     private LinearLayoutManager layoutManager;
     private CampaignDataAdapter adapter;
+    private int currentPage;
 
     @Override
     public String getTitle() {
@@ -30,17 +37,27 @@ public class CampaignFragment extends Fragment implements BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_campaign, container, false);
 
-        RecyclerView recyclerView = root.findViewById(R.id.campaign_recycler_view);
+        final RecyclerView recyclerView = root.findViewById(R.id.campaign_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+        currentPage = 1;
 
-        ArrayList<String> dataset = new ArrayList<>();
-        dataset.add("First");
-        dataset.add("Second");
-        dataset.add("Third");
-        adapter = new CampaignDataAdapter(dataset);
-        recyclerView.setAdapter(adapter);
+        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(currentPage);
+        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
+                List<CampaignData> result = response.body().getPayload();
+                adapter = new CampaignDataAdapter(result);
+                recyclerView.setAdapter(adapter);
+                currentPage++;
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -57,7 +74,21 @@ public class CampaignFragment extends Fragment implements BaseFragment {
     }
 
     public void update() {
-        adapter.update("New");
-        adapter.notifyDataSetChanged();
+        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(currentPage);
+        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
+                adapter.update(response.body().getPayload());
+                adapter.notifyDataSetChanged();
+                currentPage++;
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
+                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        adapter.update("New");
+//        adapter.notifyDataSetChanged();
     }
 }

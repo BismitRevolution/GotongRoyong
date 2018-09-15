@@ -54,7 +54,7 @@
                 android:id="@+id/pahlawan_data_donasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9.000"
+                android:text="@string/load_number"
                 android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/pahlawan_counter_data"/>
 

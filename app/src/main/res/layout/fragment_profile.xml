@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/base_padding"
+    android:background="@color/themeOrange">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/base_padding"
+                android:layout_marginStart="@dimen/md_padding"
+                android:layout_marginEnd="@dimen/md_padding"
+                android:layout_marginBottom="@dimen/md_padding"
+                android:text="@string/profile_subtitle"
+                android:textSize="@dimen/profile_subtitle"
+                android:textColor="@android:color/white"
+                android:textStyle="italic"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/md_padding"
+                android:layout_marginEnd="@dimen/md_padding"
+                android:paddingStart="@dimen/lg_padding"
+                android:paddingEnd="@dimen/lg_padding"
+                android:paddingBottom="@dimen/md_padding"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/md_padding"
+                    android:text="@string/profile_hello"
+                    android:textSize="@dimen/campaign_title"
+                    android:textColor="@android:color/background_dark"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/load_retrieve"
+                    android:textColor="@android:color/darker_gray"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_padding"
+                    android:layout_marginBottom="@dimen/base_padding">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/xs_padding"
+                        android:layout_alignParentStart="true"
+                        android:layout_toStartOf="@id/profile_data_bar"
+                        android:text="@string/profile_data_label"
+                        android:textColor="@android:color/background_dark"/>
+
+                    <TextView
+                        android:id="@+id/profile_data_bar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/xs_padding"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/profile_data_placeholder"
+                        android:textColor="@android:color/background_dark"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/xs_padding"
+                        android:layout_below="@id/profile_data_bar"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center_horizontal"
+                        android:text="@string/profile_value_placeholder"
+                        android:textStyle="italic"/>
+                </RelativeLayout>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/load_retrieve"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_birth_place"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/load_retrieve"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_birth_date"
+                    android:inputType="date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/load_retrieve"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/load_retrieve"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_email"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/load_retrieve"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_password"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password_placeholder"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radio_male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/themeOrange"
+                        android:checked="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_padding"
+                        android:layout_marginEnd="@dimen/lg_padding"
+                        android:text="@string/profile_radio_male"/>
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radio_female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/themeOrange"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/base_padding"
+                        android:text="@string/profile_radio_female"/>
+                </RadioGroup>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/load_retrieve"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/btn_default_height"
+                    android:layout_marginTop="@dimen/md_padding"
+                    android:paddingStart="@dimen/lg_padding"
+                    android:paddingEnd="@dimen/lg_padding"
+                    android:layout_gravity="end"
+                    android:backgroundTint="@color/themeOrange"
+                    android:text="@string/profile_btn_update"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

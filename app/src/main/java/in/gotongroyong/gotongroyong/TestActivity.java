@@ -5,7 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import java.util.List;
+
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
+import in.gotongroyong.gotongroyong.data.BaseResponse;
+import in.gotongroyong.gotongroyong.data.CampaignData;
 import in.gotongroyong.gotongroyong.data.TestData;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,22 +23,22 @@ public class TestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_test);
 
-        Call<TestData> call = new GotongRoyongAPI().getService().test();
-        call.enqueue(new Callback<TestData>() {
+        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(1);
+        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
             @Override
-            public void onResponse(Call<TestData> call, Response<TestData> response) {
+            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
                 if (response.isSuccessful()) {
-                    TestData result = response.body();
-                    updateText(result.getData());
+                    List<CampaignData> result = response.body().getPayload();
+                    updateText(result.get(0).getTitle());
                 }
             }
 
             @Override
-            public void onFailure(Call<TestData> call, Throwable t) {
+            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
+                t.printStackTrace();
                 updateFail();
             }
         });
-
     }
 
     private void updateText(String data) {

@@ -20,9 +20,7 @@ public class ProfileFragment extends Fragment implements BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_test, container, false);
-        TextView text = root.findViewById(R.id.tv_test_result);
-        text.setText(getResources().getString(R.string.test_result, "DATA PRIBADI PAGE"));
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
         return root;
     }
 }

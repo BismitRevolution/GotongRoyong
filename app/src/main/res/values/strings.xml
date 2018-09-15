@@ -2,6 +2,9 @@
     <string name="app_name">Gotong Royong</string>
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
+    <string name="load_number">0</string>
+
+    <string name="password_placeholder">************</string>
 
     <string name="nav_title">Menu</string>
     <string name="nav_campaign">Daftar Campaign</string>
@@ -23,5 +26,17 @@
     <string name="pahlawan_subtitle">Mereka adalah pahlawan kebaikan.</string>
     <string name="pahlawan_lihat_profil">lihat profil di</string>
     <string name="pahlawan_campaign">campaign</string>
+
+    <string name="profile_subtitle">\"Jadilah pahlawan hanya dengan melihat iklan pada \ncampaign dan kamu telah berdonasi untuk mereka!\"</string>
+    <string name="profile_hello">Hai, Pahlawan!</string>
+    <string name="profile_data_label">Pencapaian : </string>
+    <string name="profile_data_bar">%s donasi  %s share</string>
+    <string name="profile_data_placeholder">0 donasi  0 share</string>
+    <string name="profile_value">(bernilai sekitar Rp. %s)</string>
+    <string name="profile_value_placeholder">(bernilai sekitar Rp. 0)</string>
+    <string name="profile_radio_male">Male</string>
+    <string name="profile_radio_female">Female</string>
+    <string name="profile_btn_update">Update</string>
+
     <string name="test_result">Result : %s</string>
 </resources>

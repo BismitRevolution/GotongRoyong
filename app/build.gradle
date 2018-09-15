@@ -32,6 +32,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonConverterVersion"
+    implementation ("com.squareup.picasso:picasso:$picassoVersion") {
+        exclude group: "com.android.support"
+    }
 
     testImplementation "junit:junit:$junitVersion"
 

@@ -78,13 +78,14 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/campaign_terkumpul"
                 android:textSize="@dimen/campaign_data_name"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/campaign_data_pahlawan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9.000"
+                android:text="@string/load_number"
                 android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/campaign_counter_data"/>
 
@@ -111,13 +112,14 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/campaign_terkumpul"
                 android:textSize="@dimen/campaign_data_name"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/campaign_data_donasi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9.000"
+                android:text="@string/load_number"
                 android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/campaign_counter_data"/>
 
@@ -150,7 +152,7 @@
                 android:id="@+id/campaign_data_target"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9.000"
+                android:text="@string/load_number"
                 android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/campaign_counter_data"/>
 
@@ -183,7 +185,7 @@
                 android:id="@+id/campaign_data_countdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="24"
+                android:text="@string/load_number"
                 android:layout_gravity="center_horizontal"
                 android:textSize="@dimen/campaign_counter_day"/>
         </LinearLayout>
@@ -191,7 +193,7 @@
         <Button
             android:id="@+id/btn_donate"
             android:layout_width="0dp"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/btn_default_height"
             android:layout_gravity="center_vertical"
             android:backgroundTint="@color/themeOrange"
             android:text="@string/campaign_btn_donate"

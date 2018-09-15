@@ -35,4 +35,5 @@ ext {
 
     retrofitVersion = '2.4.0'
     gsonConverterVersion = '2.8.5'
+    picassoVersion = '2.71828'
 }
