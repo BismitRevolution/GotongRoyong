@@ -24,6 +24,14 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
+
+        final Button register = findViewById(R.id.btn_register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                register();
+            }
+        });
     }
 
     @Override
@@ -35,6 +43,11 @@ public class LoginActivity extends AppCompatActivity {
     private void login() {
         Router.login(this, "CLT001", "Client 1");
         redirectIfAuth();
+    }
+
+    private void register() {
+        Router.gotoRegister(this);
+        finish();
     }
 
     private void redirectIfAuth() {
