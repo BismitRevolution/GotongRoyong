@@ -1,6 +1,5 @@
 package in.gotongroyong.gotongroyong;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +18,7 @@ import java.util.ArrayList;
 
 import in.gotongroyong.gotongroyong.adapter.CampaignPageAdapter;
 import in.gotongroyong.gotongroyong.adapter.ProfilePageAdapter;
+import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.fragment.BaseFragment;
 
 public class MainScreen extends AppCompatActivity {
@@ -32,6 +32,7 @@ public class MainScreen extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        redirectIfAuth();
         setContentView(R.layout.activity_main);
 
         this.toolbar = findViewById(R.id.main_toolbar);
@@ -124,5 +125,19 @@ public class MainScreen extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        redirectIfAuth();
+    }
+
+    private void redirectIfAuth() {
+        String id = Router.checkAuth(this);
+        if (id == null) {
+            Router.gotoLogin(this);
+            finish();
+        }
     }
 }

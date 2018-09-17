@@ -14,6 +14,9 @@
         <activity android:name=".MainScreen">
         </activity>
 
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+
         <activity android:name=".TestActivity" />
         <activity android:name=".LoadingScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

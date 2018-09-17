@@ -15,7 +15,18 @@
     <string name="toolbar_campaign">List of Campaign</string>
     <string name="toolbar_profile">Profil Saya</string>
 
-    <string name="campaign_subtitle">Pilih, Lihat dan Mereka Terbantu!</string>
+    <string name="register_hello">Yuk, daftar \nmenjadi Pahlawan!</string>
+    <string name="login_subtitle">Silahkan login untuk membantu sesama.</string>
+    <string name="register_subtitle">Silahkan registrasi untuk membantu sesama.</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_btn_register">Register</string>
+    <string name="login_btn_login">Login</string>
+    <string name="login_divider_method">ATAU</string>
+    <string name="login_btn_facebook_login">Masuk dengan Facebook</string>
+    <string name="login_btn_google_login">Masuk dengan Google</string>
+
+    <string name="campaign_quote">Pilih, Lihat dan Mereka Terbantu!</string>
     <string name="campaign_terkumpul">Terkumpul</string>
     <string name="campaign_target">Target</string>
     <string name="campaign_pahlawan">pahlawan</string>
