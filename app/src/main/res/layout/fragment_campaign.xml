@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/campaign_subtitle"
+        android:text="@string/campaign_quote"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/base_padding"
         android:textColor="@color/themeOrange"

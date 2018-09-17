@@ -9,4 +9,8 @@
     <color name="themeOrange">#E94917</color>
 
     <color name="baseGray">#E0E0E0</color>
+    <color name="textGray">#666666</color>
+
+    <color name="facebookDark">#29487D</color>
+    <color name="facebookDefault">#3C5898</color>
 </resources>

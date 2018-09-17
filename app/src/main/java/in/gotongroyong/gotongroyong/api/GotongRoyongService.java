@@ -22,8 +22,14 @@ public interface GotongRoyongService {
     @GET("/campaign/pagination/{page}")
     Call<BaseResponse<List<CampaignData>>> listCampaign(@Path("page") int page);
 
+    @GET("/campaign/{id}")
+    Call<BaseResponse<CampaignData>> getCampaign(@Path("id") String id);
+
     @GET("/hero/pagination/{page}")
     Call<BaseResponse<List<HeroData>>> listHero(@Path("page") int page);
+
+    @GET("/hero/{id}")
+    Call<BaseResponse<HeroData>> getHero(@Path("id") String id);
 
     @GET("/donation/pagination/{page}")
     Call<List<DonationData>> listDonation(@Path("page") int page);
