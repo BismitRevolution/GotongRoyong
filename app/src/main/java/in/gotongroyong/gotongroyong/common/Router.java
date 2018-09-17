@@ -16,6 +16,18 @@ public class Router {
         return userData.getString(Preferences.USER_ID, null);
     }
 
+    public static void login(Context context, String id, String name) {
+        SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
+        editor.putString(Preferences.USER_ID, id);
+        editor.putString(Preferences.USER_NAME, name);
+        editor.apply();
+    }
+
+    public static void logout(Context context) {
+        SharedPreferences userData = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE);
+        userData.edit().clear().apply();
+    }
+
     public static void gotoLogin(Context context) {
         context.startActivity(new Intent(context, LoginActivity.class));
     }

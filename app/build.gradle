@@ -29,6 +29,11 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:$constraintLayoutVersion"
     implementation "com.android.support:design:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
+
+    implementation "com.google.firebase:firebase-core:$firebaseVersion"
+    implementation "com.google.firebase:firebase-auth:$firebaseVersion"
+    implementation "com.google.android.gms:play-services-auth:$gmsVersion"
+
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonConverterVersion"
@@ -41,3 +46,5 @@ dependencies {
     androidTestImplementation "com.android.support.test:runner:$runnerVersion"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'

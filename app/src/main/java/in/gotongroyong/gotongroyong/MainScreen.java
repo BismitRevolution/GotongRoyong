@@ -55,6 +55,10 @@ public class MainScreen extends AppCompatActivity {
                     case R.id.menu_profile:
                         setProfilePage();
                         break;
+                    case R.id.menu_logout:
+                        Router.logout(getApplicationContext());
+                        redirectIfAuth();
+                        break;
                     default:
                         setCampaignPage();
                 }
