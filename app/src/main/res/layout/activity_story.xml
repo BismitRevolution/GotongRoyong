@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray">
+
+    <VideoView
+        android:id="@+id/story_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_padding"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/story_client_pic"
+            android:layout_width="@dimen/mini_toolbar"
+            android:layout_height="@dimen/mini_toolbar"
+            android:src="@drawable/offline"/>
+
+        <TextView
+            android:id="@+id/story_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_padding"
+            android:text="@string/load_retrieve"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/campaign_client" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/story_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/error_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:src="@drawable/ic_offline_bolt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:text="@string/error_connection"
+            android:textColor="@android:color/white"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/story_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/xs_padding"
+        android:paddingEnd="@dimen/xs_padding"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="1"/>
+
+    <ImageView
+        android:layout_width="@dimen/mini_toolbar"
+        android:layout_height="@dimen/mini_toolbar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/lg_padding"
+        android:src="@drawable/ic_keyboard_arrow_up"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/md_padding"
+        android:text="@string/story_swipe_up"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/pahlawan_client" />
+</RelativeLayout>

@@ -20,6 +20,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
+        maven { name 'glide-snapshot'; url 'http://oss.sonatype.org/content/repositories/snapshots' }
     }
 }
 
@@ -40,4 +42,6 @@ ext {
     retrofitVersion = '2.4.0'
     gsonConverterVersion = '2.8.5'
     picassoVersion = '2.71828'
+    swipeBackVersion ='1.0.2'
+    instagramStoryVersion = '1.0.1'
 }

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
+
 import in.gotongroyong.gotongroyong.LoginActivity;
 import in.gotongroyong.gotongroyong.MainScreen;
 import in.gotongroyong.gotongroyong.RegisterActivity;
+import in.gotongroyong.gotongroyong.StoryActivity;
 import in.gotongroyong.gotongroyong.entity.Preferences;
 
 public class Router {
@@ -34,6 +37,14 @@ public class Router {
 
     public static void gotoRegister(Context context) {
         context.startActivity(new Intent(context, RegisterActivity.class));
+    }
+
+    public static void gotoStory(Context context, ArrayList<String> resources, boolean isVideoType) {
+        Intent story = new Intent(context, StoryActivity.class);
+//        story.putExtra(StoryActivity.STORY_SOURCE_URL, true);
+        story.putExtra(StoryActivity.STORY_VIDEO_TYPE, isVideoType);
+        story.putStringArrayListExtra(StoryActivity.STORY_RESOURCES_URL, resources);
+        context.startActivity(story);
     }
 
     public static void gotoMain(Context context) {

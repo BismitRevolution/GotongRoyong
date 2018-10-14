@@ -3,6 +3,7 @@
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
     <string name="load_number">0</string>
+    <string name="error_connection">Connection problem</string>
 
     <string name="password_placeholder">************</string>
 
@@ -48,6 +49,8 @@
     <string name="profile_radio_male">Male</string>
     <string name="profile_radio_female">Female</string>
     <string name="profile_btn_update">Update</string>
+
+    <string name="story_swipe_up">swipe up to see the detail</string>
 
     <string name="test_result">Result : %s</string>
 </resources>
