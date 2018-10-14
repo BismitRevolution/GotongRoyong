@@ -8,6 +8,7 @@
     <dimen name="divider">8dp</dimen>
     <dimen name="btn_default_height">60dp</dimen>
     <dimen name="btn_md_height">55dp</dimen>
+    <dimen name="spinner_lg">80dp</dimen>
 
     <dimen name="campaign_banner_height">300dp</dimen>
     <dimen name="campaign_pic">30dp</dimen>

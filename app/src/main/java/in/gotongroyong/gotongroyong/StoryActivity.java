@@ -2,6 +2,7 @@ package in.gotongroyong.gotongroyong;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,9 +17,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ public class StoryActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private boolean immersiveMode;
+    private boolean isFinish;
     private GestureDetectorCompat detector;
 
     class StoryGesture extends GestureDetector.SimpleOnGestureListener {
@@ -69,20 +73,24 @@ public class StoryActivity extends AppCompatActivity {
         detector = new GestureDetectorCompat(this, new StoryGesture());
         detector.setIsLongpressEnabled(true);
 
+        ProgressBar spinner = findViewById(R.id.spinner_loading);
+        spinner.getIndeterminateDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.MULTIPLY);
+
         progressBar = findViewById(R.id.story_progress);
         progressBar.getProgressDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
-        final double total = 20 * 1000;
+        this.isFinish = false;
 
-        timer = new CountDownTimer((int) total, 100) {
+        timer = new CountDownTimer(duration, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
-                double current = ((total - millisUntilFinished)/total) * 100;
+                double current = (((double) duration - millisUntilFinished)/(double) duration) * 100;
                 progressBar.setProgress((int) current);
             }
 
             @Override
             public void onFinish() {
                 Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
+                finish();
             }
         };
     }
@@ -117,6 +125,8 @@ public class StoryActivity extends AppCompatActivity {
             video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
+                    stopLoading();
+                    showFeature();
                     mp.seekTo(2000);
                 }
             });
@@ -124,9 +134,9 @@ public class StoryActivity extends AppCompatActivity {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     Toast.makeText(getApplicationContext(), "CONFIRMATION!", Toast.LENGTH_SHORT).show();
+                    isFinish = true;
                 }
             });
-            hideErrorPanel();
         } else {
             showErrorPanel();
         }
@@ -137,11 +147,31 @@ public class StoryActivity extends AppCompatActivity {
         image.setVisibility(View.VISIBLE);
 
         if (!url.equals("")) {
-            Picasso.get().load(url).into(image);
-            hideErrorPanel();
+            Picasso.get().load(url).into(image, new Callback() {
+                @Override
+                public void onSuccess() {
+                    stopLoading();
+                    showFeature();
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    showErrorPanel();
+                }
+            });
         } else {
             showErrorPanel();
         }
+    }
+
+    private void showLoading() {
+        LinearLayout loadingSpinner = findViewById(R.id.loading_panel);
+        loadingSpinner.setVisibility(View.VISIBLE);
+    }
+
+    private void stopLoading() {
+        LinearLayout loadingSpinner = findViewById(R.id.loading_panel);
+        loadingSpinner.setVisibility(View.GONE);
     }
 
     private void showErrorPanel() {
@@ -154,6 +184,19 @@ public class StoryActivity extends AppCompatActivity {
         errorPanel.setVisibility(View.GONE);
     }
 
+    private void showFeature() {
+        LinearLayout topPanel = findViewById(R.id.top_panel);
+        topPanel.setVisibility(View.VISIBLE);
+
+        ImageView arrow = findViewById(R.id.up_arrow);
+        arrow.setVisibility(View.VISIBLE);
+
+        TextView slideUp = findViewById(R.id.up_text);
+        slideUp.setVisibility(View.VISIBLE);
+
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         detector.onTouchEvent(event);
@@ -162,16 +205,19 @@ public class StoryActivity extends AppCompatActivity {
         int action = MotionEventCompat.getActionMasked(event);
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                video.seekTo(0);
-                video.start();
-                timer.start();
+                if (!isFinish) {
+                    video.seekTo(0);
+                    video.start();
+                    timer.start();
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                video.pause();
-                timer.cancel();
+                if (!isFinish) {
+                    video.pause();
+                    timer.cancel();
+                }
                 break;
         }
-
         return super.onTouchEvent(event);
     }
 

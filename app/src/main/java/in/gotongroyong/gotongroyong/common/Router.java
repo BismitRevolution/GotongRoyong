@@ -41,7 +41,6 @@ public class Router {
 
     public static void gotoStory(Context context, ArrayList<String> resources, boolean isVideoType) {
         Intent story = new Intent(context, StoryActivity.class);
-//        story.putExtra(StoryActivity.STORY_SOURCE_URL, true);
         story.putExtra(StoryActivity.STORY_VIDEO_TYPE, isVideoType);
         story.putStringArrayListExtra(StoryActivity.STORY_RESOURCES_URL, resources);
         context.startActivity(story);
