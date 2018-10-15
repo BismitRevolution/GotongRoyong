@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/story_client_pic"
-            android:layout_width="@dimen/mini_toolbar"
-            android:layout_height="@dimen/mini_toolbar"
+            android:layout_width="@dimen/md_toolbar"
+            android:layout_height="@dimen/md_toolbar"
             android:src="@drawable/offline"/>
 
         <TextView
@@ -106,8 +106,8 @@
 
     <ImageView
         android:id="@+id/up_arrow"
-        android:layout_width="@dimen/mini_toolbar"
-        android:layout_height="@dimen/mini_toolbar"
+        android:layout_width="@dimen/md_toolbar"
+        android:layout_height="@dimen/md_toolbar"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/lg_padding"

@@ -4,6 +4,7 @@
         <item
             android:id="@+id/menu_campaign"
             android:icon="@drawable/ic_menu_favorite"
+            android:checked="true"
             android:title="@string/nav_campaign"/>
         <item
             android:id="@+id/menu_profile"
