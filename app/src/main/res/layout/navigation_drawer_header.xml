@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/drawer_hello"
+        android:textSize="@dimen/drawer_xs"
         android:textStyle="italic"/>
     
     <TextView
@@ -24,29 +25,27 @@
         android:textSize="@dimen/drawer_lg"
         android:textStyle="bold"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/label_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="@string/profile_data_label"
+        android:textSize="@dimen/drawer_xs"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_data_label" />
-
-        <TextView
-            android:id="@+id/drawer_total_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/md_padding"
-            android:text="@string/profile_data_placeholder"
-            android:textStyle="bold" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/drawer_total_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/profile_data_placeholder"
+        android:textSize="@dimen/drawer_xs"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/drawer_equivalent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/profile_value_placeholder"
+        android:textSize="@dimen/drawer_xs"
         android:textStyle="italic"/>
 </LinearLayout>

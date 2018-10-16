@@ -29,8 +29,10 @@
     <string name="login_btn_register">Register</string>
     <string name="login_btn_login">Login</string>
     <string name="login_divider_method">ATAU</string>
-    <string name="login_btn_facebook_login">Masuk dengan Facebook</string>
-    <string name="login_btn_google_login">Masuk dengan Google</string>
+    <string name="login_btn_facebook">Masuk dengan Facebook</string>
+    <string name="login_btn_google">Masuk dengan Google</string>
+    <string name="register_btn_facebook">Register dengan Facebook</string>
+    <string name="register_btn_google">Register dengan Google</string>
 
     <string name="campaign_quote">Pilih, Lihat dan Mereka Terbantu!</string>
     <string name="campaign_terkumpul">Terkumpul</string>
@@ -54,6 +56,9 @@
     <string name="profile_radio_male">Male</string>
     <string name="profile_radio_female">Female</string>
     <string name="profile_btn_update">Update</string>
+    <string name="profile_link_facebook">Link to FB</string>
+    <string name="profile_link_google">Link to Google</string>
+    <string name="profile_link">Link</string>
 
     <string name="story_swipe_up">swipe up to see the detail</string>
     <string name="story_searching_ad">Mencari iklan&#8230;</string>
