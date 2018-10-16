@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/base_padding"
     android:background="@color/themeOrange">
 
     <ScrollView
@@ -71,6 +70,7 @@
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/login_email"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -79,6 +79,7 @@
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/login_password"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -147,7 +148,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
-                    android:text="@string/login_btn_facebook_login"
+                    android:text="@string/register_btn_facebook"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/facebookDefault"
                     android:textAllCaps="false"/>
@@ -155,7 +156,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
-                    android:text="@string/login_btn_google_login"
+                    android:text="@string/register_btn_google"
                     android:textColor="@color/textGray"
                     android:backgroundTint="@android:color/white"
                     android:textAllCaps="false"/>

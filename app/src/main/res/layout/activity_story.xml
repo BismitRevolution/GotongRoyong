@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray">
+
+    <VideoView
+        android:id="@+id/story_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/top_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/story_progress"
+        android:padding="@dimen/base_padding"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/story_client_pic"
+            android:layout_width="@dimen/md_toolbar"
+            android:layout_height="@dimen/md_toolbar"
+            android:src="@drawable/offline"/>
+
+        <TextView
+            android:id="@+id/story_client_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_padding"
+            android:text="@string/load_retrieve"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/campaign_client" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/story_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/error_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:src="@drawable/ic_offline_bolt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:text="@string/error_connection"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loading_panel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/spinner_loading"
+            android:layout_width="@dimen/spinner_lg"
+            android:layout_height="@dimen/spinner_lg"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/base_padding"
+            android:text="@string/story_searching_ad"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/story_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/xs_padding"
+        android:paddingEnd="@dimen/xs_padding"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="1"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/up_arrow"
+        android:layout_width="@dimen/md_toolbar"
+        android:layout_height="@dimen/md_toolbar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/lg_padding"
+        android:src="@drawable/ic_keyboard_arrow_up"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/up_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/md_padding"
+        android:text="@string/story_swipe_up"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/pahlawan_client"
+        android:visibility="gone"/>
+</RelativeLayout>

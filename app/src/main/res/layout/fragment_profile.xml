@@ -53,52 +53,46 @@
                     android:id="@+id/profile_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/base_padding"
                     android:text="@string/load_retrieve"
                     android:textColor="@android:color/darker_gray"/>
 
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/label_left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_padding"
-                    android:layout_marginBottom="@dimen/base_padding">
+                    android:layout_marginStart="@dimen/xs_padding"
+                    android:text="@string/profile_data_label"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/drawer_xs"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/xs_padding"
-                        android:layout_alignParentStart="true"
-                        android:layout_toStartOf="@id/profile_data_bar"
-                        android:text="@string/profile_data_label"
-                        android:textColor="@android:color/background_dark"/>
+                <TextView
+                    android:id="@+id/profile_data_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/xs_padding"
+                    android:gravity="end"
+                    android:text="@string/profile_data_placeholder"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/drawer_xs"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/profile_data_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/xs_padding"
-                        android:layout_alignParentEnd="true"
-                        android:text="@string/profile_data_placeholder"
-                        android:textColor="@android:color/background_dark"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/profile_data_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/xs_padding"
-                        android:layout_below="@id/profile_data_bar"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentEnd="true"
-                        android:gravity="center_horizontal"
-                        android:text="@string/profile_value_placeholder"
-                        android:textStyle="italic"/>
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/profile_data_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/xs_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/profile_value_placeholder"
+                    android:textSize="@dimen/drawer_xs"
+                    android:textStyle="italic"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_name"
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -107,6 +101,7 @@
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -115,6 +110,7 @@
                     android:inputType="date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -123,6 +119,7 @@
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -131,6 +128,7 @@
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -139,6 +137,7 @@
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/password_placeholder"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -158,7 +157,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/base_padding"
                         android:layout_marginEnd="@dimen/lg_padding"
-                        android:text="@string/profile_radio_male"/>
+                        android:text="@string/profile_radio_male"
+                        android:textSize="@dimen/drawer_lg" />
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/radio_female"
@@ -170,7 +170,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/base_padding"
-                        android:text="@string/profile_radio_female"/>
+                        android:text="@string/profile_radio_female"
+                        android:textSize="@dimen/drawer_lg" />
                 </RadioGroup>
 
                 <android.support.v7.widget.AppCompatEditText
@@ -178,15 +179,38 @@
                     android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_padding"
+                    android:weightSum="2">
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/btn_default_height"
+                        android:layout_marginEnd="@dimen/base_padding"
+                        android:backgroundTint="@color/facebookDark"
+                        android:text="@string/profile_link"
+                        android:textColor="@android:color/white"
+                        android:layout_weight="1"/>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/btn_default_height"
+                        android:layout_marginStart="@dimen/base_padding"
+                        android:backgroundTint="@android:color/white"
+                        android:text="@string/profile_link"
+                        android:textColor="@color/darkGray"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_default_height"
-                    android:layout_marginTop="@dimen/md_padding"
-                    android:paddingStart="@dimen/lg_padding"
-                    android:paddingEnd="@dimen/lg_padding"
-                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/base_padding"
                     android:backgroundTint="@color/themeOrange"
                     android:text="@string/profile_btn_update"
                     android:textColor="@android:color/white"/>

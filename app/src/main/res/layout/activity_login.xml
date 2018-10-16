@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="@dimen/base_padding"
+    android:gravity="center_horizontal"
     android:background="@color/themeOrange">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/app_website"
         android:scrollbars="none">
 
         <LinearLayout
@@ -71,6 +71,7 @@
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/login_email"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -79,6 +80,7 @@
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
                     android:hint="@string/login_password"
                     android:backgroundTint="@color/themeOrange" />
 
@@ -147,7 +149,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
-                    android:text="@string/login_btn_facebook_login"
+                    android:text="@string/login_btn_facebook"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/facebookDefault"
                     android:textAllCaps="false"/>
@@ -155,11 +157,22 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
-                    android:text="@string/login_btn_google_login"
+                    android:text="@string/login_btn_google"
                     android:textColor="@color/textGray"
                     android:backgroundTint="@android:color/white"
                     android:textAllCaps="false"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/app_website"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/base_padding"
+        android:padding="@dimen/md_padding"
+        android:text="@string/app_website"
+        android:textColor="@android:color/white" />
+</RelativeLayout>

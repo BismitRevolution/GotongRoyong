@@ -8,14 +8,18 @@
     <dimen name="divider">8dp</dimen>
     <dimen name="btn_default_height">60dp</dimen>
     <dimen name="btn_md_height">55dp</dimen>
+    <dimen name="spinner_lg">80dp</dimen>
 
     <dimen name="campaign_banner_height">300dp</dimen>
     <dimen name="campaign_pic">30dp</dimen>
     <dimen name="campaign_title">24sp</dimen>
-    <dimen name="campaign_client">20sp</dimen>
+    <dimen name="campaign_client">16sp</dimen>
     <dimen name="campaign_data_name">7sp</dimen>
     <dimen name="campaign_counter_data">12sp</dimen>
     <dimen name="campaign_counter_day">14sp</dimen>
+
+    <dimen name="drawer_lg">14sp</dimen>
+    <dimen name="drawer_xs">10sp</dimen>
 
     <dimen name="pahlawan_client">14sp</dimen>
     <dimen name="pahlawan_data_name">7sp</dimen>
@@ -23,5 +27,6 @@
 
     <dimen name="profile_subtitle">12sp</dimen>
     
-    <dimen name="mini_toolbar">40dp</dimen>
+    <dimen name="md_toolbar">40dp</dimen>
+    <dimen name="sm_toolbar">30dp</dimen>
 </resources>

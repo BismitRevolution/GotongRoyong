@@ -14,12 +14,17 @@
         <activity android:name=".MainScreen">
         </activity>
 
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".RegisterActivity" />
+
+        <activity android:name=".StoryActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
 
         <activity android:name=".TestActivity" />
         <activity android:name=".LoadingScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
