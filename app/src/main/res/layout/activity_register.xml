@@ -60,10 +60,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/base_padding"
-                    android:layout_marginBottom="@dimen/base_padding"
+                    android:layout_marginBottom="@dimen/xs_padding"
                     android:text="@string/register_subtitle"
                     android:textSize="@dimen/profile_subtitle"
                     android:textColor="@android:color/darker_gray"/>
+
+                <TextView
+                    android:id="@+id/field_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/profile_subtitle"
+                    android:textColor="@android:color/holo_red_dark"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_email"

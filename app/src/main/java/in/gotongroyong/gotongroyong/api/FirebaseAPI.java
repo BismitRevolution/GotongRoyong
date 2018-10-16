@@ -12,8 +12,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import in.gotongroyong.gotongroyong.AuthActivity;
-import in.gotongroyong.gotongroyong.common.Router;
+import in.gotongroyong.gotongroyong.ResultActivity;
+import in.gotongroyong.gotongroyong.entity.FirebaseCode;
 import in.gotongroyong.gotongroyong.entity.Preferences;
 
 public class FirebaseAPI {
@@ -31,12 +31,11 @@ public class FirebaseAPI {
                 if (task.isSuccessful()) {
                     String uid = firebase.getCurrentUser().getUid();
                     Log.d(FIREBASE_AUTH_TAG, "REGISTER EMAIL SUCCESS : " + uid);
-                    saveData(activity.getApplicationContext());
+                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_REGISTER, FirebaseCode.AUTH_SUCCESS);
                 } else {
                     Log.d(FIREBASE_AUTH_TAG, "REGISTER EMAIL FAILURE : " + task.getException().getMessage());
-                    Router.logout(activity.getApplicationContext());
+                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_REGISTER, FirebaseCode.AUTH_UNKNOWN_ERROR);
                 }
-                ((AuthActivity) activity).redirectIfAuth();
             }
         });
     }
@@ -48,17 +47,16 @@ public class FirebaseAPI {
                 if (task.isSuccessful()) {
                     String uid = firebase.getCurrentUser().getUid();
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN EMAIL SUCCESS : " + uid);
-                    saveData(activity.getApplicationContext());
+                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_LOGIN, FirebaseCode.AUTH_SUCCESS);
                 } else {
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN EMAIL FAILURE : " + task.getException().getMessage());
-                    Router.logout(activity.getApplicationContext());
+                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_LOGIN, FirebaseCode.AUTH_WRONG_PASS);
                 }
-                ((AuthActivity) activity).redirectIfAuth();
             }
         });
     }
 
-    private static void saveData(Context context) {
+    public static void saveData(Context context) {
         FirebaseUser loggedUser = FirebaseAPI.getLoggedUser();
         String id = loggedUser.getUid();
         String name = loggedUser.getDisplayName();
