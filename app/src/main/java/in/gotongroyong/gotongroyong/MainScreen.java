@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import in.gotongroyong.gotongroyong.adapter.CampaignPageAdapter;
 import in.gotongroyong.gotongroyong.adapter.ProfilePageAdapter;
+import in.gotongroyong.gotongroyong.api.FirebaseAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
 import in.gotongroyong.gotongroyong.entity.Preferences;
@@ -61,7 +62,7 @@ public class MainScreen extends AppCompatActivity {
                         setProfilePage();
                         break;
                     case R.id.menu_logout:
-                        Router.logout(getApplicationContext());
+                        FirebaseAPI.clearData(getApplicationContext());
                         redirectIfAuth();
                         break;
                     default:

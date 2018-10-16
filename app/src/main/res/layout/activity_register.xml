@@ -153,6 +153,7 @@
                 </RelativeLayout>
 
                 <Button
+                    android:id="@+id/btn_register_facebook"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
                     android:text="@string/register_btn_facebook"
@@ -161,6 +162,7 @@
                     android:textAllCaps="false"/>
 
                 <Button
+                    android:id="@+id/btn_register_google"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
                     android:text="@string/register_btn_google"
