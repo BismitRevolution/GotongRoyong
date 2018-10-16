@@ -18,6 +18,9 @@
     <dimen name="campaign_counter_data">12sp</dimen>
     <dimen name="campaign_counter_day">14sp</dimen>
 
+    <dimen name="drawer_lg">14sp</dimen>
+    <dimen name="drawer_xs">10sp</dimen>
+
     <dimen name="pahlawan_client">14sp</dimen>
     <dimen name="pahlawan_data_name">7sp</dimen>
     <dimen name="pahlawan_counter_data">12sp</dimen>

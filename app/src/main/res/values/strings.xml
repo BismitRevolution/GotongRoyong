@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Gotong Royong</string>
+    <string name="app_website">gotongroyong.in</string>
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
     <string name="load_number">0</string>
     <string name="error_connection">Connection problem</string>
+
+    <string name="splash_subtitle">Platform Donasi Uang Tanpa Uang!</string>
 
     <string name="password_placeholder">************</string>
 
@@ -12,6 +15,8 @@
     <string name="nav_profile">Profil Saya</string>
     <string name="nav_about">Tentang GotongRoyong</string>
     <string name="nav_logout">Logout</string>
+
+    <string name="drawer_hello">Halo, Pahlawan!</string>
 
     <string name="toolbar_campaign">List of Campaign</string>
     <string name="toolbar_profile">Profil Saya</string>

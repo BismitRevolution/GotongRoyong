@@ -1,12 +1,18 @@
 package in.gotongroyong.gotongroyong;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import in.gotongroyong.gotongroyong.common.Router;
+import in.gotongroyong.gotongroyong.common.Util;
 import in.gotongroyong.gotongroyong.entity.Preferences;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,7 +47,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        Router.login(this, "CLT001", "Client 1");
+        String id = "CLT001";
+        String name = "Luthfi Abdurrahim";
+        int totalDonation = 1234;
+        int totalShare = 25;
+        int equivalent = 125000;
+
+        Bundle bundle = new Bundle();
+        bundle.putString(Preferences.USER_ID, id);
+        bundle.putString(Preferences.USER_NAME, name);
+        bundle.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
+        bundle.putInt(Preferences.USER_TOTAL_SHARE, totalShare);
+        bundle.putInt(Preferences.USER_EQUIVALENT, equivalent);
+//        Log.d("LOGIN", id + "|" + name + "|" + totalDonation + "|" + totalShare + "|" + equivalent + "|");
+
+        Router.login(this, bundle);
         redirectIfAuth();
     }
 

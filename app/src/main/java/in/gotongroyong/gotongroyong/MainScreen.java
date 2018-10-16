@@ -1,5 +1,6 @@
 package in.gotongroyong.gotongroyong;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,12 +14,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import in.gotongroyong.gotongroyong.adapter.CampaignPageAdapter;
 import in.gotongroyong.gotongroyong.adapter.ProfilePageAdapter;
 import in.gotongroyong.gotongroyong.common.Router;
+import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.entity.Preferences;
 import in.gotongroyong.gotongroyong.fragment.BaseFragment;
 
 public class MainScreen extends AppCompatActivity {
@@ -131,10 +136,24 @@ public class MainScreen extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setData() {
+        SharedPreferences savedData = getSharedPreferences(Preferences.SETTING_USER, MODE_PRIVATE);
+        String name = savedData.getString(Preferences.USER_NAME, "Unknown");
+        String totalDonation = Util.toDecimal(savedData.getInt(Preferences.USER_TOTAL_DONATION, 0));
+        String totalShare = Util.toDecimal(savedData.getInt(Preferences.USER_TOTAL_SHARE, 0));
+        String equivalent = Util.toDecimal(savedData.getInt(Preferences.USER_EQUIVALENT, 0));
+
+        View navDrawer = ((NavigationView) findViewById(R.id.drawer_navigation)).getHeaderView(0);
+        ((TextView) navDrawer.findViewById(R.id.drawer_user_name)).setText(name);
+        ((TextView) navDrawer.findViewById(R.id.drawer_total_data)).setText(getResources().getString(R.string.profile_data_bar, totalDonation, totalShare));
+        ((TextView) navDrawer.findViewById(R.id.drawer_equivalent)).setText(getResources().getString(R.string.profile_value, equivalent));
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         redirectIfAuth();
+        setData();
     }
 
     private void redirectIfAuth() {

@@ -14,7 +14,9 @@
         <activity android:name=".MainScreen">
         </activity>
 
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+
         <activity android:name=".RegisterActivity" />
 
         <activity android:name=".StoryActivity"
