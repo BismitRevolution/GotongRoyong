@@ -1,21 +1,24 @@
 package in.gotongroyong.gotongroyong;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import in.gotongroyong.gotongroyong.api.FirebaseAPI;
 import in.gotongroyong.gotongroyong.common.Router;
-import in.gotongroyong.gotongroyong.common.Util;
 import in.gotongroyong.gotongroyong.entity.Preferences;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AuthActivity {
+    Activity activity = this;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
+                String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
+                String password = ((TextView) findViewById(R.id.field_password)).getText().toString();
+                FirebaseAPI.login(activity, email, password);
             }
         });
 
@@ -46,31 +51,13 @@ public class LoginActivity extends AppCompatActivity {
         redirectIfAuth();
     }
 
-    private void login() {
-        String id = "CLT001";
-        String name = "Luthfi Abdurrahim";
-        int totalDonation = 1234;
-        int totalShare = 25;
-        int equivalent = 125000;
-
-        Bundle bundle = new Bundle();
-        bundle.putString(Preferences.USER_ID, id);
-        bundle.putString(Preferences.USER_NAME, name);
-        bundle.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
-        bundle.putInt(Preferences.USER_TOTAL_SHARE, totalShare);
-        bundle.putInt(Preferences.USER_EQUIVALENT, equivalent);
-//        Log.d("LOGIN", id + "|" + name + "|" + totalDonation + "|" + totalShare + "|" + equivalent + "|");
-
-        Router.login(this, bundle);
-        redirectIfAuth();
-    }
-
     private void register() {
         Router.gotoRegister(this);
         finish();
     }
 
-    private void redirectIfAuth() {
+    @Override
+    public void redirectIfAuth() {
         String id = Router.checkAuth(this);
         if (id != null) {
             Router.gotoMain(this);

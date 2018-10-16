@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import in.gotongroyong.gotongroyong.common.Router;
+
 public class LoadingScreen extends AppCompatActivity {
+    private static final boolean DEBUG_MODE = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +34,11 @@ public class LoadingScreen extends AppCompatActivity {
     }
 
     private void finishLoading() {
-        startActivity(new Intent(this, MainScreen.class));
+        if (DEBUG_MODE) {
+            Router.gotoTest(this);
+        } else {
+            Router.gotoMain(this);
+        }
         finish();
     }
 }

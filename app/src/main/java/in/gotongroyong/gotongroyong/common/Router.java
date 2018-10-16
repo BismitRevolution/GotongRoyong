@@ -11,6 +11,7 @@ import in.gotongroyong.gotongroyong.LoginActivity;
 import in.gotongroyong.gotongroyong.MainScreen;
 import in.gotongroyong.gotongroyong.RegisterActivity;
 import in.gotongroyong.gotongroyong.StoryActivity;
+import in.gotongroyong.gotongroyong.TestActivity;
 import in.gotongroyong.gotongroyong.entity.Preferences;
 
 public class Router {
@@ -18,16 +19,6 @@ public class Router {
     public static String checkAuth(Context context) {
         SharedPreferences userData = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE);
         return userData.getString(Preferences.USER_ID, null);
-    }
-
-    public static void login(Context context, Bundle bundle) {
-        SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
-        editor.putString(Preferences.USER_ID, bundle.getString(Preferences.USER_ID, ""));
-        editor.putString(Preferences.USER_NAME, bundle.getString(Preferences.USER_NAME, "Unknown"));
-        editor.putInt(Preferences.USER_TOTAL_DONATION, bundle.getInt(Preferences.USER_TOTAL_DONATION, 0));
-        editor.putInt(Preferences.USER_TOTAL_SHARE, bundle.getInt(Preferences.USER_TOTAL_SHARE, 0));
-        editor.putInt(Preferences.USER_EQUIVALENT, bundle.getInt(Preferences.USER_EQUIVALENT, 0));
-        editor.apply();
     }
 
     public static void logout(Context context) {
@@ -52,5 +43,9 @@ public class Router {
 
     public static void gotoMain(Context context) {
         context.startActivity(new Intent(context, MainScreen.class));
+    }
+
+    public static void gotoTest(Context context) {
+        context.startActivity(new Intent(context, TestActivity.class));
     }
 }

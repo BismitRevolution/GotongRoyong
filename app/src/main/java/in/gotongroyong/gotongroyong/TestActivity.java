@@ -1,9 +1,19 @@
 package in.gotongroyong.gotongroyong;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -23,6 +33,38 @@ public class TestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_test);
 
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        String email = "cybermonster@yahoo.com";
+        String password = "apakeksad";
+
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.d("AUTH", "SIGN IN SUCCESS");
+                    Toast.makeText(getApplicationContext(), "SIGN IN SUCCESS", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("AUTH", "SIGN IN FAILED" + task.getException().getMessage());
+                    Toast.makeText(getApplicationContext(), "SIGN IN FAILED" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+//        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+//                    Log.d("AUTH", "CREATE USER SUCCESSFUL");
+//                    Toast.makeText(getApplicationContext(), "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Log.d("AUTH", "CREATE USER FAILED" + task.getException().getMessage());
+//                    Toast.makeText(getApplicationContext(), "LOGIN FAILURE" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+    }
+
+    private void testAPI() {
         Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(1);
         call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
             @Override

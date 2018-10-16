@@ -30,8 +30,11 @@ dependencies {
     implementation "com.android.support:design:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
 
+    //noinspection GradleDependency
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
+    //noinspection GradleDependency
     implementation "com.google.firebase:firebase-auth:$firebaseVersion"
+    //noinspection GradleDependency
     implementation "com.google.android.gms:play-services-auth:$gmsVersion"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
