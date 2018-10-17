@@ -2,6 +2,9 @@
     <string name="app_name">Gotong Royong</string>
     <string name="app_website">gotongroyong.in</string>
 
+    <string name="facebook_app_id">502859973522287</string>
+    <string name="fb_login_protocol_scheme">fb502859973522287</string>
+
     <string name="load_retrieve">Retrieving data&#8230;</string>
     <string name="load_number">0</string>
     <string name="error_connection">Connection problem</string>

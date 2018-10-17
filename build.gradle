@@ -38,6 +38,7 @@ ext {
 
     firebaseVersion = '16.0.3'
     gmsVersion = '16.0.0'
+    facebookVersion = '4.37.0'
 
     retrofitVersion = '2.4.0'
     gsonConverterVersion = '2.8.5'

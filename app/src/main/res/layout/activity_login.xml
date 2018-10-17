@@ -157,10 +157,11 @@
                     android:id="@+id/btn_login_facebook"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
-                    android:text="@string/login_btn_facebook"
-                    android:textColor="@android:color/white"
                     android:backgroundTint="@color/facebookDefault"
-                    android:textAllCaps="false"/>
+                    android:text="@string/login_btn_facebook"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    style="@style/FacebookLoginButton"/>
 
                 <Button
                     android:id="@+id/btn_login_google"

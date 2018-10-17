@@ -63,6 +63,7 @@ public class MainScreen extends AppCompatActivity {
                         break;
                     case R.id.menu_logout:
                         FirebaseAPI.clearData(getApplicationContext());
+                        FirebaseAPI.logout();
                         redirectIfAuth();
                         break;
                     default:

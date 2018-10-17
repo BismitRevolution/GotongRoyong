@@ -37,6 +37,8 @@ dependencies {
     //noinspection GradleDependency
     implementation "com.google.android.gms:play-services-auth:$gmsVersion"
 
+    implementation "com.facebook.android:facebook-login:$facebookVersion"
+
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.google.code.gson:gson:$gsonConverterVersion"

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -13,15 +14,29 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 import in.gotongroyong.gotongroyong.api.FirebaseAPI;
 import in.gotongroyong.gotongroyong.common.Router;
@@ -34,6 +49,7 @@ import static in.gotongroyong.gotongroyong.api.FirebaseAPI.FIREBASE_GOOGLE_KEY;
 public class LoginActivity extends AppCompatActivity implements ResultActivity {
     Activity activity = this;
     GoogleSignInClient googleClient;
+    CallbackManager facebookManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,6 +122,31 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
                 FirebaseAPI.loginGoogle(activity, googleClient);
             }
         });
+
+        final Button loginFacebook = findViewById(R.id.btn_login_facebook);
+        loginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("email", "public_profile"));
+            }
+        });
+//        loginFacebook.setReadPermissions("email", "public_profile");
+        LoginManager.getInstance().registerCallback(facebookManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                FirebaseAPI.loginFacebook(activity, loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("FB LOGIN", "CANCEL");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("FB LOGIN", "ERROR", error);
+            }
+        });
     }
 
     private void initAuth() {
@@ -115,6 +156,7 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
                 .build();
 
         googleClient = GoogleSignIn.getClient(this, gso);
+        facebookManager = CallbackManager.Factory.create();
     }
 
     @Override
@@ -183,12 +225,20 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
                 } else if (resultCode == FirebaseCode.AUTH_UNKNOWN_ERROR) {
                     warningUnknown();
                 }
+            case FirebaseCode.AUTH_FACEBOOK_LOGIN:
+                if (resultCode == FirebaseCode.AUTH_SUCCESS) {
+                    FirebaseAPI.saveData(getApplicationContext());
+                    redirectIfAuth();
+                } else if (resultCode == FirebaseCode.AUTH_UNKNOWN_ERROR) {
+                    warningUnknown();
+                }
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        facebookManager.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case FirebaseCode.AUTH_GOOGLE_LOGIN:
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);

@@ -6,7 +6,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -14,6 +17,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -76,17 +80,35 @@ public class FirebaseAPI {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_GOOGLE_LOGIN, FirebaseCode.AUTH_SUCCESS);
-                    Log.d("GSO", "LOGIN SUCCESS");
+                    Log.d(FIREBASE_AUTH_TAG, "LOGIN GOOGLE SUCCESS");
                 } else {
                     ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_GOOGLE_LOGIN, FirebaseCode.AUTH_UNKNOWN_ERROR);
-                    Log.d("GSO", "LOGIN FAILED");
+                    Log.d(FIREBASE_AUTH_TAG, "LOGIN GOOGLE FAILED");
                 }
             }
         });
     }
 
-    public static void logoutGoogle() {
+    public static void loginFacebook(final Activity activity, AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        firebase.signInWithCredential(credential).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_FACEBOOK_LOGIN, FirebaseCode.AUTH_SUCCESS);
+                    Log.d(FIREBASE_AUTH_TAG, "LOGIN FACEBOOK SUCCESS");
+                } else {
+                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_FACEBOOK_LOGIN, FirebaseCode.AUTH_UNKNOWN_ERROR);
+                    Log.d(FIREBASE_AUTH_TAG, "LOGIN FACEBOOK FAILURE", task.getException());
+                }
+            }
+        });
+
+    }
+
+    public static void logout() {
         firebase.signOut();
+        LoginManager.getInstance().logOut();
     }
 
     public static void clearData(Context context) {
