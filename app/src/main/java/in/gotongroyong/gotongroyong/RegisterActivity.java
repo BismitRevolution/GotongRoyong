@@ -12,12 +12,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+
+import java.util.Arrays;
 
 import in.gotongroyong.gotongroyong.api.FirebaseAPI;
 import in.gotongroyong.gotongroyong.common.Router;
@@ -30,6 +37,7 @@ import static in.gotongroyong.gotongroyong.api.FirebaseAPI.FIREBASE_GOOGLE_KEY;
 public class RegisterActivity extends AppCompatActivity implements ResultActivity {
     Activity activity = this;
     GoogleSignInClient googleClient;
+    CallbackManager facebookManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +110,31 @@ public class RegisterActivity extends AppCompatActivity implements ResultActivit
                 FirebaseAPI.loginGoogle(activity, googleClient);
             }
         });
+
+        final Button loginFacebook = findViewById(R.id.btn_register_facebook);
+        loginFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(activity, Arrays.asList("email", "public_profile"));
+            }
+        });
+//        loginFacebook.setReadPermissions("email", "public_profile");
+        LoginManager.getInstance().registerCallback(facebookManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                FirebaseAPI.loginFacebook(activity, loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("FB LOGIN", "CANCEL");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("FB LOGIN", "ERROR", error);
+            }
+        });
     }
 
     private void initAuth() {
@@ -111,6 +144,7 @@ public class RegisterActivity extends AppCompatActivity implements ResultActivit
                 .build();
 
         googleClient = GoogleSignIn.getClient(this, gso);
+        facebookManager = CallbackManager.Factory.create();
     }
 
     private boolean validate(String email, String password) {
@@ -168,6 +202,13 @@ public class RegisterActivity extends AppCompatActivity implements ResultActivit
                 }
                 break;
             case FirebaseCode.AUTH_GOOGLE_LOGIN:
+                if (resultCode == FirebaseCode.AUTH_SUCCESS) {
+                    FirebaseAPI.saveData(getApplicationContext());
+                    redirectIfAuth();
+                } else if (resultCode == FirebaseCode.AUTH_UNKNOWN_ERROR) {
+                    warningUnknown();
+                }
+            case FirebaseCode.AUTH_FACEBOOK_LOGIN:
                 if (resultCode == FirebaseCode.AUTH_SUCCESS) {
                     FirebaseAPI.saveData(getApplicationContext());
                     redirectIfAuth();
