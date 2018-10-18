@@ -50,6 +50,11 @@
     <string name="campaign_donasi">free donation</string>
     <string name="campaign_duration">Sisa Hari</string>
     <string name="campaign_btn_donate">Donate</string>
+    <string name="campaign_participation_label">Participation : </string>
+    <string name="campaign_participation_value">%s donation</string>
+    <string name="campaign_participation_placeholder">0 donation</string>
+
+    <string name="detail_description">Deskripsi</string>
 
     <string name="pahlawan_subtitle">Mereka adalah pahlawan kebaikan.</string>
     <string name="pahlawan_lihat_profil">lihat profil di</string>

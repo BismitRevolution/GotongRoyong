@@ -7,12 +7,14 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
+import in.gotongroyong.gotongroyong.EmptyActivity;
 import in.gotongroyong.gotongroyong.LoginActivity;
 import in.gotongroyong.gotongroyong.MainScreen;
 import in.gotongroyong.gotongroyong.RegisterActivity;
 import in.gotongroyong.gotongroyong.StoryActivity;
 import in.gotongroyong.gotongroyong.TestActivity;
 import in.gotongroyong.gotongroyong.entity.Preferences;
+import in.gotongroyong.gotongroyong.fragment.DetailFragment;
 
 public class Router {
 
@@ -38,6 +40,12 @@ public class Router {
 
     public static void gotoMain(Context context) {
         context.startActivity(new Intent(context, MainScreen.class));
+    }
+
+    public static void gotoDetail(Context context, String id) {
+        Intent detail = new Intent(context, EmptyActivity.class);
+        detail.putExtra(EmptyActivity.CAMPAIGN_ID, id);
+        context.startActivity(detail);
     }
 
     public static void gotoTest(Context context) {
