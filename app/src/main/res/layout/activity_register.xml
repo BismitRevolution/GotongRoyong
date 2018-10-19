@@ -153,16 +153,20 @@
                 </RelativeLayout>
 
                 <Button
+                    android:id="@+id/btn_register_facebook"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
+                    android:drawableStart="@drawable/ic_facebook"
                     android:text="@string/register_btn_facebook"
                     android:textColor="@android:color/white"
                     android:backgroundTint="@color/facebookDefault"
                     android:textAllCaps="false"/>
 
                 <Button
+                    android:id="@+id/btn_register_google"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_md_height"
+                    android:drawableStart="@drawable/ic_google"
                     android:text="@string/register_btn_google"
                     android:textColor="@color/textGray"
                     android:backgroundTint="@android:color/white"

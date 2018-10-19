@@ -108,6 +108,8 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_birth_date"
                     android:inputType="date"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/drawer_lg"
@@ -182,30 +184,30 @@
                     android:textSize="@dimen/drawer_lg"
                     android:hint="@string/load_retrieve"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/base_padding"
-                    android:weightSum="2">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="@dimen/base_padding"-->
+                    <!--android:weightSum="2">-->
 
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/btn_default_height"
-                        android:layout_marginEnd="@dimen/base_padding"
-                        android:backgroundTint="@color/facebookDark"
-                        android:text="@string/profile_link"
-                        android:textColor="@android:color/white"
-                        android:layout_weight="1"/>
+                    <!--<Button-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="@dimen/btn_default_height"-->
+                        <!--android:layout_marginEnd="@dimen/base_padding"-->
+                        <!--android:backgroundTint="@color/facebookDark"-->
+                        <!--android:text="@string/profile_link"-->
+                        <!--android:textColor="@android:color/white"-->
+                        <!--android:layout_weight="1"/>-->
 
-                    <Button
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/btn_default_height"
-                        android:layout_marginStart="@dimen/base_padding"
-                        android:backgroundTint="@android:color/white"
-                        android:text="@string/profile_link"
-                        android:textColor="@color/darkGray"
-                        android:layout_weight="1"/>
-                </LinearLayout>
+                    <!--<Button-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="@dimen/btn_default_height"-->
+                        <!--android:layout_marginStart="@dimen/base_padding"-->
+                        <!--android:backgroundTint="@android:color/white"-->
+                        <!--android:text="@string/profile_link"-->
+                        <!--android:textColor="@color/darkGray"-->
+                        <!--android:layout_weight="1"/>-->
+                <!--</LinearLayout>-->
 
                 <Button
                     android:layout_width="match_parent"

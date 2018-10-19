@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,14 +27,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import in.gotongroyong.gotongroyong.common.Router;
+
 public class StoryActivity extends AppCompatActivity {
+    private final String STORY_TAG = "STORY";
+
     public static final String STORY_VIDEO_TYPE = "story_video_type";
     public static final String STORY_DURATION = "story_duration";
     public static final String STORY_RESOURCES_URL = "story_resources_url";
+    public static final String STORY_WEBSITE_URL = "story_website_url";
 
     private boolean isVideo;
     private int duration;
     private ArrayList<String> resources;
+    private String websiteUrl;
     private CountDownTimer timer;
     private ProgressBar progressBar;
 
@@ -45,7 +52,7 @@ public class StoryActivity extends AppCompatActivity {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (velocityY < 0) {
-                Toast.makeText(getApplicationContext(), "FLING UP!", Toast.LENGTH_SHORT).show();
+                openLink();
             }
             return super.onFling(e1, e2, velocityX, velocityY);
         }
@@ -59,6 +66,15 @@ public class StoryActivity extends AppCompatActivity {
             }
             immersiveMode = !immersiveMode;
             return super.onSingleTapUp(e);
+        }
+    }
+
+    private void openLink() {
+        Log.d(STORY_TAG, "SWIPE LINK TO " + this.websiteUrl);
+        if (this.websiteUrl.equals("")) {
+            Toast.makeText(getApplicationContext(), "Link is unavailable!", Toast.LENGTH_SHORT).show();
+        } else {
+            Router.gotoLink(getApplicationContext(), this.websiteUrl);
         }
     }
 
@@ -98,6 +114,11 @@ public class StoryActivity extends AppCompatActivity {
     private void setParams(Intent intent) {
         this.isVideo = intent.getBooleanExtra(STORY_VIDEO_TYPE, false);
         this.duration = intent.getIntExtra(STORY_DURATION, 20000);
+        if (intent.getStringExtra(STORY_WEBSITE_URL) != null) {
+            this.websiteUrl = intent.getStringExtra(STORY_WEBSITE_URL);
+        } else {
+            this.websiteUrl = "";
+        }
         if (intent.getStringArrayListExtra(STORY_RESOURCES_URL) != null) {
             this.resources = intent.getStringArrayListExtra(STORY_RESOURCES_URL);
         } else {

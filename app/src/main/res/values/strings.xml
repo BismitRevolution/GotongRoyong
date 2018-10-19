@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">Gotong Royong</string>
     <string name="app_website">gotongroyong.in</string>
+    <string name="app_email">admin@gotongroyong.in</string>
+    <string name="app_phone">+62 852&#8211;2370&#8211;8290</string>
+    <string name="app_phone_plain">6285223708290</string>
+
+    <string name="facebook_app_id">502859973522287</string>
+    <string name="fb_login_protocol_scheme">fb502859973522287</string>
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
     <string name="load_number">0</string>
@@ -38,6 +44,7 @@
     <string name="field_warning_wrong_password">Kombinasi email dan password salah!</string>
     <string name="field_warning_user_not_found">Anda belum terdaftar pada aplikasi</string>
     <string name="field_warning_account_already_registered">Anda sudah terdaftar, silahkan login</string>
+    <string name="field_warning_unknown_error">Terjadi eror, silahkan ulangi lagi</string>
 
     <string name="campaign_quote">Pilih, Lihat dan Mereka Terbantu!</string>
     <string name="campaign_terkumpul">Terkumpul</string>
@@ -46,6 +53,11 @@
     <string name="campaign_donasi">free donation</string>
     <string name="campaign_duration">Sisa Hari</string>
     <string name="campaign_btn_donate">Donate</string>
+    <string name="campaign_participation_label">Participation : </string>
+    <string name="campaign_participation_value">%s donation</string>
+    <string name="campaign_participation_placeholder">0 donation</string>
+
+    <string name="detail_description">Deskripsi</string>
 
     <string name="pahlawan_subtitle">Mereka adalah pahlawan kebaikan.</string>
     <string name="pahlawan_lihat_profil">lihat profil di</string>
@@ -67,6 +79,11 @@
 
     <string name="story_swipe_up">swipe up to see the detail</string>
     <string name="story_searching_ad">Mencari iklan&#8230;</string>
+    
+    <string name="about_first_paragraph">GotongRoyong adalah aplikasi berbasis android untuk menggalang dana untuk berdonasi secara online, transparan melalui iklan.</string>
+    <string name="about_second_paragraph">Kami bekerjasama dengan pengiklanan dari perusahaan hingga para ukm dan bekerjasama dengan pada NGO atau yayasan sosial untuk menggalakkan dana pada kampanye sosial mereka.</string>
+    <string name="about_third_paragraph">Jikak Anda menginginkan kerjasama, Silahkan menghubungi whatsapp / email kami.</string>
+    <string name="about_contact_us">Hubungi Kami</string>
 
     <string name="test_result">Result : %s</string>
 </resources>

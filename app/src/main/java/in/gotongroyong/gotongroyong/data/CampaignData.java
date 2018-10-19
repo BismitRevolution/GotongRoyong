@@ -10,11 +10,12 @@ public class CampaignData {
     private int total_donation;
     private int target_donation;
     private int day_left;
+    private int participation;
     private String client_id;
     private String client_name;
     private String client_img;
 
-    public CampaignData(String id, String title, String img_url, String description, int total_hero, int total_donation, int target_donation, int day_left, String client_id, String client_name, String client_img) {
+    public CampaignData(String id, String title, String img_url, String description, int total_hero, int total_donation, int target_donation, int day_left, int participation, String client_id, String client_name, String client_img) {
         this.id = id;
         this.title = title;
         this.img_url = img_url;
@@ -23,6 +24,7 @@ public class CampaignData {
         this.total_donation = total_donation;
         this.target_donation = target_donation;
         this.day_left = day_left;
+        this.participation = participation;
         this.client_id = client_id;
         this.client_name = client_name;
         this.client_img = client_img;
@@ -58,6 +60,10 @@ public class CampaignData {
 
     public int getDayLeft() {
         return day_left;
+    }
+
+    public int getParticipation() {
+        return this.participation;
     }
 
     public String getClientId() {

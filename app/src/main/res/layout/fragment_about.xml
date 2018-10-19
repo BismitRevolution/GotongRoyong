@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:background="@color/themeOrange">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="-20dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-20dp"
+                android:layout_marginStart="@dimen/md_padding"
+                android:layout_marginEnd="@dimen/md_padding"
+                android:layout_marginBottom="@dimen/md_padding"
+                android:text="@string/profile_subtitle"
+                android:textSize="@dimen/profile_subtitle"
+                android:textColor="@android:color/white"
+                android:textStyle="italic"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/lg_padding"
+                android:layout_marginEnd="@dimen/lg_padding"
+                android:paddingStart="@dimen/md_padding"
+                android:paddingEnd="@dimen/md_padding"
+                android:paddingBottom="@dimen/md_padding"
+                android:layout_marginBottom="@dimen/lg_padding"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_corner">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/md_padding"
+                    android:layout_marginBottom="@dimen/base_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/profile_hello"
+                    android:textSize="@dimen/campaign_title"
+                    android:textColor="@android:color/background_dark"/>
+
+                <TextView
+                    android:id="@+id/tv_first_paragraph"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_padding"
+                    android:layout_marginBottom="@dimen/xs_padding"
+                    android:text="@string/about_first_paragraph"
+                    android:textSize="@dimen/profile_subtitle"
+                    android:textAlignment="center"
+                    android:lineSpacingExtra="@dimen/xs_padding"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_padding"
+                    android:layout_marginBottom="@dimen/xs_padding"
+                    android:text="@string/about_second_paragraph"
+                    android:textSize="@dimen/profile_subtitle"
+                    android:textAlignment="center"
+                    android:lineSpacingExtra="@dimen/xs_padding"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_padding"
+                    android:layout_marginBottom="@dimen/xs_padding"
+                    android:text="@string/about_third_paragraph"
+                    android:textSize="@dimen/profile_subtitle"
+                    android:textAlignment="center"
+                    android:lineSpacingExtra="@dimen/xs_padding"/>
+
+                <Button
+                    android:id="@+id/btn_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_md_height"
+                    android:layout_marginTop="@dimen/base_padding"
+                    android:backgroundTint="@color/themeOrange"
+                    android:drawableStart="@drawable/ic_mail"
+                    android:text="@string/app_email"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/btn_whatsapp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/btn_md_height"
+                    android:backgroundTint="@color/whatsappDefault"
+                    android:drawableStart="@drawable/ic_whatsapp"
+                    android:text="@string/app_phone"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

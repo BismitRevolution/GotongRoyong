@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/campaign"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,6 +10,7 @@
         android:layout_height="@dimen/campaign_banner_height"
         android:layout_alignParentTop="true"
         android:src="@drawable/bg_placeholder"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/load_retrieve"/>
 
     <ProgressBar
@@ -66,6 +68,34 @@
         android:gravity="center_vertical"/>
 
     <LinearLayout
+        android:id="@+id/panel_participation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/data_title"
+        android:layout_margin="@dimen/md_padding"
+        android:paddingTop="@dimen/xs_padding"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/campaign_participation_label"
+            android:textSize="@dimen/drawer_xs"/>
+
+        <TextView
+            android:id="@+id/tv_participation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/xs_padding"
+            android:text="@string/campaign_participation_placeholder"
+            android:textSize="@dimen/drawer_xs"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/base_padding"
@@ -73,13 +103,13 @@
         android:paddingBottom="@dimen/base_padding"
         android:layout_below="@id/img_data_client"
         android:layout_gravity="center_vertical"
-        android:weightSum="6">
+        android:weightSum="11">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_padding"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_gravity="center_vertical"
 
             android:orientation="vertical">
@@ -114,7 +144,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_padding"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
@@ -148,7 +178,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_padding"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
@@ -181,7 +211,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/base_padding"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_gravity="center_vertical"
             android:orientation="vertical">
 
@@ -210,7 +240,7 @@
             android:backgroundTint="@color/themeOrange"
             android:text="@string/campaign_btn_donate"
             android:textColor="@android:color/white"
-            android:layout_weight="2" />
+            android:layout_weight="3" />
     </LinearLayout>
 
     <View
