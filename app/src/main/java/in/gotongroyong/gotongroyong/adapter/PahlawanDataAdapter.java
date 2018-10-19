@@ -4,10 +4,12 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.gotongroyong.gotongroyong.R;
+import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
 import in.gotongroyong.gotongroyong.data.HeroData;
 
@@ -29,7 +32,7 @@ public class PahlawanDataAdapter extends RecyclerView.Adapter<PahlawanDataAdapte
             this.layout = layout;
         }
 
-        public void setData(HeroData data) {
+        public void setData(final HeroData data) {
             TextView clientName = layout.findViewById(R.id.tv_data_client);
             clientName.setText(data.getName());
             Drawable verified = layout.getResources().getDrawable(R.drawable.ic_verified);
@@ -42,6 +45,35 @@ public class PahlawanDataAdapter extends RecyclerView.Adapter<PahlawanDataAdapte
 
             ImageView pic = layout.findViewById(R.id.img_data_client);
             Picasso.get().load(data.getImgUrl()).into(pic);
+
+            layout.findViewById(R.id.social_facebook).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gotoLink(data.getFacebookUrl());
+                }
+            });
+
+            layout.findViewById(R.id.social_twitter).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gotoLink(data.getTwitterUrl());
+                }
+            });
+
+            layout.findViewById(R.id.social_instagram).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    gotoLink(data.getInstagramUrl());
+                }
+            });
+        }
+
+        private void gotoLink(String url) {
+            if (url.equals("")) {
+                Toast.makeText(layout.getContext(), "Link is unavailable!", Toast.LENGTH_SHORT).show();
+            } else {
+                Router.gotoLink(layout.getContext(), url);
+            }
         }
     }
 

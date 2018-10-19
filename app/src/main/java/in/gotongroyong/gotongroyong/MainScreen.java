@@ -61,6 +61,9 @@ public class MainScreen extends AppCompatActivity {
                     case R.id.menu_profile:
                         setProfilePage();
                         break;
+                    case R.id.menu_about:
+                        gotoAbout();
+                        break;
                     case R.id.menu_logout:
                         FirebaseAPI.clearData(getApplicationContext());
                         FirebaseAPI.logout();
@@ -125,6 +128,10 @@ public class MainScreen extends AppCompatActivity {
         profilePageAdapter.reset();
         pager.setAdapter(profilePageAdapter);
         tab.setupWithViewPager(pager);
+    }
+
+    private void gotoAbout() {
+        Router.gotoAbout(this);
     }
 
     @Override
