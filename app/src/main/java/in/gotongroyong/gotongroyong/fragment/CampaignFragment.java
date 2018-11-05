@@ -43,21 +43,21 @@ public class CampaignFragment extends Fragment implements BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         currentPage = 1;
 
-        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(currentPage);
-        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
-                List<CampaignData> result = response.body().getPayload();
-                adapter = new CampaignDataAdapter(result);
-                recyclerView.setAdapter(adapter);
-                currentPage++;
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(currentPage);
+//        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
+//            @Override
+//            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
+//                List<CampaignData> result = response.body().getPayload();
+//                adapter = new CampaignDataAdapter(result);
+//                recyclerView.setAdapter(adapter);
+//                currentPage++;
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
+//                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -74,20 +74,21 @@ public class CampaignFragment extends Fragment implements BaseFragment {
     }
 
     public void update() {
-        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(currentPage);
-        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
-                adapter.update(response.body().getPayload());
-                adapter.notifyDataSetChanged();
-                currentPage++;
-            }
+//        Call<BaseResponse<List<CampaignData>>> call = new GotongRoyongAPI().getService().listCampaign(currentPage);
+//        call.enqueue(new Callback<BaseResponse<List<CampaignData>>>() {
+//            @Override
+//            public void onResponse(Call<BaseResponse<List<CampaignData>>> call, Response<BaseResponse<List<CampaignData>>> response) {
+//                adapter.update(response.body().getPayload());
+//                adapter.notifyDataSetChanged();
+//                currentPage++;
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
+//                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<BaseResponse<List<CampaignData>>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
-            }
-        });
 //        adapter.update("New");
 //        adapter.notifyDataSetChanged();
     }

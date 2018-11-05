@@ -11,7 +11,7 @@ public class RegisterResponse {
     private String created_at;
     private int id;
     private String api_token;
-    private HeroDataResponse data_pahlawan;
+    private HeroResponse data_pahlawan;
 
     public String getEmail() {
         return this.email;

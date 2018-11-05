@@ -20,7 +20,7 @@ public class LoginResponse {
     private String bg_image_profile;
     private int flag_email_verified;
     private String email_token;
-    private HeroDataResponse data_pahlawan;
+    private HeroResponse data_pahlawan;
 
     public int getId() {
         return this.id;

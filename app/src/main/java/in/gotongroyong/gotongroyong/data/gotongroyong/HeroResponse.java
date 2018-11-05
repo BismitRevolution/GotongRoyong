@@ -1,6 +1,6 @@
 package in.gotongroyong.gotongroyong.data.gotongroyong;
 
-public class HeroDataResponse {
+public class HeroResponse {
 
     private int id;
     private int count_shares;

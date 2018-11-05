@@ -8,13 +8,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
+import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
+import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
 import retrofit2.Call;
@@ -44,14 +49,76 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void testAPI() {
-        String id_fb = "test7";
-        String email = "test7@mail.com";
+//        String id_fb = "test7";
+//        String email = "test7@mail.com";
 //        String pass = "test2";
-        String name = "Test 2 Google";
+//        String name = "Test 2 Google";
 //        testLoginFb(id_fb);
-        testRegisterFb(email, id_fb, name, "", "", "", "");
+//        testRegisterFb(email, id_fb, name, "", "", "", "");
 //        testLoginEmail(email, pass);
 //        testRegisterEmail(email, pass, name);
+//        testListCampaign(1);
+//        testGetCampaign(86);
+        testGenerateAds("Bearer j1VoEksM25dvBLvs34U4SOzSKIkabH8hmCrPdseIKotgytZBcoNNFiFhg2Kk", 86);
+    }
+
+    private void testGenerateAds(String api_token, int id_campaign) {
+        GenerateAdsBody body = new GenerateAdsBody(id_campaign);
+        Call<BaseResponse<GenerateAdsResponse>> call = new GotongRoyongAPI().getService().generateAds(api_token, body);
+        call.enqueue(new Callback<BaseResponse<GenerateAdsResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<GenerateAdsResponse>> call, Response<BaseResponse<GenerateAdsResponse>> response) {
+                if (response.isSuccessful()) {
+                    updateText(response.body().getPayload().getAdsData().getAdvName());
+                } else {
+                    updateError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<GenerateAdsResponse>> call, Throwable t) {
+                updateFail();
+            }
+        });
+    }
+
+    private void testGetCampaign(int id) {
+        CampaignDetailBody body = new CampaignDetailBody(id);
+        Call<BaseResponse<CampaignDetailResponse>> call = new GotongRoyongAPI().getService().getCampaign(body);
+        call.enqueue(new Callback<BaseResponse<CampaignDetailResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<CampaignDetailResponse>> call, Response<BaseResponse<CampaignDetailResponse>> response) {
+                if (response.isSuccessful()) {
+                    updateText(response.body().getPayload().getTitle() + " IMG : " + response.body().getPayload().getImageList().get(0));
+                } else {
+                    updateError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<CampaignDetailResponse>> call, Throwable t) {
+                updateFail();
+            }
+        });
+    }
+
+    private void testListCampaign(int page) {
+        Call<BaseResponse<CampaignListResponse>> call = new GotongRoyongAPI().getService().listCampaign(page);
+        call.enqueue(new Callback<BaseResponse<CampaignListResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<CampaignListResponse>> call, Response<BaseResponse<CampaignListResponse>> response) {
+                if (response.isSuccessful()) {
+                    updateText("PAGE : " + response.body().getPayload().getCurrentPage() + " " + response.body().getPayload().getData().get(0).getTitle());
+                } else {
+                    updateError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<CampaignListResponse>> call, Throwable t) {
+                updateFail();
+            }
+        });
     }
 
     private void testLoginFb(String id_fb) {
