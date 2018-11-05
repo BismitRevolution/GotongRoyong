@@ -2,19 +2,44 @@ package in.gotongroyong.gotongroyong.api;
 
 import java.util.List;
 
+import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.CampaignData;
 import in.gotongroyong.gotongroyong.data.DonationData;
 import in.gotongroyong.gotongroyong.data.HeroData;
 import in.gotongroyong.gotongroyong.data.TestData;
+import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
+import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
+import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
+import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
+import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
+import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface GotongRoyongService {
 
-    @GET("/repo/{user}/list")
-    Call<List> listRepos(@Path("user") String user);
+    @POST("/api/auth/login")
+    Call<BaseResponse<LoginResponse>> emailLogin(@Body EmailLoginBody body);
+
+    @POST("/api/auth/register")
+    Call<BaseResponse<RegisterResponse>> emailRegister(@Body EmailRegisterBody body);
+
+    @POST("/api/auth/login/fb")
+    Call<BaseResponse<LoginResponse>> facebookLogin(@Body FacebookLoginBody body);
+
+    @POST("/api/auth/register/fb")
+    Call<BaseResponse<RegisterResponse>> facebookRegister(@Body FacebookRegisterBody body);
+
+    @POST("/api/auth/login/google")
+    Call<BaseResponse<LoginResponse>> googleLogin(@Body GoogleLoginBody body);
+
+    @POST("/api/auth/register/google")
+    Call<BaseResponse<RegisterResponse>> googleRegister(@Body GoogleRegisterBody body);
 
     @GET("/test")
     Call<TestData> test();

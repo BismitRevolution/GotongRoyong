@@ -1,10 +1,10 @@
-package in.gotongroyong.gotongroyong.data;
+package in.gotongroyong.gotongroyong.data.gotongroyong;
 
-public class HeroData {
+public class HeroDataResponse {
 
-    private String id;
+    private int id;
     private int count_shares;
-    private int couunt_campaigns;
+    private int count_campaigns;
     private int count_donations;
     private String about_me;
     private String my_url;
@@ -12,4 +12,8 @@ public class HeroData {
     private String twitter_link;
     private String fb_link;
     private int flag_verified;
+
+    private int getId() {
+        return this.id;
+    }
 }

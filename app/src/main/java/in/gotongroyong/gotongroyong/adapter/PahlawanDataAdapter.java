@@ -33,39 +33,39 @@ public class PahlawanDataAdapter extends RecyclerView.Adapter<PahlawanDataAdapte
         }
 
         public void setData(final HeroData data) {
-            TextView clientName = layout.findViewById(R.id.tv_data_client);
-            clientName.setText(data.getName());
-            Drawable verified = layout.getResources().getDrawable(R.drawable.ic_verified);
-            clientName.setCompoundDrawablesWithIntrinsicBounds(null, null, verified, null);
-
-            String totalDonation = Util.toDecimal(data.getTotalDonation());
-            ((TextView) layout.findViewById(R.id.pahlawan_data_donasi)).setText(totalDonation);
-            String totalCampaign = Util.toDecimal(data.getTotalCampaign());
-            ((TextView) layout.findViewById(R.id.pahlawan_data_campaign)).setText(totalCampaign);
-
-            ImageView pic = layout.findViewById(R.id.img_data_client);
-            Picasso.get().load(data.getImgUrl()).into(pic);
-
-            layout.findViewById(R.id.social_facebook).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    gotoLink(data.getFacebookUrl());
-                }
-            });
-
-            layout.findViewById(R.id.social_twitter).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    gotoLink(data.getTwitterUrl());
-                }
-            });
-
-            layout.findViewById(R.id.social_instagram).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    gotoLink(data.getInstagramUrl());
-                }
-            });
+//            TextView clientName = layout.findViewById(R.id.tv_data_client);
+//            clientName.setText(data.getName());
+//            Drawable verified = layout.getResources().getDrawable(R.drawable.ic_verified);
+//            clientName.setCompoundDrawablesWithIntrinsicBounds(null, null, verified, null);
+//
+//            String totalDonation = Util.toDecimal(data.getTotalDonation());
+//            ((TextView) layout.findViewById(R.id.pahlawan_data_donasi)).setText(totalDonation);
+//            String totalCampaign = Util.toDecimal(data.getTotalCampaign());
+//            ((TextView) layout.findViewById(R.id.pahlawan_data_campaign)).setText(totalCampaign);
+//
+//            ImageView pic = layout.findViewById(R.id.img_data_client);
+//            Picasso.get().load(data.getImgUrl()).into(pic);
+//
+//            layout.findViewById(R.id.social_facebook).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    gotoLink(data.getFacebookUrl());
+//                }
+//            });
+//
+//            layout.findViewById(R.id.social_twitter).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    gotoLink(data.getTwitterUrl());
+//                }
+//            });
+//
+//            layout.findViewById(R.id.social_instagram).setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    gotoLink(data.getInstagramUrl());
+//                }
+//            });
         }
 
         private void gotoLink(String url) {

@@ -10,7 +10,8 @@ public class GotongRoyongAPI {
 
     public GotongRoyongAPI() {
         this.service = new Retrofit.Builder()
-                .baseUrl(API.GOTONG_ROYONG_BASE_URL)
+                .baseUrl(API.GOTONG_ROYONG_DEV_URL)
+//                .baseUrl(API.GOTONG_ROYONG_PROD_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(GotongRoyongService.class);

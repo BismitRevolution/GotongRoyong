@@ -1,11 +1,8 @@
 package in.gotongroyong.gotongroyong;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -14,35 +11,32 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthProvider;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
 import in.gotongroyong.gotongroyong.api.FirebaseAPI;
+import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
+import in.gotongroyong.gotongroyong.data.BaseResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.entity.FirebaseCode;
-import in.gotongroyong.gotongroyong.entity.Preferences;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static in.gotongroyong.gotongroyong.api.FirebaseAPI.FIREBASE_GOOGLE_KEY;
 
@@ -212,8 +206,7 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
         switch (responseCode) {
             case FirebaseCode.AUTH_EMAIL_LOGIN:
                 if (resultCode == FirebaseCode.AUTH_SUCCESS) {
-                    FirebaseAPI.saveData(getApplicationContext());
-                    redirectIfAuth();
+                    authEmail();
                 } else if (resultCode == FirebaseCode.AUTH_WRONG_PASS) {
                     warningWrongPassword();
                 }
@@ -233,6 +226,35 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
                     warningUnknown();
                 }
         }
+    }
+
+    public void authEmail() {
+        String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
+        String password = ((TextView) findViewById(R.id.field_password)).getText().toString();
+        EmailLoginBody body = new EmailLoginBody(email, password);
+        Call<BaseResponse<LoginResponse>> call = new GotongRoyongAPI().getService().emailLogin(body);
+        call.enqueue(new Callback<BaseResponse<LoginResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<LoginResponse>> call, Response<BaseResponse<LoginResponse>> response) {
+                if (response.isSuccessful()) {
+                    FirebaseAPI.saveData(getApplicationContext());
+                    redirectIfAuth();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<LoginResponse>> call, Throwable t) {
+                warningUnknown();
+            }
+        });
+    }
+
+    public void authGoogle() {
+
+    }
+
+    public void authFacebook() {
+
     }
 
     @Override

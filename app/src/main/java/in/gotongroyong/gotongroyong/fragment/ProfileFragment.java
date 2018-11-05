@@ -85,32 +85,32 @@ public class ProfileFragment extends Fragment implements BaseFragment {
     }
 
     public void fetchData(HeroData hero) {
-        ((TextView) root.findViewById(R.id.profile_name)).setText(hero.getName());
-
-        String donation = Integer.toString(hero.getTotalDonation());
-        String share = Integer.toString(hero.getTotalShare());
-        ((TextView) root.findViewById(R.id.profile_data_bar)).setText(getResources().getString(R.string.profile_data_bar, donation, share));
-
-        String value = Integer.toString(hero.getTotalDonation() * 1000);
-        ((TextView) root.findViewById(R.id.profile_data_value)).setText(getResources().getString(R.string.profile_value, value));
-
-        ((TextView) root.findViewById(R.id.field_name)).setHint(hero.getName());
-        ((TextView) root.findViewById(R.id.field_birth_place)).setHint(hero.getBirthPlace());
-        ((TextView) root.findViewById(R.id.field_birth_date)).setHint(hero.getBirthDate());
-        ((TextView) root.findViewById(R.id.field_city)).setHint(hero.getCity());
-        ((TextView) root.findViewById(R.id.field_email)).setHint(hero.getEmail());
-
-        switch (hero.getGender()) {
-            case 1:
-                ((RadioButton) root.findViewById(R.id.radio_male)).setChecked(true);
-                break;
-            case 2:
-                ((RadioButton) root.findViewById(R.id.radio_female)).setChecked(true);
-                break;
-            default:
-                ((RadioButton) root.findViewById(R.id.radio_male)).setChecked(false);
-                ((RadioButton) root.findViewById(R.id.radio_male)).setChecked(false);
-        }
+//        ((TextView) root.findViewById(R.id.profile_name)).setText(hero.getName());
+//
+//        String donation = Integer.toString(hero.getTotalDonation());
+//        String share = Integer.toString(hero.getTotalShare());
+//        ((TextView) root.findViewById(R.id.profile_data_bar)).setText(getResources().getString(R.string.profile_data_bar, donation, share));
+//
+//        String value = Integer.toString(hero.getTotalDonation() * 1000);
+//        ((TextView) root.findViewById(R.id.profile_data_value)).setText(getResources().getString(R.string.profile_value, value));
+//
+//        ((TextView) root.findViewById(R.id.field_name)).setHint(hero.getName());
+//        ((TextView) root.findViewById(R.id.field_birth_place)).setHint(hero.getBirthPlace());
+//        ((TextView) root.findViewById(R.id.field_birth_date)).setHint(hero.getBirthDate());
+//        ((TextView) root.findViewById(R.id.field_city)).setHint(hero.getCity());
+//        ((TextView) root.findViewById(R.id.field_email)).setHint(hero.getEmail());
+//
+//        switch (hero.getGender()) {
+//            case 1:
+//                ((RadioButton) root.findViewById(R.id.radio_male)).setChecked(true);
+//                break;
+//            case 2:
+//                ((RadioButton) root.findViewById(R.id.radio_female)).setChecked(true);
+//                break;
+//            default:
+//                ((RadioButton) root.findViewById(R.id.radio_male)).setChecked(false);
+//                ((RadioButton) root.findViewById(R.id.radio_male)).setChecked(false);
+//        }
 
         ((TextView) root.findViewById(R.id.field_phone)).setHint("+628123456789");
     }
