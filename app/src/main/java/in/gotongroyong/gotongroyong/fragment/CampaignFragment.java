@@ -9,18 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import java.util.List;
 
 import in.gotongroyong.gotongroyong.R;
 import in.gotongroyong.gotongroyong.adapter.CampaignDataAdapter;
-import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
-import in.gotongroyong.gotongroyong.data.BaseResponse;
-import in.gotongroyong.gotongroyong.data.CampaignData;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CampaignFragment extends Fragment implements BaseFragment {
     private LinearLayoutManager layoutManager;

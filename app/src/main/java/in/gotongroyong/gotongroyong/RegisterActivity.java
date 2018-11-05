@@ -29,8 +29,6 @@ import java.util.Arrays;
 import in.gotongroyong.gotongroyong.api.FirebaseAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
-import in.gotongroyong.gotongroyong.entity.FirebaseCode;
-import in.gotongroyong.gotongroyong.entity.Preferences;
 
 import static in.gotongroyong.gotongroyong.api.FirebaseAPI.FIREBASE_GOOGLE_KEY;
 

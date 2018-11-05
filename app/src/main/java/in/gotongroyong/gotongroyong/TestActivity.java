@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
+import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
 import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
@@ -17,6 +18,7 @@ import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
+import in.gotongroyong.gotongroyong.data.body.ShareBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
@@ -59,7 +61,49 @@ public class TestActivity extends AppCompatActivity {
 //        testRegisterEmail(email, pass, name);
 //        testListCampaign(1);
 //        testGetCampaign(86);
-        testGenerateAds("Bearer j1VoEksM25dvBLvs34U4SOzSKIkabH8hmCrPdseIKotgytZBcoNNFiFhg2Kk", 86);
+//        testGenerateAds("Bearer j1VoEksM25dvBLvs34U4SOzSKIkabH8hmCrPdseIKotgytZBcoNNFiFhg2Kk", 86);
+//        testShare(25);
+//        testAdsClick(25);
+    }
+
+    private void testAdsClick(int id_donation) {
+        AdsClickBody body = new AdsClickBody(id_donation);
+        Call<BaseResponse<String>> call = new GotongRoyongAPI().getService().adsClick(body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    updateText(response.body().getPayload());
+                } else {
+                    updateError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                updateFail();
+            }
+        });
+    }
+
+    private void testShare(int id_campaign) {
+        ShareBody body = new ShareBody(id_campaign);
+        Call<BaseResponse<String>> call = new GotongRoyongAPI().getService().share(body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    updateText(response.body().getPayload());
+                } else {
+                    updateError(response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                updateFail();
+            }
+        });
     }
 
     private void testGenerateAds(String api_token, int id_campaign) {

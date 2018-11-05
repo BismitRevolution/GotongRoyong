@@ -20,7 +20,6 @@ import java.util.List;
 import in.gotongroyong.gotongroyong.R;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
-import in.gotongroyong.gotongroyong.data.CampaignData;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
     private List<CampaignData> dataset;

@@ -23,6 +23,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
 
@@ -32,8 +34,10 @@ import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
+import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
+import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
-import in.gotongroyong.gotongroyong.entity.FirebaseCode;
+import in.gotongroyong.gotongroyong.entity.API;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -94,7 +98,7 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
                 String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
                 String password = ((TextView) findViewById(R.id.field_password)).getText().toString();
                 if (validate(email, password)) {
-                    FirebaseAPI.login(activity, email, password);
+                    FirebaseAPI.emailLogin(activity, email, password);
                 } else {
                     warningRequired();
                 }
@@ -183,6 +187,11 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
         warning.setText(getResources().getString(R.string.field_warning_user_not_found));
     }
 
+    private void warningEmailAlreadyRegistered() {
+        TextView warning = findViewById(R.id.field_warning);
+        warning.setText(getResources().getString(R.string.field_warning_account_already_registered));
+    }
+
     private void warningUnknown() {
         TextView warning = findViewById(R.id.field_warning);
         warning.setText(getResources().getString(R.string.field_warning_unknown_error));
@@ -204,57 +213,61 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
     @Override
     public void onActivityResult(int responseCode, int resultCode) {
         switch (responseCode) {
-            case FirebaseCode.AUTH_EMAIL_LOGIN:
-                if (resultCode == FirebaseCode.AUTH_SUCCESS) {
-                    authEmail();
-                } else if (resultCode == FirebaseCode.AUTH_WRONG_PASS) {
+            case API.FIREBASE_EMAIL_LOGIN:
+                if (resultCode == API.IS_SUCCESS) {
+                    gtgEmailLogin();
+                } else if (resultCode == API.ERROR_WRONG_PASS) {
                     warningWrongPassword();
                 }
                 break;
-            case FirebaseCode.AUTH_GOOGLE_LOGIN:
-                if (resultCode == FirebaseCode.AUTH_SUCCESS) {
+            case API.FIREBASE_GOOGLE_LOGIN:
+                if (resultCode == API.IS_SUCCESS) {
+                    gtgGoogleLogin();
+                } else if (resultCode == API.ERROR_EMAIL_ALREADY_REGISTERED) {
+                    warningEmailAlreadyRegistered();
+                }
+                break;
+            case API.FIREBASE_FACEBOOK_LOGIN:
+                if (resultCode == API.IS_SUCCESS) {
+                    gtgFacebookLogin();
+                } else if (resultCode == API.ERROR_EMAIL_ALREADY_REGISTERED) {
+                    warningEmailAlreadyRegistered();
+                }
+                break;
+            case API.AUTH_EMAIL_LOGIN:
+            case API.AUTH_FACEBOOK_LOGIN:
+            case API.AUTH_GOOGLE_LOGIN:
+                if (resultCode == API.IS_SUCCESS) {
                     FirebaseAPI.saveData(getApplicationContext());
                     redirectIfAuth();
-                } else if (resultCode == FirebaseCode.AUTH_UNKNOWN_ERROR) {
+                } else if (resultCode == API.ERROR_WRONG_PASS) {
+                    warningWrongPassword();
+                    FirebaseAPI.logout();
+                } else {
                     warningUnknown();
+                    FirebaseAPI.logout();
                 }
-            case FirebaseCode.AUTH_FACEBOOK_LOGIN:
-                if (resultCode == FirebaseCode.AUTH_SUCCESS) {
-                    FirebaseAPI.saveData(getApplicationContext());
-                    redirectIfAuth();
-                } else if (resultCode == FirebaseCode.AUTH_UNKNOWN_ERROR) {
-                    warningUnknown();
-                }
+                break;
         }
     }
 
-    public void authEmail() {
+    public void gtgEmailLogin() {
         String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
         String password = ((TextView) findViewById(R.id.field_password)).getText().toString();
         EmailLoginBody body = new EmailLoginBody(email, password);
-        Call<BaseResponse<LoginResponse>> call = new GotongRoyongAPI().getService().emailLogin(body);
-        call.enqueue(new Callback<BaseResponse<LoginResponse>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<LoginResponse>> call, Response<BaseResponse<LoginResponse>> response) {
-                if (response.isSuccessful()) {
-                    FirebaseAPI.saveData(getApplicationContext());
-                    redirectIfAuth();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<LoginResponse>> call, Throwable t) {
-                warningUnknown();
-            }
-        });
+        GotongRoyongAPI.emailLogin(this, body);
     }
 
-    public void authGoogle() {
-
+    public void gtgGoogleLogin() {
+        FirebaseUser logged = FirebaseAuth.getInstance().getCurrentUser();
+        GoogleLoginBody body = new GoogleLoginBody(logged.getUid());
+        GotongRoyongAPI.googleLogin(this, body);
     }
 
-    public void authFacebook() {
-
+    public void gtgFacebookLogin() {
+        FirebaseUser logged = FirebaseAuth.getInstance().getCurrentUser();
+        FacebookLoginBody body = new FacebookLoginBody(logged.getUid());
+        GotongRoyongAPI.facebookLogin(this, body);
     }
 
     @Override
@@ -262,13 +275,14 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
         super.onActivityResult(requestCode, resultCode, data);
         facebookManager.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case FirebaseCode.AUTH_GOOGLE_LOGIN:
+            case API.FIREBASE_GOOGLE_LOGIN:
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 try {
                     GoogleSignInAccount account = task.getResult(ApiException.class);
                     FirebaseAPI.firebaseAuthWithGoogle(activity, account);
                 } catch (ApiException e) {
                     Log.w("GSO", "Exception");
+                    warningUnknown();
                 }
         }
     }

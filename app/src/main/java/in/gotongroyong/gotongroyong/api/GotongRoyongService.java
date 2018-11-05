@@ -1,20 +1,16 @@
 package in.gotongroyong.gotongroyong.api;
 
-import java.util.List;
-
+import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
 import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
-import in.gotongroyong.gotongroyong.data.CampaignData;
-import in.gotongroyong.gotongroyong.data.DonationData;
-import in.gotongroyong.gotongroyong.data.HeroData;
-import in.gotongroyong.gotongroyong.data.TestData;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
+import in.gotongroyong.gotongroyong.data.body.ShareBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
@@ -22,10 +18,8 @@ import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface GotongRoyongService {
@@ -57,22 +51,9 @@ public interface GotongRoyongService {
     @POST("/api/donates/campaign-ads/create")
     Call<BaseResponse<GenerateAdsResponse>> generateAds(@Header("Authorization") String api_token, @Body GenerateAdsBody body);
 
-    @GET("/test")
-    Call<TestData> test();
+    @POST("/api/donates/campaign-ads/share-success")
+    Call<BaseResponse<String>> share(@Body ShareBody body);
 
-//    @GET("/campaign/pagination/{page}")
-//    Call<BaseResponse<List<CampaignData>>> listCampaign(@Path("page") int page);
-
-    @GET("/campaign/{id}")
-    Call<BaseResponse<CampaignData>> getCampaign(@Path("id") String id);
-
-    @GET("/hero/pagination/{page}")
-    Call<BaseResponse<List<HeroData>>> listHero(@Path("page") int page);
-
-    @GET("/hero/{id}")
-    Call<BaseResponse<HeroData>> getHero(@Path("id") String id);
-
-    @GET("/donation/pagination/{page}")
-    Call<List<DonationData>> listDonation(@Path("page") int page);
-
+    @POST("/api/donates/campaign-ads/target-url")
+    Call<BaseResponse<String>> adsClick(@Body AdsClickBody body);
 }

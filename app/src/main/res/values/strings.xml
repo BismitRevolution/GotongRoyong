@@ -43,7 +43,7 @@
     <string name="field_warning_empty">Silahkan masukkan email dan password Anda!</string>
     <string name="field_warning_wrong_password">Kombinasi email dan password salah!</string>
     <string name="field_warning_user_not_found">Anda belum terdaftar pada aplikasi</string>
-    <string name="field_warning_account_already_registered">Anda sudah terdaftar, silahkan login</string>
+    <string name="field_warning_account_already_registered">Anda sudah terdaftar, silahkan login dengan metode lain</string>
     <string name="field_warning_unknown_error">Terjadi eror, silahkan ulangi lagi</string>
 
     <string name="campaign_quote">Pilih, Lihat dan Mereka Terbantu!</string>
