@@ -235,16 +235,41 @@ public class LoginActivity extends AppCompatActivity implements ResultActivity {
                 }
                 break;
             case API.AUTH_EMAIL_LOGIN:
-            case API.AUTH_FACEBOOK_LOGIN:
-            case API.AUTH_GOOGLE_LOGIN:
                 if (resultCode == API.IS_SUCCESS) {
-                    FirebaseAPI.saveData(getApplicationContext());
                     redirectIfAuth();
                 } else if (resultCode == API.ERROR_WRONG_PASS) {
                     warningWrongPassword();
+                    GotongRoyongAPI.clearData(getApplicationContext());
                     FirebaseAPI.logout();
                 } else {
                     warningUnknown();
+                    GotongRoyongAPI.clearData(getApplicationContext());
+                    FirebaseAPI.logout();
+                }
+                break;
+            case API.AUTH_FACEBOOK_LOGIN:
+                if (resultCode == API.IS_SUCCESS) {
+                    redirectIfAuth();
+                } else if (resultCode == API.ERROR_NOT_REGISTERED) {
+                    warningUserNotRegistered();
+                    GotongRoyongAPI.clearData(getApplicationContext());
+                    FirebaseAPI.logout();
+                } else {
+                    warningUnknown();
+                    GotongRoyongAPI.clearData(getApplicationContext());
+                    FirebaseAPI.logout();
+                }
+                break;
+            case API.AUTH_GOOGLE_LOGIN:
+                if (resultCode == API.IS_SUCCESS) {
+                    redirectIfAuth();
+                } else if (resultCode == API.ERROR_NOT_REGISTERED) {
+                    warningUserNotRegistered();
+                    GotongRoyongAPI.clearData(getApplicationContext());
+                    FirebaseAPI.logout();
+                } else {
+                    warningUnknown();
+                    GotongRoyongAPI.clearData(getApplicationContext());
                     FirebaseAPI.logout();
                 }
                 break;

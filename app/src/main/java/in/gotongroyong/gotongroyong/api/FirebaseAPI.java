@@ -108,26 +108,4 @@ public class FirebaseAPI {
         firebase.signOut();
         LoginManager.getInstance().logOut();
     }
-
-    public static void clearData(Context context) {
-        SharedPreferences userData = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE);
-        userData.edit().clear().apply();
-    }
-
-    public static void saveData(Context context) {
-        FirebaseUser loggedUser = FirebaseAPI.getLoggedUser();
-        String id = loggedUser.getUid();
-        String name = loggedUser.getDisplayName();
-        int totalDonation = 1234;
-        int totalShare = 25;
-        int equivalent = 125000;
-
-        SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
-        editor.putString(Preferences.USER_ID, id);
-        editor.putString(Preferences.USER_NAME, name);
-        editor.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
-        editor.putInt(Preferences.USER_TOTAL_SHARE, totalShare);
-        editor.putInt(Preferences.USER_EQUIVALENT, equivalent);
-        editor.apply();
-    }
 }

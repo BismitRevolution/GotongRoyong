@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import in.gotongroyong.gotongroyong.adapter.CampaignPageAdapter;
 import in.gotongroyong.gotongroyong.adapter.ProfilePageAdapter;
 import in.gotongroyong.gotongroyong.api.FirebaseAPI;
+import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
 import in.gotongroyong.gotongroyong.entity.Preferences;
@@ -65,7 +66,7 @@ public class MainScreen extends AppCompatActivity {
                         gotoAbout();
                         break;
                     case R.id.menu_logout:
-                        FirebaseAPI.clearData(getApplicationContext());
+                        GotongRoyongAPI.clearData(getApplicationContext());
                         FirebaseAPI.logout();
                         redirectIfAuth();
                         break;

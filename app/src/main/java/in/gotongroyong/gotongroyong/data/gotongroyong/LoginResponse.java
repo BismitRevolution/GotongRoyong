@@ -29,4 +29,8 @@ public class LoginResponse {
     public String getFullname() {
         return this.fullname;
     }
+
+    public HeroResponse getDataPahlawan() {
+        return this.data_pahlawan;
+    }
 }

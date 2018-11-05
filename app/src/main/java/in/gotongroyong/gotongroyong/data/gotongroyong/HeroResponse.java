@@ -13,7 +13,19 @@ public class HeroResponse {
     private String fb_link;
     private int flag_verified;
 
-    private int getId() {
+    public int getId() {
         return this.id;
+    }
+
+    public int getCountShares() {
+        return this.count_shares;
+    }
+
+    public int getCountCampaigns() {
+        return this.count_campaigns;
+    }
+
+    public int getCountDonations() {
+        return this.count_donations;
     }
 }
