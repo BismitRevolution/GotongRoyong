@@ -20,9 +20,10 @@ import java.util.List;
 import in.gotongroyong.gotongroyong.R;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignResponse;
 
 public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapter.CampaignViewHolder> {
-    private List<CampaignData> dataset;
+    private List<CampaignResponse> dataset;
 
     public static class CampaignViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout layout;
@@ -32,13 +33,13 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
             this.layout = layout;
         }
 
-        public void setData(final CampaignData data) {
+        public void setData(final CampaignResponse data) {
             ((TextView) layout.findViewById(R.id.data_title)).setText(data.getTitle());
-            ((TextView) layout.findViewById(R.id.tv_data_client)).setText(data.getClientName());
+            ((TextView) layout.findViewById(R.id.tv_data_client)).setText(data.getCampaignUser());
 
-            String dataPahlawan = Util.toDecimal(data.getTotalHero());
+            String dataPahlawan = Util.toDecimal(data.getCountUsers());
             ((TextView) layout.findViewById(R.id.campaign_data_pahlawan)).setText(dataPahlawan);
-            String dataDonasi = Util.toDecimal(data.getTotalDonation());
+            String dataDonasi = Util.toDecimal(data.getCountDonations());
             ((TextView) layout.findViewById(R.id.campaign_data_donasi)).setText(dataDonasi);
             String dataTarget = Util.toDecimal(data.getTargetDonation());
             ((TextView) layout.findViewById(R.id.campaign_data_target)).setText(dataTarget);
@@ -51,7 +52,7 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
 
             ProgressBar progressBar = layout.findViewById(R.id.data_progress);
             progressBar.getProgressDrawable().setColorFilter(layout.getResources().getColor(R.color.themeOrange), PorterDuff.Mode.SRC_IN);
-            double percentage = ((double) data.getTotalDonation() / (double) data.getTargetDonation()) * 100;
+            double percentage = ((double) data.getCountDonations() / (double) data.getTargetDonation()) * 100;
             progressBar.setProgress((int) percentage);
 
             layout.findViewById(R.id.btn_donate).setOnClickListener(new View.OnClickListener() {
@@ -67,20 +68,20 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
             layout.findViewById(R.id.campaign).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Router.gotoDetail(layout.getContext(), data.getId());
+                    Router.gotoDetail(layout.getContext(), data.getCampaignId());
                 }
             });
 
             ImageView bg = layout.findViewById(R.id.data_bg);
-            Picasso.get().load(data.getImgUrl()).into(bg);
+            Picasso.get().load(data.getImageProfile()).into(bg);
         }
     }
 
-    public CampaignDataAdapter(List<CampaignData> dataset) {
+    public CampaignDataAdapter(List<CampaignResponse> dataset) {
         this.dataset = dataset;
     }
 
-    public void update(List<CampaignData> data) {
+    public void update(List<CampaignResponse> data) {
         dataset.addAll(data);
     }
 

@@ -20,8 +20,40 @@ public class CampaignResponse {
     private String created_at;
     private List<ImageResponse> list_images;
 
+    public int getCampaignId() {
+        return this.id_campaign;
+    }
+
     public String getTitle() {
         return this.title;
+    }
+
+    public String getCampaignUser() {
+        return this.campaign_user;
+    }
+
+    public String getImageProfile() {
+        return this.image_profile;
+    }
+
+    public int getCountDonations() {
+        return this.count_donations;
+    }
+
+    public int getCountUsers() {
+        return this.count_users;
+    }
+
+    public int getCountShares() {
+        return this.count_shares;
+    }
+
+    public int getTargetDonation() {
+        return this.target_donation;
+    }
+
+    public int getDayLeft() {
+        return this.sisa_hari;
     }
 
     public List<ImageResponse> getImageList() {

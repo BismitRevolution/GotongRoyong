@@ -14,6 +14,7 @@ import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.HeroResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
@@ -34,7 +35,7 @@ public class GotongRoyongAPI {
             .build()
             .create(GotongRoyongService.class);
 
-    public GotongRoyongService getService() {
+    public static GotongRoyongService getService() {
         return this.service;
     }
 
@@ -154,7 +155,7 @@ public class GotongRoyongAPI {
             }
         });
     }
-    
+
     public static void clearData(Context context) {
         SharedPreferences userData = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE);
         userData.edit().clear().apply();

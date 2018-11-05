@@ -21,6 +21,10 @@ public class CampaignListResponse {
         return this.current_page;
     }
 
+    public String getNextPageUrl() {
+        return this.next_page_url;
+    }
+
     public List<CampaignResponse> getData() {
         return this.data;
     }

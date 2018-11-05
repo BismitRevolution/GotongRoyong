@@ -23,8 +23,36 @@ public class CampaignDetailResponse {
     private int updated_by;
     private List<ImageResponse> list_images;
 
+    public int getCampaignId() {
+        return this.id;
+    }
+
     public String getTitle() {
         return this.title;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public int getCountDonations() {
+        return this.count_donations;
+    }
+
+    public int getCountUsers() {
+        return this.count_users;
+    }
+
+    public int getCountShares() {
+        return this.count_shares;
+    }
+
+    public int getTargetDonation() {
+        return this.target_donation;
+    }
+
+    public int getDayLeft() {
+        return this.sisa_hari;
     }
 
     public List<ImageResponse> getImageList() {

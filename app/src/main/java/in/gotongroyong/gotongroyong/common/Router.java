@@ -43,7 +43,7 @@ public class Router {
         context.startActivity(new Intent(context, MainScreen.class));
     }
 
-    public static void gotoDetail(Context context, String id) {
+    public static void gotoDetail(Context context, int id) {
         Intent empty = new Intent(context, EmptyActivity.class);
         empty.putExtra(EmptyActivity.ACTIVITY_TYPE, EmptyActivity.ACTIVITY_DETAIL);
         empty.putExtra(EmptyActivity.CAMPAIGN_ID, id);
