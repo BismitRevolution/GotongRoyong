@@ -23,4 +23,24 @@ public class AdsResponse {
     public String getAdvName() {
         return this.advertiser_name;
     }
+
+    public int getAdsCategory() {
+        return this.ads_category;
+    }
+
+    public String getContentUrl() {
+        return this.content_url;
+    }
+
+    public String getWebsiteUrl() {
+        return this.target_url;
+    }
+
+    public int getDuration() {
+        return this.duration;
+    }
+
+    public String getAdvLogo() {
+        return this.advertiser_logo;
+    }
 }

@@ -2,11 +2,16 @@ package in.gotongroyong.gotongroyong.data.gotongroyong;
 
 import java.util.List;
 
+import in.gotongroyong.gotongroyong.entity.API;
+
 public class CampaignDetailResponse {
 
     private int id;
     private String title;
     private int id_user;
+    private String campaigner_username;
+    private String campaigner_fullname;
+    private String campaigner_image_profile;
     private String description;
     private int count_donations;
     private int count_users;
@@ -25,6 +30,14 @@ public class CampaignDetailResponse {
 
     public int getCampaignId() {
         return this.id;
+    }
+
+    public String getCampaignerFullname() {
+        return this.campaigner_fullname;
+    }
+
+    public String getCampaignerImgUrl() {
+        return API.getBaseApiUrl() + this.campaigner_image_profile;
     }
 
     public String getTitle() {

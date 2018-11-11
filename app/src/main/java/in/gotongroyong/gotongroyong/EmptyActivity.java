@@ -86,11 +86,11 @@ public class EmptyActivity extends AppCompatActivity implements ResponseActivity
         getSupportActionBar().setTitle(detailFragment.getTitle());
     }
 
-    public void errorConnection() {
+    private void errorConnection() {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
     }
 
-    public void errorUnknown() {
+    private void errorUnknown() {
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.field_warning_unknown_error), Toast.LENGTH_SHORT).show();
     }
 

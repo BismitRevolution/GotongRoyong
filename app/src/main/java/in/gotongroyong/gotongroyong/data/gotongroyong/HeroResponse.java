@@ -2,30 +2,45 @@ package in.gotongroyong.gotongroyong.data.gotongroyong;
 
 public class HeroResponse {
 
-    private int id;
-    private int count_shares;
-    private int count_campaigns;
-    private int count_donations;
-    private String about_me;
-    private String my_url;
-    private String instagram_link;
-    private String twitter_link;
-    private String fb_link;
+    private int id_user;
+    private String fullname;
     private int flag_verified;
+    private String image_profile;
+    private String fb_link;
+    private String twitter_link;
+    private String instagram_link;
+    private int count_donations;
+    private int count_campaign_owned;
 
-    public int getId() {
-        return this.id;
+    public int getIdUser() {
+        return this.id_user;
     }
 
-    public int getCountShares() {
-        return this.count_shares;
+    public String getFullname() {
+        return this.fullname;
     }
 
-    public int getCountCampaigns() {
-        return this.count_campaigns;
+    public String getImgUrl() {
+        return this.image_profile;
     }
 
-    public int getCountDonations() {
+    public String getFacebookUrl() {
+        return this.fb_link;
+    }
+
+    public String getTwitterUrl() {
+        return this.twitter_link;
+    }
+
+    public String getInstagramUrl() {
+        return this.instagram_link;
+    }
+
+    public int getCountDonation() {
         return this.count_donations;
+    }
+
+    public int getCountCampaign() {
+        return this.count_campaign_owned;
     }
 }

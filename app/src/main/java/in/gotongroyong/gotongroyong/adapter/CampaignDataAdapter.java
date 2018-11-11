@@ -36,6 +36,8 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
         public void setData(final CampaignResponse data) {
             ((TextView) layout.findViewById(R.id.data_title)).setText(data.getTitle());
             ((TextView) layout.findViewById(R.id.tv_data_client)).setText(data.getCampaignUser());
+            ImageView clientImg = layout.findViewById(R.id.img_data_client);
+            Picasso.get().load(data.getImageProfile()).into(clientImg);
 
             String dataPahlawan = Util.toDecimal(data.getCountUsers());
             ((TextView) layout.findViewById(R.id.campaign_data_pahlawan)).setText(dataPahlawan);
@@ -58,10 +60,10 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
             layout.findViewById(R.id.btn_donate).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArrayList<String> resources = new ArrayList<>();
+//                    ArrayList<String> resources = new ArrayList<>();
 //                    resources.add("http://www.missionmedia.com/uploads/image/blog/1080x1920_blog_post.jpg");
-                    resources.add("http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4");
-                    Router.gotoStory(layout.getContext(), resources, true);
+//                    resources.add("http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4");
+                    Router.gotoStory(layout.getContext(), data.getCampaignId());
                 }
             });
 

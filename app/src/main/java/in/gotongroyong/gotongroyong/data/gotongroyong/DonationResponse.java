@@ -11,6 +11,10 @@ public class DonationResponse {
     private String created_at;
     private String updated_at;
 
+    public int getIdAds() {
+        return this.id_ads;
+    }
+
     public int getCampaignId() {
         return this.id_campaign;
     }

@@ -30,7 +30,7 @@ public class DetailFragment extends Fragment implements BaseFragment {
 
     public DetailFragment() {
         super();
-        this.title = "Specific Campaign";
+        this.title = "Retrieving Data...";
     }
 
     @Nullable
@@ -40,14 +40,16 @@ public class DetailFragment extends Fragment implements BaseFragment {
         return root;
     }
 
-    public void setData(CampaignDetailResponse data) {
+    public void setData(final CampaignDetailResponse data) {
         this.title = data.getTitle();
 
         ImageView bg = root.findViewById(R.id.data_bg);
         Picasso.get().load(data.getImageList().get(0).getImageUrl()).into(bg);
 
         ((TextView) root.findViewById(R.id.data_title)).setText(data.getTitle());
-//        ((TextView) findViewById(R.id.tv_data_client)).setText(data.getCampaignUser());
+        ((TextView) root.findViewById(R.id.tv_data_client)).setText(data.getCampaignerFullname());
+        ImageView clientImg = root.findViewById(R.id.img_data_client);
+        Picasso.get().load(data.getCampaignerImgUrl()).into(clientImg);
 
         String dataPahlawan = Util.toDecimal(data.getCountUsers());
         ((TextView) root.findViewById(R.id.campaign_data_pahlawan)).setText(dataPahlawan);
@@ -70,10 +72,10 @@ public class DetailFragment extends Fragment implements BaseFragment {
         root.findViewById(R.id.btn_donate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> resources = new ArrayList<>();
+//                ArrayList<String> resources = new ArrayList<>();
 //                    resources.add("http://www.missionmedia.com/uploads/image/blog/1080x1920_blog_post.jpg");
-                resources.add("http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4");
-                Router.gotoStory(getContext(), resources, true);
+//                resources.add("http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4");
+                Router.gotoStory(getContext(), data.getCampaignId());
             }
         });
 

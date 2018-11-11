@@ -20,9 +20,10 @@ import java.util.List;
 import in.gotongroyong.gotongroyong.R;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignResponse;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
-    private List<CampaignData> dataset;
+    private List<CampaignResponse> dataset;
 
     public static class HistoryViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout layout;
@@ -32,13 +33,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             this.layout = layout;
         }
 
-        public void setData(CampaignData data) {
+        public void setData(final CampaignResponse data) {
             ((TextView) layout.findViewById(R.id.data_title)).setText(data.getTitle());
-            ((TextView) layout.findViewById(R.id.tv_data_client)).setText(data.getClientName());
+            ((TextView) layout.findViewById(R.id.tv_data_client)).setText(data.getCampaignUser());
 
-            String dataPahlawan = Util.toDecimal(data.getTotalHero());
+            String dataPahlawan = Util.toDecimal(data.getCountUsers());
             ((TextView) layout.findViewById(R.id.campaign_data_pahlawan)).setText(dataPahlawan);
-            String dataDonasi = Util.toDecimal(data.getTotalDonation());
+            String dataDonasi = Util.toDecimal(data.getCountDonations());
             ((TextView) layout.findViewById(R.id.campaign_data_donasi)).setText(dataDonasi);
             String dataTarget = Util.toDecimal(data.getTargetDonation());
             ((TextView) layout.findViewById(R.id.campaign_data_target)).setText(dataTarget);
@@ -46,7 +47,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             ((TextView) layout.findViewById(R.id.campaign_data_countdown)).setText(dataCountdown);
 
             layout.findViewById(R.id.panel_participation).setVisibility(View.VISIBLE);
-            String participation = Util.toDecimal(data.getParticipation());
+//            String participation = Util.toDecimal(data.getParticipation());
+            String participation = Util.toDecimal(1);
             ((TextView) layout.findViewById(R.id.tv_participation)).setText(participation);
 
             TextView dataClient = layout.findViewById(R.id.tv_data_client);
@@ -55,29 +57,36 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
             ProgressBar progressBar = layout.findViewById(R.id.data_progress);
             progressBar.getProgressDrawable().setColorFilter(layout.getResources().getColor(R.color.themeOrange), PorterDuff.Mode.SRC_IN);
-            double percentage = ((double) data.getTotalDonation() / (double) data.getTargetDonation()) * 100;
+            double percentage = ((double) data.getCountDonations() / (double) data.getTargetDonation()) * 100;
             progressBar.setProgress((int) percentage);
 
             layout.findViewById(R.id.btn_donate).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ArrayList<String> resources = new ArrayList<>();
+//                    ArrayList<String> resources = new ArrayList<>();
 //                    resources.add("http://www.missionmedia.com/uploads/image/blog/1080x1920_blog_post.jpg");
-                    resources.add("http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4");
-                    Router.gotoStory(layout.getContext(), resources, true);
+//                    resources.add("http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4");
+                    Router.gotoStory(layout.getContext(), data.getCampaignId());
+                }
+            });
+
+            layout.findViewById(R.id.campaign).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Router.gotoDetail(layout.getContext(), data.getCampaignId());
                 }
             });
 
             ImageView bg = layout.findViewById(R.id.data_bg);
-            Picasso.get().load(data.getImgUrl()).into(bg);
+            Picasso.get().load(data.getImageProfile()).into(bg);
         }
     }
 
-    public HistoryAdapter(List<CampaignData> dataset) {
+    public HistoryAdapter(List<CampaignResponse> dataset) {
         this.dataset = dataset;
     }
 
-    public void update(List<CampaignData> data) {
+    public void update(List<CampaignResponse> data) {
         dataset.addAll(data);
     }
 

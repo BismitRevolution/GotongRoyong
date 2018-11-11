@@ -18,11 +18,12 @@ import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
-import in.gotongroyong.gotongroyong.data.gotongroyong.AdsResponse;
+import in.gotongroyong.gotongroyong.data.body.ShareBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
-import in.gotongroyong.gotongroyong.data.gotongroyong.HeroResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.HeroListResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.UserDataResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
 import in.gotongroyong.gotongroyong.entity.API;
@@ -36,8 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GotongRoyongAPI {
 
     private static GotongRoyongService service = new Retrofit.Builder()
-            .baseUrl(API.GOTONG_ROYONG_DEV_URL)
-//                .baseUrl(API.GOTONG_ROYONG_PROD_URL)
+            .baseUrl(API.getBaseApiUrl())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(GotongRoyongService.class);
@@ -72,6 +72,7 @@ public class GotongRoyongAPI {
             @Override
             public void onResponse(Call<BaseResponse<RegisterResponse>> call, Response<BaseResponse<RegisterResponse>> response) {
                 if (response.isSuccessful()) {
+                    saveDataRegister(((Activity) activity).getApplicationContext(), response.body().getPayload());
                     activity.onActivityResult(API.AUTH_EMAIL_REGISTER, API.IS_SUCCESS);
                 } else {
                     activity.onActivityResult(API.AUTH_EMAIL_REGISTER, API.ERROR_EMAIL_ALREADY_REGISTERED);
@@ -111,6 +112,7 @@ public class GotongRoyongAPI {
             @Override
             public void onResponse(Call<BaseResponse<RegisterResponse>> call, Response<BaseResponse<RegisterResponse>> response) {
                 if (response.isSuccessful()) {
+                    saveDataRegister(((Activity) activity).getApplicationContext(), response.body().getPayload());
                     activity.onActivityResult(API.AUTH_FACEBOOK_REGISTER, API.IS_SUCCESS);
                 } else {
                     activity.onActivityResult(API.AUTH_FACEBOOK_REGISTER, API.ERROR_EMAIL_ALREADY_REGISTERED);
@@ -150,6 +152,7 @@ public class GotongRoyongAPI {
             @Override
             public void onResponse(Call<BaseResponse<RegisterResponse>> call, Response<BaseResponse<RegisterResponse>> response) {
                 if (response.isSuccessful()) {
+                    saveDataRegister(((Activity) activity).getApplicationContext(), response.body().getPayload());
                     activity.onActivityResult(API.AUTH_GOOGLE_REGISTER, API.IS_SUCCESS);
                 } else {
                     activity.onActivityResult(API.AUTH_GOOGLE_REGISTER, API.ERROR_EMAIL_ALREADY_REGISTERED);
@@ -204,6 +207,47 @@ public class GotongRoyongAPI {
         });
     }
 
+    public static void listHero(final ResponseActivity<HeroListResponse> activity, int page) {
+        final int responseCode = (page == 1)? API.HERO_LIST_INIT : API.HERO_LIST_UPDATE;
+        Call<BaseResponse<HeroListResponse>> call = service.listHero(page);
+        call.enqueue(new Callback<BaseResponse<HeroListResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<HeroListResponse>> call, Response<BaseResponse<HeroListResponse>> response) {
+                if (response.isSuccessful()) {
+                    HeroListResponse listResponse = response.body().getPayload();
+                    activity.onActivityResponse(responseCode, API.IS_SUCCESS, listResponse);
+                } else {
+                    activity.onActivityResponse(responseCode, API.ERROR_UNKNOWN, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<HeroListResponse>> call, Throwable t) {
+                activity.onActivityResponse(responseCode, API.ERROR_NO_CONNECTION, null);
+            }
+        });
+    }
+
+    public static void getUserData(final ResponseActivity<LoginResponse> activity, String api_token) {
+        Call<BaseResponse<LoginResponse>> call = service.getUserData(api_token);
+        call.enqueue(new Callback<BaseResponse<LoginResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<LoginResponse>> call, Response<BaseResponse<LoginResponse>> response) {
+                if (response.isSuccessful()) {
+                    LoginResponse data = response.body().getPayload();
+                    activity.onActivityResponse(API.HERO_USER_DATA, API.IS_SUCCESS, data);
+                } else {
+                    activity.onActivityResponse(API.HERO_USER_DATA, API.ERROR_UNKNOWN, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<LoginResponse>> call, Throwable t) {
+                activity.onActivityResponse(API.HERO_USER_DATA, API.ERROR_NO_CONNECTION, null);
+            }
+        });
+    }
+
     public static void generateAds(final ResponseActivity<GenerateAdsResponse> activity, String api_token, GenerateAdsBody body) {
         Call<BaseResponse<GenerateAdsResponse>> call = service.generateAds(api_token, body);
         call.enqueue(new Callback<BaseResponse<GenerateAdsResponse>>() {
@@ -224,6 +268,46 @@ public class GotongRoyongAPI {
         });
     }
 
+    public static void share(final ResultActivity activity, ShareBody body) {
+        Call<BaseResponse<String>> call = service.share(body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    String message = response.body().getPayload();
+                    activity.onActivityResult(API.CAMPAIGN_SHARE, API.IS_SUCCESS);
+                } else {
+                    activity.onActivityResult(API.CAMPAIGN_SHARE, API.ERROR_UNKNOWN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                activity.onActivityResult(API.CAMPAIGN_SHARE, API.ERROR_NO_CONNECTION);
+            }
+        });
+    }
+
+    public static void adsClick(final ResultActivity activity, AdsClickBody body) {
+        Call<BaseResponse<String>> call = service.adsClick(body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    String message = response.body().getPayload();
+                    activity.onActivityResult(API.ADS_CLICK, API.IS_SUCCESS);
+                } else {
+                    activity.onActivityResult(API.ADS_CLICK, API.ERROR_UNKNOWN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                activity.onActivityResult(API.ADS_CLICK, API.ERROR_NO_CONNECTION);
+            }
+        });
+    }
+
     public static void clearData(Context context) {
         SharedPreferences userData = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE);
         userData.edit().clear().apply();
@@ -234,13 +318,38 @@ public class GotongRoyongAPI {
         String id = loggedUser.getUid();
         String name = loggedUser.getDisplayName();
 
-        HeroResponse hero = response.getDataPahlawan();
+        String api_token = response.getApiToken();
+
+        UserDataResponse hero = response.getDataPahlawan();
         int totalDonation = hero.getCountDonations();
         int totalShare = hero.getCountShares();
         int equivalent = hero.getCountDonations() * 100;
 
         SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
         editor.putString(Preferences.USER_ID, id);
+        editor.putString(Preferences.USER_API_TOKEN, api_token);
+        editor.putString(Preferences.USER_NAME, name);
+        editor.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
+        editor.putInt(Preferences.USER_TOTAL_SHARE, totalShare);
+        editor.putInt(Preferences.USER_EQUIVALENT, equivalent);
+        editor.apply();
+    }
+
+    public static void saveDataRegister(Context context, RegisterResponse response) {
+        FirebaseUser loggedUser = FirebaseAPI.getLoggedUser();
+        String id = loggedUser.getUid();
+        String name = loggedUser.getDisplayName();
+
+        String api_token = response.getApiToken();
+
+        UserDataResponse hero = response.getDataPahlawan();
+        int totalDonation = hero.getCountDonations();
+        int totalShare = hero.getCountShares();
+        int equivalent = hero.getCountDonations() * 100;
+
+        SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
+        editor.putString(Preferences.USER_ID, id);
+        editor.putString(Preferences.USER_API_TOKEN, api_token);
         editor.putString(Preferences.USER_NAME, name);
         editor.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
         editor.putInt(Preferences.USER_TOTAL_SHARE, totalShare);

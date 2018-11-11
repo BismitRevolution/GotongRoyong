@@ -9,6 +9,7 @@
     <string name="fb_login_protocol_scheme">fb502859973522287</string>
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
+    <string name="load_nothing">No data left!</string>
     <string name="load_number">0</string>
     <string name="error_connection">Connection problem</string>
 
@@ -30,6 +31,7 @@
     <string name="register_hello">Yuk, daftar \nmenjadi Pahlawan!</string>
     <string name="login_subtitle">Silahkan login untuk membantu sesama.</string>
     <string name="register_subtitle">Silahkan registrasi untuk membantu sesama.</string>
+    <string name="register_fullname">Full Name</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_btn_register">Register</string>

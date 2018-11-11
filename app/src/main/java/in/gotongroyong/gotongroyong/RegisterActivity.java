@@ -262,10 +262,10 @@ public class RegisterActivity extends AppCompatActivity implements ResultActivit
     }
 
     private void gtgEmailRegister() {
+        String fullname = ((TextView) findViewById(R.id.field_fullname)).getText().toString();
         String email = ((TextView) findViewById(R.id.field_email)).getText().toString();
         String password = ((TextView) findViewById(R.id.field_password)).getText().toString();
-        FirebaseUser logged = FirebaseAuth.getInstance().getCurrentUser();
-        EmailRegisterBody body = new EmailRegisterBody(email, password, password, logged.getDisplayName());
+        EmailRegisterBody body = new EmailRegisterBody(email, password, password, fullname);
         GotongRoyongAPI.emailRegister(this, body);
     }
 

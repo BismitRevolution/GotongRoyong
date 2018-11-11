@@ -1,6 +1,7 @@
 package in.gotongroyong.gotongroyong;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
@@ -27,24 +28,36 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.common.Router;
+import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
+import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
+import in.gotongroyong.gotongroyong.data.gotongroyong.AdsResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.DonationResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
+import in.gotongroyong.gotongroyong.entity.API;
+import in.gotongroyong.gotongroyong.entity.Preferences;
 
-public class StoryActivity extends AppCompatActivity {
+public class StoryActivity extends AppCompatActivity implements ResultActivity, ResponseActivity {
     private final String STORY_TAG = "STORY";
+
+    public static final String STORY_CAMPAIGN_ID = "story_campaign_id";
 
     public static final String STORY_VIDEO_TYPE = "story_video_type";
     public static final String STORY_DURATION = "story_duration";
     public static final String STORY_RESOURCES_URL = "story_resources_url";
     public static final String STORY_WEBSITE_URL = "story_website_url";
 
-    private boolean isVideo;
+//    private boolean isVideo;
+    private int id_donation;
     private int duration;
-    private ArrayList<String> resources;
+//    private ArrayList<String> resources;
     private String websiteUrl;
     private CountDownTimer timer;
     private ProgressBar progressBar;
 
     private boolean immersiveMode;
+    private boolean isLoaded;
     private boolean isFinish;
     private GestureDetectorCompat detector;
 
@@ -71,10 +84,13 @@ public class StoryActivity extends AppCompatActivity {
 
     private void openLink() {
         Log.d(STORY_TAG, "SWIPE LINK TO " + this.websiteUrl);
-        if (this.websiteUrl.equals("")) {
-            Toast.makeText(getApplicationContext(), "Link is unavailable!", Toast.LENGTH_SHORT).show();
-        } else {
-            Router.gotoLink(getApplicationContext(), this.websiteUrl);
+        if (isLoaded) {
+            if (this.websiteUrl.equals("")) {
+                Toast.makeText(getApplicationContext(), "Link is unavailable!", Toast.LENGTH_SHORT).show();
+            } else {
+                GotongRoyongAPI.adsClick(this, new AdsClickBody(this.id_donation));
+                Router.gotoLink(getApplicationContext(), this.websiteUrl);
+            }
         }
     }
 
@@ -82,9 +98,10 @@ public class StoryActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+        isLoaded = false;
 
-        setParams(getIntent());
-        setContent();
+//        setParams();
+        findContent();
 
         detector = new GestureDetectorCompat(this, new StoryGesture());
         detector.setIsLongpressEnabled(true);
@@ -95,7 +112,36 @@ public class StoryActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.story_progress);
         progressBar.getProgressDrawable().setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
         this.isFinish = false;
+    }
 
+//    private void setParams() {
+//        Intent intent = getIntent();
+//        this.isVideo = intent.getBooleanExtra(STORY_VIDEO_TYPE, false);
+//        this.duration = intent.getIntExtra(STORY_DURATION, 20000);
+//        if (intent.getStringExtra(STORY_WEBSITE_URL) != null) {
+//            this.websiteUrl = intent.getStringExtra(STORY_WEBSITE_URL);
+//        } else {
+//            this.websiteUrl = "";
+//        }
+//        if (intent.getStringArrayListExtra(STORY_RESOURCES_URL) != null) {
+//            this.resources = intent.getStringArrayListExtra(STORY_RESOURCES_URL);
+//        } else {
+//            this.resources = new ArrayList<>();
+//            this.resources.add("");
+//        }
+//    }
+
+    private void findContent() {
+        SharedPreferences savedData = getSharedPreferences(Preferences.SETTING_USER, MODE_PRIVATE);
+        String api_token = savedData.getString(Preferences.USER_API_TOKEN, "");
+
+        Intent intent = getIntent();
+        int campaign_id = intent.getIntExtra(STORY_CAMPAIGN_ID, -1);
+
+        GotongRoyongAPI.generateAds(this, "Bearer " + api_token, new GenerateAdsBody(campaign_id));
+    }
+
+    private void createTimer() {
         timer = new CountDownTimer(duration, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -111,29 +157,31 @@ public class StoryActivity extends AppCompatActivity {
         };
     }
 
-    private void setParams(Intent intent) {
-        this.isVideo = intent.getBooleanExtra(STORY_VIDEO_TYPE, false);
-        this.duration = intent.getIntExtra(STORY_DURATION, 20000);
-        if (intent.getStringExtra(STORY_WEBSITE_URL) != null) {
-            this.websiteUrl = intent.getStringExtra(STORY_WEBSITE_URL);
+    private void fetchData(GenerateAdsResponse response) {
+        DonationResponse donation = response.getDonationData();
+        AdsResponse ads = response.getAdsData();
+
+        this.id_donation = donation.getIdAds();
+        this.duration = ads.getDuration();
+        this.websiteUrl = ads.getWebsiteUrl();
+
+        ImageView clientLogo = findViewById(R.id.story_client_pic);
+        Picasso.get().load(ads.getAdvLogo()).into(clientLogo);
+
+        ((TextView) findViewById(R.id.story_client_name)).setText(ads.getAdvName());
+
+        if (isVideo(ads.getAdsCategory())) {
+            setVideoStory(ads.getContentUrl());
         } else {
-            this.websiteUrl = "";
-        }
-        if (intent.getStringArrayListExtra(STORY_RESOURCES_URL) != null) {
-            this.resources = intent.getStringArrayListExtra(STORY_RESOURCES_URL);
-        } else {
-            this.resources = new ArrayList<>();
-            this.resources.add("");
+            setImageStory(ads.getContentUrl());
         }
     }
 
-    private void setContent() {
-        String url = (this.resources.size() > 0)? this.resources.get(0) : "";
-        if (this.isVideo) {
-            setVideoStory(url);
-        } else {
-            setImageStory(url);
+    private boolean isVideo(int ads_category) {
+        if (ads_category == 1) {
+            return true;
         }
+        return false;
     }
 
     private void setVideoStory(String url) {
@@ -160,6 +208,7 @@ public class StoryActivity extends AppCompatActivity {
             });
         } else {
             showErrorPanel();
+            stopLoading();
         }
     }
 
@@ -178,10 +227,12 @@ public class StoryActivity extends AppCompatActivity {
                 @Override
                 public void onError(Exception e) {
                     showErrorPanel();
+                    stopLoading();
                 }
             });
         } else {
             showErrorPanel();
+            stopLoading();
         }
     }
 
@@ -222,22 +273,24 @@ public class StoryActivity extends AppCompatActivity {
     public boolean onTouchEvent(MotionEvent event) {
         detector.onTouchEvent(event);
 
-        VideoView video = findViewById(R.id.story_video);
-        int action = MotionEventCompat.getActionMasked(event);
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-                if (!isFinish) {
-                    video.seekTo(0);
-                    video.start();
-                    timer.start();
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (!isFinish) {
-                    video.pause();
-                    timer.cancel();
-                }
-                break;
+        if (isLoaded) {
+            VideoView video = findViewById(R.id.story_video);
+            int action = MotionEventCompat.getActionMasked(event);
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    if (!isFinish) {
+                        video.seekTo(0);
+                        video.start();
+                        timer.start();
+                    }
+                    break;
+                case MotionEvent.ACTION_UP:
+                    if (!isFinish) {
+                        video.pause();
+                        timer.cancel();
+                    }
+                    break;
+            }
         }
         return super.onTouchEvent(event);
     }
@@ -274,4 +327,46 @@ public class StoryActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN);
     }
+
+    @Override
+    public void onActivityResult(int responseCode, int resultCode) {
+        switch (responseCode) {
+            case API.ADS_CLICK:
+                if (resultCode == API.IS_SUCCESS) {
+                    // Do something?
+                }
+                break;
+        }
+    }
+
+    private void errorConnection() {
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
+    }
+
+    private void errorUnknown() {
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.field_warning_unknown_error), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onActivityResponse(int responseCode, int resultCode, Object response) {
+        switch (responseCode) {
+            case API.ADS_GENERATE:
+                if (resultCode == API.IS_SUCCESS) {
+                    try {
+                        GenerateAdsResponse adsResponse = (GenerateAdsResponse) response;
+                        isLoaded = true;
+                        createTimer();
+                        fetchData(adsResponse);
+                    } catch (Exception e) {
+                        errorUnknown();
+                    }
+                } else {
+                    errorConnection();
+                    showErrorPanel();
+                    stopLoading();
+                }
+                break;
+        }
+    }
+
 }

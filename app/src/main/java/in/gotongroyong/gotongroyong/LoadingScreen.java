@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import in.gotongroyong.gotongroyong.common.Router;
 
 public class LoadingScreen extends AppCompatActivity {
-    private static final boolean DEBUG_MODE = true;
+    private static final boolean DEBUG_MODE = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

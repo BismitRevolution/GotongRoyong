@@ -11,13 +11,21 @@ public class RegisterResponse {
     private String created_at;
     private int id;
     private String api_token;
-    private HeroResponse data_pahlawan;
+    private UserDataResponse data_pahlawan;
 
     public String getEmail() {
         return this.email;
     }
 
+    public String getApiToken() {
+        return this.api_token;
+    }
+
     public String getFullname() {
         return this.fullname;
+    }
+
+    public UserDataResponse getDataPahlawan() {
+        return this.data_pahlawan;
     }
 }

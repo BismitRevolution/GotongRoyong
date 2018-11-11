@@ -14,6 +14,7 @@ import in.gotongroyong.gotongroyong.data.body.ShareBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.HeroListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
 import retrofit2.Call;
@@ -47,6 +48,12 @@ public interface GotongRoyongService {
 
     @POST("/api/campaign/campaign-list/detail")
     Call<BaseResponse<CampaignDetailResponse>> getCampaign(@Body CampaignDetailBody body);
+
+    @POST("/api/users/pahlawan/paginate")
+    Call<BaseResponse<HeroListResponse>> listHero(@Query("page") int page);
+
+    @POST("/api/auth/user/self-detail")
+    Call<BaseResponse<LoginResponse>> getUserData(@Header("Authorization") String api_token);
 
     @POST("/api/donates/campaign-ads/create")
     Call<BaseResponse<GenerateAdsResponse>> generateAds(@Header("Authorization") String api_token, @Body GenerateAdsBody body);

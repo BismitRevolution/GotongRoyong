@@ -2,12 +2,14 @@ package in.gotongroyong.gotongroyong.data.gotongroyong;
 
 import java.util.List;
 
+import in.gotongroyong.gotongroyong.entity.API;
+
 public class CampaignResponse {
 
     private int item_id;
     private int id_campaign;
     private String title;
-    private String campaign_user;
+    private String campaigner_user;
     private String image_profile;
     private int flag_verified_user;
     private int count_donations;
@@ -29,11 +31,11 @@ public class CampaignResponse {
     }
 
     public String getCampaignUser() {
-        return this.campaign_user;
+        return this.campaigner_user;
     }
 
     public String getImageProfile() {
-        return this.image_profile;
+        return API.getBaseApiUrl() + this.image_profile;
     }
 
     public int getCountDonations() {

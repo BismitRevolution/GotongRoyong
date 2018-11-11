@@ -21,6 +21,7 @@ import in.gotongroyong.gotongroyong.entity.API;
 public class CampaignFragment extends Fragment implements BaseFragment, ResponseActivity {
     private LinearLayoutManager layoutManager;
     private CampaignDataAdapter adapter;
+    private RecyclerView recyclerView;
     private int currentPage;
     private String nextPageUrl;
 
@@ -34,7 +35,7 @@ public class CampaignFragment extends Fragment implements BaseFragment, Response
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_campaign, container, false);
 
-        final RecyclerView recyclerView = root.findViewById(R.id.campaign_recycler_view);
+        recyclerView = root.findViewById(R.id.campaign_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -59,6 +60,7 @@ public class CampaignFragment extends Fragment implements BaseFragment, Response
         currentPage = response.getCurrentPage();
         nextPageUrl = response.getNextPageUrl();
         adapter = new CampaignDataAdapter(response.getData());
+        recyclerView.setAdapter(adapter);
     }
 
     private void updateData(CampaignListResponse response) {
@@ -68,17 +70,23 @@ public class CampaignFragment extends Fragment implements BaseFragment, Response
         adapter.notifyDataSetChanged();
     }
 
-    public void errorConnection() {
+    private void errorConnection() {
         Toast.makeText(getContext(), getResources().getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
     }
 
-    public void errorUnknown() {
+    private void errorUnknown() {
         Toast.makeText(getContext(), getResources().getString(R.string.field_warning_unknown_error), Toast.LENGTH_SHORT).show();
+    }
+
+    private void errorNoData() {
+        Toast.makeText(getContext(), getResources().getString(R.string.load_nothing), Toast.LENGTH_SHORT).show();
     }
 
     public void update() {
         if (nextPageUrl != null) {
             GotongRoyongAPI.listCampaign(this, currentPage + 1);
+        } else {
+            errorNoData();
         }
 //        adapter.update("New");
 //        adapter.notifyDataSetChanged();
