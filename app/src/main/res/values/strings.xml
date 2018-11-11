@@ -9,6 +9,7 @@
     <string name="fb_login_protocol_scheme">fb502859973522287</string>
 
     <string name="load_retrieve">Retrieving data&#8230;</string>
+    <string name="load_nothing">No data left!</string>
     <string name="load_number">0</string>
     <string name="error_connection">Connection problem</string>
 
@@ -30,6 +31,7 @@
     <string name="register_hello">Yuk, daftar \nmenjadi Pahlawan!</string>
     <string name="login_subtitle">Silahkan login untuk membantu sesama.</string>
     <string name="register_subtitle">Silahkan registrasi untuk membantu sesama.</string>
+    <string name="register_fullname">Full Name</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_btn_register">Register</string>
@@ -43,7 +45,7 @@
     <string name="field_warning_empty">Silahkan masukkan email dan password Anda!</string>
     <string name="field_warning_wrong_password">Kombinasi email dan password salah!</string>
     <string name="field_warning_user_not_found">Anda belum terdaftar pada aplikasi</string>
-    <string name="field_warning_account_already_registered">Anda sudah terdaftar, silahkan login</string>
+    <string name="field_warning_account_already_registered">Anda sudah terdaftar, silahkan login dengan metode lain</string>
     <string name="field_warning_unknown_error">Terjadi eror, silahkan ulangi lagi</string>
 
     <string name="campaign_quote">Pilih, Lihat dan Mereka Terbantu!</string>

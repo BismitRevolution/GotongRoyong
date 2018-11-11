@@ -73,6 +73,15 @@
                     android:textColor="@android:color/holo_red_dark"/>
 
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_fullname"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
+                    android:hint="@string/register_fullname"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_email"
                     android:inputType="textEmailAddress"
                     android:layout_width="match_parent"

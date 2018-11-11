@@ -11,22 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.gotongroyong.gotongroyong.R;
+import in.gotongroyong.gotongroyong.ResponseActivity;
 import in.gotongroyong.gotongroyong.adapter.PahlawanDataAdapter;
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
-import in.gotongroyong.gotongroyong.data.HeroData;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.HeroListResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.HeroResponse;
+import in.gotongroyong.gotongroyong.entity.API;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PahlawanFragment extends Fragment implements BaseFragment {
+public class PahlawanFragment extends Fragment implements BaseFragment, ResponseActivity {
     private GridLayoutManager layoutManager;
     private PahlawanDataAdapter adapter;
+    private RecyclerView recyclerView;
     private int currentPage;
+    private String nextPageUrl;
 
     @Override
     public String getTitle() {
@@ -38,27 +43,13 @@ public class PahlawanFragment extends Fragment implements BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pahlawan, container, false);
 
-        final RecyclerView recyclerView = root.findViewById(R.id.pahlawan_recycler_view);
+        recyclerView = root.findViewById(R.id.pahlawan_recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(getContext(), 1);
         recyclerView.setLayoutManager(layoutManager);
         currentPage = 1;
 
-        Call<BaseResponse<List<HeroData>>> call = new GotongRoyongAPI().getService().listHero(currentPage);
-        call.enqueue(new Callback<BaseResponse<List<HeroData>>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<List<HeroData>>> call, Response<BaseResponse<List<HeroData>>> response) {
-                List<HeroData> result = response.body().getPayload();
-                adapter = new PahlawanDataAdapter(result);
-                recyclerView.setAdapter(adapter);
-                currentPage++;
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<List<HeroData>>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        GotongRoyongAPI.listHero(this, currentPage);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -74,20 +65,72 @@ public class PahlawanFragment extends Fragment implements BaseFragment {
         return root;
     }
 
-    public void update() {
-        Call<BaseResponse<List<HeroData>>> call = new GotongRoyongAPI().getService().listHero(currentPage);
-        call.enqueue(new Callback<BaseResponse<List<HeroData>>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<List<HeroData>>> call, Response<BaseResponse<List<HeroData>>> response) {
-                List<HeroData> result = response.body().getPayload();
-                adapter.update(result);
-                adapter.notifyDataSetChanged();
-            }
+    private void errorConnection() {
+        Toast.makeText(getContext(), getResources().getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
+    }
 
-            @Override
-            public void onFailure(Call<BaseResponse<List<HeroData>>> call, Throwable t) {
-                Toast.makeText(getContext(), "Failed to connect. Check your internet connection!", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void errorUnknown() {
+        Toast.makeText(getContext(), getResources().getString(R.string.field_warning_unknown_error), Toast.LENGTH_SHORT).show();
+    }
+
+    private void errorNoData() {
+        Toast.makeText(getContext(), getResources().getString(R.string.load_nothing), Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void fetchData(HeroListResponse response) {
+        currentPage = response.getCurrentPage();
+        nextPageUrl = response.getNextPageUrl();
+        adapter = new PahlawanDataAdapter(response.getData());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void updateData(HeroListResponse response) {
+        currentPage = response.getCurrentPage();
+        nextPageUrl = response.getNextPageUrl();
+        adapter.update(response.getData());
+        adapter.notifyDataSetChanged();
+    }
+
+    public void update() {
+        if (nextPageUrl != null) {
+            GotongRoyongAPI.listHero(this, currentPage + 1);
+        } else {
+            errorNoData();
+        }
+    }
+
+    @Override
+    public void onActivityResponse(int responseCode, int resultCode, Object response) {
+        switch (responseCode) {
+            case API.HERO_LIST_INIT:
+                if (resultCode == API.IS_SUCCESS) {
+                    try {
+                        HeroListResponse listResponse = (HeroListResponse) response;
+                        fetchData(listResponse);
+                    } catch (Exception e) {
+                        errorUnknown();
+                    }
+                } else if (resultCode == API.ERROR_NO_CONNECTION) {
+                    errorConnection();
+                } else {
+                    errorUnknown();
+                }
+                break;
+            case API.HERO_LIST_UPDATE:
+                if (resultCode == API.IS_SUCCESS) {
+                    try {
+                        HeroListResponse listResponse = (HeroListResponse) response;
+                        updateData(listResponse);
+                    } catch (Exception e) {
+                        errorUnknown();
+                    }
+                } else if (resultCode == API.ERROR_NO_CONNECTION) {
+                    errorConnection();
+                } else {
+                    errorUnknown();
+                }
+                break;
+        }
     }
 }

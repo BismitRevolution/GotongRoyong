@@ -3,13 +3,15 @@ package in.gotongroyong.gotongroyong.data;
 public class BaseResponse<T> {
 
     private String status;
+    private boolean success;
     private String message;
-    private T payload;
+    private T data;
 
-    public BaseResponse(String status, String message, T payload) {
+    public BaseResponse(String status, boolean success, String message, T payload) {
         this.status = status;
+        this.success = success;
         this.message = message;
-        this.payload = payload;
+        this.data = payload;
     }
 
     public String getStatus() {
@@ -21,6 +23,6 @@ public class BaseResponse<T> {
     }
 
     public T getPayload() {
-        return payload;
+        return data;
     }
 }

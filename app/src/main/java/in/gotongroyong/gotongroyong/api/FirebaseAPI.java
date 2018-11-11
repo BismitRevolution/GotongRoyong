@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import in.gotongroyong.gotongroyong.ResultActivity;
-import in.gotongroyong.gotongroyong.entity.FirebaseCode;
+import in.gotongroyong.gotongroyong.entity.API;
 import in.gotongroyong.gotongroyong.entity.Preferences;
 
 public class FirebaseAPI {
@@ -36,33 +34,33 @@ public class FirebaseAPI {
         return firebase.getCurrentUser();
     }
 
-    public static void register(final Activity activity, String email, String password) {
+    public static void emailRegister(final Activity activity, String email, String password) {
         firebase.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String uid = firebase.getCurrentUser().getUid();
                     Log.d(FIREBASE_AUTH_TAG, "REGISTER EMAIL SUCCESS : " + uid);
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_REGISTER, FirebaseCode.AUTH_SUCCESS);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_EMAIL_REGISTER, API.IS_SUCCESS);
                 } else {
                     Log.d(FIREBASE_AUTH_TAG, "REGISTER EMAIL FAILURE : " + task.getException().getMessage());
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_REGISTER, FirebaseCode.AUTH_UNKNOWN_ERROR);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_EMAIL_REGISTER, API.ERROR_EMAIL_ALREADY_REGISTERED);
                 }
             }
         });
     }
 
-    public static void login(final Activity activity, String email, String password) {
+    public static void emailLogin(final Activity activity, String email, String password) {
         firebase.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     String uid = firebase.getCurrentUser().getUid();
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN EMAIL SUCCESS : " + uid);
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_LOGIN, FirebaseCode.AUTH_SUCCESS);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_EMAIL_LOGIN, API.IS_SUCCESS);
                 } else {
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN EMAIL FAILURE : " + task.getException().getMessage());
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_EMAIL_LOGIN, FirebaseCode.AUTH_WRONG_PASS);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_EMAIL_LOGIN, API.ERROR_WRONG_PASS);
                 }
             }
         });
@@ -70,7 +68,7 @@ public class FirebaseAPI {
 
     public static void loginGoogle(Activity activity, GoogleSignInClient client) {
         Intent intent = client.getSignInIntent();
-        activity.startActivityForResult(intent, FirebaseCode.AUTH_GOOGLE_LOGIN);
+        activity.startActivityForResult(intent, API.FIREBASE_GOOGLE_LOGIN);
     }
 
     public static void firebaseAuthWithGoogle(final Activity activity, GoogleSignInAccount account) {
@@ -79,10 +77,10 @@ public class FirebaseAPI {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_GOOGLE_LOGIN, FirebaseCode.AUTH_SUCCESS);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_GOOGLE_LOGIN, API.IS_SUCCESS);
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN GOOGLE SUCCESS");
                 } else {
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_GOOGLE_LOGIN, FirebaseCode.AUTH_UNKNOWN_ERROR);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_GOOGLE_LOGIN, API.ERROR_EMAIL_ALREADY_REGISTERED);
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN GOOGLE FAILED");
                 }
             }
@@ -95,10 +93,10 @@ public class FirebaseAPI {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_FACEBOOK_LOGIN, FirebaseCode.AUTH_SUCCESS);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_FACEBOOK_LOGIN, API.IS_SUCCESS);
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN FACEBOOK SUCCESS");
                 } else {
-                    ((ResultActivity) activity).onActivityResult(FirebaseCode.AUTH_FACEBOOK_LOGIN, FirebaseCode.AUTH_UNKNOWN_ERROR);
+                    ((ResultActivity) activity).onActivityResult(API.FIREBASE_FACEBOOK_LOGIN, API.ERROR_EMAIL_ALREADY_REGISTERED);
                     Log.d(FIREBASE_AUTH_TAG, "LOGIN FACEBOOK FAILURE", task.getException());
                 }
             }
@@ -109,27 +107,5 @@ public class FirebaseAPI {
     public static void logout() {
         firebase.signOut();
         LoginManager.getInstance().logOut();
-    }
-
-    public static void clearData(Context context) {
-        SharedPreferences userData = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE);
-        userData.edit().clear().apply();
-    }
-
-    public static void saveData(Context context) {
-        FirebaseUser loggedUser = FirebaseAPI.getLoggedUser();
-        String id = loggedUser.getUid();
-        String name = loggedUser.getDisplayName();
-        int totalDonation = 1234;
-        int totalShare = 25;
-        int equivalent = 125000;
-
-        SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
-        editor.putString(Preferences.USER_ID, id);
-        editor.putString(Preferences.USER_NAME, name);
-        editor.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
-        editor.putInt(Preferences.USER_TOTAL_SHARE, totalShare);
-        editor.putInt(Preferences.USER_EQUIVALENT, equivalent);
-        editor.apply();
     }
 }

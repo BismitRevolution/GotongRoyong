@@ -32,10 +32,11 @@ public class Router {
         context.startActivity(new Intent(context, RegisterActivity.class));
     }
 
-    public static void gotoStory(Context context, ArrayList<String> resources, boolean isVideoType) {
+    public static void gotoStory(Context context, int campaign_id) {
         Intent story = new Intent(context, StoryActivity.class);
-        story.putExtra(StoryActivity.STORY_VIDEO_TYPE, isVideoType);
-        story.putStringArrayListExtra(StoryActivity.STORY_RESOURCES_URL, resources);
+        story.putExtra(StoryActivity.STORY_CAMPAIGN_ID, campaign_id);
+//        story.putExtra(StoryActivity.STORY_VIDEO_TYPE, isVideoType);
+//        story.putStringArrayListExtra(StoryActivity.STORY_RESOURCES_URL, resources);
         context.startActivity(story);
     }
 
@@ -43,7 +44,7 @@ public class Router {
         context.startActivity(new Intent(context, MainScreen.class));
     }
 
-    public static void gotoDetail(Context context, String id) {
+    public static void gotoDetail(Context context, int id) {
         Intent empty = new Intent(context, EmptyActivity.class);
         empty.putExtra(EmptyActivity.ACTIVITY_TYPE, EmptyActivity.ACTIVITY_DETAIL);
         empty.putExtra(EmptyActivity.CAMPAIGN_ID, id);
