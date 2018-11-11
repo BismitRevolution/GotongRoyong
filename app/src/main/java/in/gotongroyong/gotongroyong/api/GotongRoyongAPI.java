@@ -6,15 +6,22 @@ import android.content.SharedPreferences;
 
 import com.google.firebase.auth.FirebaseUser;
 
+import in.gotongroyong.gotongroyong.ResponseActivity;
 import in.gotongroyong.gotongroyong.ResultActivity;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
+import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
+import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
+import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
+import in.gotongroyong.gotongroyong.data.gotongroyong.AdsResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
+import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.HeroResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.LoginResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.RegisterResponse;
@@ -36,7 +43,7 @@ public class GotongRoyongAPI {
             .create(GotongRoyongService.class);
 
     public static GotongRoyongService getService() {
-        return this.service;
+        return service;
     }
 
     public static void emailLogin(final ResultActivity activity, EmailLoginBody body) {
@@ -152,6 +159,67 @@ public class GotongRoyongAPI {
             @Override
             public void onFailure(Call<BaseResponse<RegisterResponse>> call, Throwable t) {
                 activity.onActivityResult(API.AUTH_GOOGLE_REGISTER, API.ERROR_UNKNOWN);
+            }
+        });
+    }
+
+    public static void listCampaign(final ResponseActivity<CampaignListResponse> activity, int page) {
+        final int responseCode = (page == 1)? API.CAMPAIGN_LIST_INIT : API.CAMPAING_LIST_UPDATE;
+        Call<BaseResponse<CampaignListResponse>> call = service.listCampaign(page);
+        call.enqueue(new Callback<BaseResponse<CampaignListResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<CampaignListResponse>> call, Response<BaseResponse<CampaignListResponse>> response) {
+                if (response.isSuccessful()) {
+                    CampaignListResponse campaignList = response.body().getPayload();
+                    activity.onActivityResponse(responseCode, API.IS_SUCCESS, campaignList);
+                } else {
+                    activity.onActivityResponse(responseCode, API.ERROR_UNKNOWN, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<CampaignListResponse>> call, Throwable t) {
+                activity.onActivityResponse(responseCode, API.ERROR_NO_CONNECTION, null);
+            }
+        });
+    }
+
+    public static void getCampaign(final ResponseActivity<CampaignDetailResponse> activity, CampaignDetailBody body) {
+        Call<BaseResponse<CampaignDetailResponse>> call = service.getCampaign(body);
+        call.enqueue(new Callback<BaseResponse<CampaignDetailResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<CampaignDetailResponse>> call, Response<BaseResponse<CampaignDetailResponse>> response) {
+                if (response.isSuccessful()) {
+                    CampaignDetailResponse detailResponse = response.body().getPayload();
+                    activity.onActivityResponse(API.CAMPAIGN_DETAIL, API.IS_SUCCESS, detailResponse);
+                } else {
+                    activity.onActivityResponse(API.CAMPAIGN_DETAIL, API.ERROR_UNKNOWN, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<CampaignDetailResponse>> call, Throwable t) {
+                activity.onActivityResponse(API.CAMPAIGN_DETAIL, API.ERROR_NO_CONNECTION, null);
+            }
+        });
+    }
+
+    public static void generateAds(final ResponseActivity<GenerateAdsResponse> activity, String api_token, GenerateAdsBody body) {
+        Call<BaseResponse<GenerateAdsResponse>> call = service.generateAds(api_token, body);
+        call.enqueue(new Callback<BaseResponse<GenerateAdsResponse>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<GenerateAdsResponse>> call, Response<BaseResponse<GenerateAdsResponse>> response) {
+                if (response.isSuccessful()) {
+                    GenerateAdsResponse adsResponse = response.body().getPayload();
+                    activity.onActivityResponse(API.ADS_GENERATE, API.IS_SUCCESS, adsResponse);
+                } else {
+                    activity.onActivityResponse(API.ADS_GENERATE, API.ERROR_UNKNOWN, null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<GenerateAdsResponse>> call, Throwable t) {
+                activity.onActivityResponse(API.ADS_GENERATE, API.ERROR_NO_CONNECTION, null);
             }
         });
     }

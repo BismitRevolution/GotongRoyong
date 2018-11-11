@@ -12,15 +12,13 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import in.gotongroyong.gotongroyong.R;
+import in.gotongroyong.gotongroyong.ResponseActivity;
 import in.gotongroyong.gotongroyong.adapter.CampaignDataAdapter;
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
-import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import in.gotongroyong.gotongroyong.entity.API;
 
-public class CampaignFragment extends Fragment implements BaseFragment {
+public class CampaignFragment extends Fragment implements BaseFragment, ResponseActivity {
     private LinearLayoutManager layoutManager;
     private CampaignDataAdapter adapter;
     private int currentPage;
@@ -42,31 +40,12 @@ public class CampaignFragment extends Fragment implements BaseFragment {
         recyclerView.setLayoutManager(layoutManager);
         currentPage = 1;
 
-        Call<BaseResponse<CampaignListResponse>> call = GotongRoyongAPI.getService().listCampaign(currentPage);
-        call.enqueue(new Callback<BaseResponse<CampaignListResponse>>() {
-            @Override
-            public void onResponse(Call<BaseResponse<CampaignListResponse>> call, Response<BaseResponse<CampaignListResponse>> response) {
-                if (response.isSuccessful()) {
-                    CampaignListResponse listResponse = response.body().getPayload();
-                    currentPage = listResponse.getCurrentPage();
-                    nextPageUrl = listResponse.getNextPageUrl();
-                    adapter = new CampaignDataAdapter(listResponse.getData());
-                } else {
-                    errorUnknown();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BaseResponse<CampaignListResponse>> call, Throwable t) {
-                errorConnection();
-            }
-        });
+        GotongRoyongAPI.listCampaign(this, currentPage);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
                 if (!recyclerView.canScrollVertically(1)) {
                     update();
                 }
@@ -74,6 +53,19 @@ public class CampaignFragment extends Fragment implements BaseFragment {
         });
 
         return root;
+    }
+
+    private void fetchData(CampaignListResponse response) {
+        currentPage = response.getCurrentPage();
+        nextPageUrl = response.getNextPageUrl();
+        adapter = new CampaignDataAdapter(response.getData());
+    }
+
+    private void updateData(CampaignListResponse response) {
+        currentPage = response.getCurrentPage();
+        nextPageUrl = response.getNextPageUrl();
+        adapter.update(response.getData());
+        adapter.notifyDataSetChanged();
     }
 
     public void errorConnection() {
@@ -86,29 +78,43 @@ public class CampaignFragment extends Fragment implements BaseFragment {
 
     public void update() {
         if (nextPageUrl != null) {
-            Call<BaseResponse<CampaignListResponse>> call = GotongRoyongAPI.getService().listCampaign(currentPage + 1);
-            call.enqueue(new Callback<BaseResponse<CampaignListResponse>>() {
-                @Override
-                public void onResponse(Call<BaseResponse<CampaignListResponse>> call, Response<BaseResponse<CampaignListResponse>> response) {
-                    if (response.isSuccessful()) {
-                        CampaignListResponse listResponse = response.body().getPayload();
-                        currentPage = listResponse.getCurrentPage();
-                        nextPageUrl = listResponse.getNextPageUrl();
-                        adapter.update(listResponse.getData());
-                        adapter.notifyDataSetChanged();
-                    } else {
-                        errorUnknown();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BaseResponse<CampaignListResponse>> call, Throwable t) {
-                    errorConnection();
-                }
-            });
+            GotongRoyongAPI.listCampaign(this, currentPage + 1);
         }
-
 //        adapter.update("New");
 //        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onActivityResponse(int responseCode, int resultCode, Object response) {
+        switch (responseCode) {
+            case API.CAMPAIGN_LIST_INIT:
+                if (resultCode == API.IS_SUCCESS) {
+                    try {
+                        CampaignListResponse listResponse = (CampaignListResponse) response;
+                        fetchData(listResponse);
+                    } catch (Exception e) {
+                        errorUnknown();
+                    }
+                } else if (resultCode == API.ERROR_NO_CONNECTION) {
+                    errorConnection();
+                } else {
+                    errorUnknown();
+                }
+                break;
+            case API.CAMPAING_LIST_UPDATE:
+                if (resultCode == API.IS_SUCCESS) {
+                    try {
+                        CampaignListResponse listResponse = (CampaignListResponse) response;
+                        updateData(listResponse);
+                    } catch (Exception e) {
+                        errorUnknown();
+                    }
+                } else if (resultCode == API.ERROR_NO_CONNECTION) {
+                    errorConnection();
+                } else {
+                    errorUnknown();
+                }
+                break;
+        }
     }
 }

@@ -24,10 +24,21 @@ public class API {
     public static final int FIREBASE_FACEBOOK_REGISTER = 151;
     public static final int FIREBASE_GOOGLE_REGISTER = 161;
 
+//    CAMPAIGN
+    public static final int CAMPAIGN_LIST_INIT = 600;
+    public static final int CAMPAING_LIST_UPDATE = 601;
+    public static final int CAMPAIGN_DETAIL = 602;
+
+//    ADS
+    public static final int ADS_GENERATE = 700;
+
 //    RESULT
     public static final int ERROR_UNKNOWN = 500;
     public static final int ERROR_WRONG_PASS = 501;
     public static final int ERROR_NOT_REGISTERED = 502;
     public static final int ERROR_EMAIL_ALREADY_REGISTERED = 503;
+
+    public static final int ERROR_NO_CONNECTION = 505;
+
     public static final int IS_SUCCESS = 200;
 }
