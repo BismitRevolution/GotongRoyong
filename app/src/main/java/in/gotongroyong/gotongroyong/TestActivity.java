@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
@@ -43,6 +44,9 @@ public class TestActivity extends AppCompatActivity {
                 testAPI();
             }
         });
+
+        String desc = "<figure class='image'><img src='https://gotongroyong.online/Uploads/baznas-bg.jpg' alt='Baznas Untuk Donggala'></figure><p>Bencana yang menghantam Palu, Sigi dan Donggala tidak menghentikan semangat bangsa Indonesia untuk kerjasama dan bangkit membangun kembali kehidupan-kehidupan disana. GotongRoyong bekerjasama dengan BAZNAS membuat kampanye sosial 1001 Sabun Gratis untuk warga yang terpengaruh bencana di Palu-Sigi-Donggala. &nbsp;&nbsp;</p><p><strong>Ini akan menjadi kampanye donasi uang tanpa uang pertama dalam sejarah Indonesia. 100% uang donasi akan dialirkan ke BAZNAS</strong></p><p>Kami juga bekerjasama dengan partner-partner kami yang memasang iklan, termasuk UMKM yang siap membantu menyalurkan donasi. Setiap partner pengiklan kami berkomitmen akan mendonasikan uang untuk membelikan 1001 sabun gratis bagi warga Palu-Sigi-Donggala. &nbsp; &nbsp;&nbsp;</p><p>Yang perlu kamu lakukan adalah menonton iklan mereka. Uang yang didapatkan dari iklan tersebut akan didonasikan untuk membeli 1001 sabun di Palu-Sigi-Donggala. Kamu tidak perlu mengeluarkan uang atau pergi ke ATM untuk transfer, cukup luangkan waktu 10 detik untuk menonton iklan dan membuat donasi gratis.</p><p>Setiap 10 kali menonton iklan, Anda mendonasikan satu batang sabun bagi warga Palu-Sigi-Donggala. Waktu yang dibutuhkan hanya 2 menit saja. &nbsp; &nbsp;&nbsp;</p><p>Mudah kan? Ayo ajak teman-teman, saudara-saudara dan keluargamu untuk berpartisipasi dalam kampanye donasi uang tanpa uang pertama dalam sejarah Indonesia!</p><p>Yuk Tekan <i><strong>Donasi Gratis </strong></i>sekarang!</p>";
+        ((WebView) findViewById(R.id.wv_test)).loadData(desc, "text/html; charset=UTF-8", null);
     }
 
     @Override

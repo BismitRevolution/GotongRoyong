@@ -261,7 +261,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="@dimen/md_padding"
             android:orientation="vertical">
 
@@ -273,23 +273,18 @@
                 android:textSize="@dimen/campaign_client"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/load_retrieve"
-                android:textSize="@dimen/drawer_lg"/>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/load_retrieve"-->
+                <!--android:textSize="@dimen/drawer_lg"/>-->
 
-            <LinearLayout
+            <WebView
+                android:id="@+id/detail_webview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <WebView
-                    android:id="@+id/detail_webview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </WebView>
-            </LinearLayout>
+            </WebView>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

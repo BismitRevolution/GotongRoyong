@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:text="@string/nav_title"/>
 
+    <WebView
+        android:id="@+id/wv_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+
     <TextView
         android:id="@+id/tv_test_result"
         android:layout_width="wrap_content"
