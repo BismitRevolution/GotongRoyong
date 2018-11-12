@@ -11,12 +11,16 @@
         android:layout_height="wrap_content"
         android:text="@string/nav_title"/>
 
-    <WebView
-        android:id="@+id/wv_test"
+    <android.opengl.GLSurfaceView
+        android:id="@+id/sv_test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" />
 
-    </WebView>
+    <!--<WebView-->
+        <!--android:id="@+id/wv_test"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+    <!--</WebView>-->
 
     <TextView
         android:id="@+id/tv_test_result"

@@ -202,7 +202,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
             video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mp) {
-                    Toast.makeText(getApplicationContext(), "CONFIRMATION!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "END!", Toast.LENGTH_SHORT).show();
                     isFinish = true;
                 }
             });

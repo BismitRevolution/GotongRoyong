@@ -1,21 +1,28 @@
 package in.gotongroyong.gotongroyong;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.SurfaceHolder;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.TextView;
 
+import java.io.IOException;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
+import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
 import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
-import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
-import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
-import in.gotongroyong.gotongroyong.data.body.FacebookRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
@@ -34,6 +41,24 @@ public class TestActivity extends AppCompatActivity {
     private final String FACEBOOK_APP_ID = "502859973522287";
     private final String FACEBOOK_APP_SECRET = "bc6e906b7ea40c514154b64d8a2a3961";
 
+    private GLSurfaceView surfaceView;
+    private MediaPlayer mediaPlayer;
+
+    class MyGLRenderer implements GLSurfaceView.Renderer {
+        @Override
+        public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+            gl.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+        }
+
+        public void onSurfaceChanged(GL10 gl, int w, int h) {
+            gl.glViewport(0, 0, w, h);
+        }
+
+        public void onDrawFrame(GL10 gl) {
+            gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +70,47 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        String desc = "<figure class='image'><img src='https://gotongroyong.online/Uploads/baznas-bg.jpg' alt='Baznas Untuk Donggala'></figure><p>Bencana yang menghantam Palu, Sigi dan Donggala tidak menghentikan semangat bangsa Indonesia untuk kerjasama dan bangkit membangun kembali kehidupan-kehidupan disana. GotongRoyong bekerjasama dengan BAZNAS membuat kampanye sosial 1001 Sabun Gratis untuk warga yang terpengaruh bencana di Palu-Sigi-Donggala. &nbsp;&nbsp;</p><p><strong>Ini akan menjadi kampanye donasi uang tanpa uang pertama dalam sejarah Indonesia. 100% uang donasi akan dialirkan ke BAZNAS</strong></p><p>Kami juga bekerjasama dengan partner-partner kami yang memasang iklan, termasuk UMKM yang siap membantu menyalurkan donasi. Setiap partner pengiklan kami berkomitmen akan mendonasikan uang untuk membelikan 1001 sabun gratis bagi warga Palu-Sigi-Donggala. &nbsp; &nbsp;&nbsp;</p><p>Yang perlu kamu lakukan adalah menonton iklan mereka. Uang yang didapatkan dari iklan tersebut akan didonasikan untuk membeli 1001 sabun di Palu-Sigi-Donggala. Kamu tidak perlu mengeluarkan uang atau pergi ke ATM untuk transfer, cukup luangkan waktu 10 detik untuk menonton iklan dan membuat donasi gratis.</p><p>Setiap 10 kali menonton iklan, Anda mendonasikan satu batang sabun bagi warga Palu-Sigi-Donggala. Waktu yang dibutuhkan hanya 2 menit saja. &nbsp; &nbsp;&nbsp;</p><p>Mudah kan? Ayo ajak teman-teman, saudara-saudara dan keluargamu untuk berpartisipasi dalam kampanye donasi uang tanpa uang pertama dalam sejarah Indonesia!</p><p>Yuk Tekan <i><strong>Donasi Gratis </strong></i>sekarang!</p>";
-        ((WebView) findViewById(R.id.wv_test)).loadData(desc, "text/html; charset=UTF-8", null);
+        String url = "https://gotongroyong.online/Uploads/ads-content/7/1540609561/3-TVC-ELZATTA-2018.mp4";
+        Uri uri = Uri.parse(url);
+
+        surfaceView = findViewById(R.id.sv_test);
+        surfaceView.setRenderer(new MyGLRenderer());
+        mediaPlayer = new MediaPlayer();
+        SurfaceHolder holder = surfaceView.getHolder();
+
+        holder.addCallback(new SurfaceHolder.Callback() {
+            @Override
+            public void surfaceCreated(SurfaceHolder holder) {
+                mediaPlayer.setDisplay(holder);
+            }
+
+            @Override
+            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+            }
+
+            @Override
+            public void surfaceDestroyed(SurfaceHolder holder) {
+                mediaPlayer.setDisplay(null);
+            }
+        });
+
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.start();
+            }
+        });
+
+        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+        try {
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
