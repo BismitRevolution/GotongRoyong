@@ -11,6 +11,7 @@ import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.ShareBody;
+import in.gotongroyong.gotongroyong.data.body.UpdateProfileBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
@@ -54,6 +55,9 @@ public interface GotongRoyongService {
 
     @POST("/api/auth/user/self-detail")
     Call<BaseResponse<LoginResponse>> getUserData(@Header("Authorization") String api_token);
+
+    @POST("/api/auth/user/update")
+    Call<BaseResponse<String>> updateProfile(@Header("Authorization") String api_token, @Body UpdateProfileBody body);
 
     @POST("/api/donates/campaign-ads/create")
     Call<BaseResponse<GenerateAdsResponse>> generateAds(@Header("Authorization") String api_token, @Body GenerateAdsBody body);

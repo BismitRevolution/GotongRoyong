@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -68,6 +69,8 @@ public class DetailFragment extends Fragment implements BaseFragment {
         progressBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.themeOrange), PorterDuff.Mode.SRC_IN);
         double percentage = ((double) data.getCountDonations() / (double) data.getTargetDonation()) * 100;
         progressBar.setProgress((int) percentage);
+
+        ((WebView) root.findViewById(R.id.detail_webview)).loadData(data.getDescription(), "text/html; charset=UTF-8", null);
 
         root.findViewById(R.id.btn_donate).setOnClickListener(new View.OnClickListener() {
             @Override

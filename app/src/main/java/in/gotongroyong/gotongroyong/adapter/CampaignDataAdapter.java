@@ -75,7 +75,7 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
             });
 
             ImageView bg = layout.findViewById(R.id.data_bg);
-            Picasso.get().load(data.getImageProfile()).into(bg);
+            Picasso.get().load(data.getImageList().get(0).getImageUrl()).into(bg);
         }
     }
 

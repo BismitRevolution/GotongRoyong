@@ -43,6 +43,8 @@
     <string name="register_btn_google">Register dengan Google</string>
 
     <string name="field_warning_empty">Silahkan masukkan email dan password Anda!</string>
+    <string name="field_warning_email_invalid">Silahkan masukkan email valid Anda!</string>
+    <string name="field_warning_name_empty">Silahkan masukkan nama lengkap Anda!</string>
     <string name="field_warning_wrong_password">Kombinasi email dan password salah!</string>
     <string name="field_warning_user_not_found">Anda belum terdaftar pada aplikasi</string>
     <string name="field_warning_account_already_registered">Anda sudah terdaftar, silahkan login dengan metode lain</string>
@@ -72,12 +74,20 @@
     <string name="profile_data_placeholder">0 donasi  0 share</string>
     <string name="profile_value">(bernilai sekitar Rp. %s)</string>
     <string name="profile_value_placeholder">(bernilai sekitar Rp. 0)</string>
+    <string name="profile_full_name">Full Name</string>
+    <string name="profile_birthplace">Birthplace</string>
+    <string name="profile_birthdate">Birthdate</string>
+    <string name="profile_username">Username</string>
+    <string name="profile_email">Email</string>
+    <string name="profile_phone_number">Phone Number</string>
     <string name="profile_radio_male">Male</string>
     <string name="profile_radio_female">Female</string>
     <string name="profile_btn_update">Update</string>
-    <string name="profile_link_facebook">Link to FB</string>
-    <string name="profile_link_google">Link to Google</string>
+    <string name="profile_link_facebook">Facebook Profile Link</string>
+    <string name="profile_link_twitter">Twitter Profile Link</string>
+    <string name="profile_link_instagram">Instagram Profile Link</string>
     <string name="profile_link">Link</string>
+    <string name="profile_update_success">Profile updated successfully!</string>
 
     <string name="story_swipe_up">swipe up to see the detail</string>
     <string name="story_searching_ad">Mencari iklan&#8230;</string>

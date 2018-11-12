@@ -1,5 +1,8 @@
 package in.gotongroyong.gotongroyong.data.gotongroyong;
 
+import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.entity.API;
+
 public class HeroResponse {
 
     private int id_user;
@@ -21,7 +24,11 @@ public class HeroResponse {
     }
 
     public String getImgUrl() {
-        return this.image_profile;
+        if (Util.containHttp(this.image_profile)) {
+            return this.image_profile;
+        } else {
+            return API.getBaseApiUrl() + this.image_profile;
+        }
     }
 
     public String getFacebookUrl() {

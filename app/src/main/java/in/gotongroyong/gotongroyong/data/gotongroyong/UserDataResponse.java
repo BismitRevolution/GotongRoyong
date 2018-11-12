@@ -28,4 +28,16 @@ public class UserDataResponse {
     public int getCountDonations() {
         return this.count_donations;
     }
+
+    public String getFacebookLink() {
+        return this.fb_link;
+    }
+
+    public String getTwitterLink() {
+        return this.twitter_link;
+    }
+
+    public String getInstagramLink() {
+        return this.instagram_link;
+    }
 }

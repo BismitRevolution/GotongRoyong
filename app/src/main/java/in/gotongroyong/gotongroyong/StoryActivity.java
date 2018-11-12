@@ -138,7 +138,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
         Intent intent = getIntent();
         int campaign_id = intent.getIntExtra(STORY_CAMPAIGN_ID, -1);
 
-        GotongRoyongAPI.generateAds(this, "Bearer " + api_token, new GenerateAdsBody(campaign_id));
+        GotongRoyongAPI.generateAds(this, api_token, new GenerateAdsBody(campaign_id));
     }
 
     private void createTimer() {

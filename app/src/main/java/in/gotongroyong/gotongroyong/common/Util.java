@@ -12,6 +12,10 @@ public class Util {
         return NumberFormat.getNumberInstance(Locale.US).format(number);
     }
 
+    public static boolean containHttp(String url) {
+        return url.substring(0, 4).equals("http");
+    }
+
     public static boolean isEmpty(String text) {
         return TextUtils.isEmpty(text);
     }
