@@ -34,6 +34,7 @@ import javax.microedition.khronos.opengles.GL10;
 import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
+import in.gotongroyong.gotongroyong.data.body.DonateBody;
 import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.AdsResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.DonationResponse;
@@ -200,7 +201,10 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
     }
 
     private void confirm(int id_campaign) {
-        Router.gotoConfirmation(getApplicationContext(), id_campaign);
+        SharedPreferences savedData = getSharedPreferences(Preferences.SETTING_USER, MODE_PRIVATE);
+        String api_token = savedData.getString(Preferences.USER_API_TOKEN, "");
+
+        GotongRoyongAPI.donate(this, api_token, new DonateBody(id_campaign, id_donation));
     }
 
     private void fetchData(GenerateAdsResponse response) {
@@ -275,7 +279,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                Toast.makeText(getApplicationContext(), "END!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "END!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -445,6 +449,14 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
                     // Do something?
                 }
                 break;
+            case API.CAMPAIGN_DONATE:
+                if (resultCode == API.IS_SUCCESS) {
+                    Router.gotoConfirmation(getApplicationContext(), id_campaign);
+                } else if (resultCode == API.ERROR_NO_CONNECTION) {
+                    errorConnection();
+                } else {
+                    errorUnknown();
+                }
         }
     }
 

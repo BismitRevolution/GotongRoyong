@@ -11,6 +11,7 @@ import in.gotongroyong.gotongroyong.ResultActivity;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
 import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
+import in.gotongroyong.gotongroyong.data.body.DonateBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
@@ -286,6 +287,26 @@ public class GotongRoyongAPI {
             @Override
             public void onFailure(Call<BaseResponse<GenerateAdsResponse>> call, Throwable t) {
                 activity.onActivityResponse(API.ADS_GENERATE, API.ERROR_NO_CONNECTION, null);
+            }
+        });
+    }
+
+    public static void donate(final ResultActivity activity, String api_token, DonateBody body) {
+        Call<BaseResponse<String>> call = service.donate(token_header + api_token, body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    String message = response.body().getPayload();
+                    activity.onActivityResult(API.CAMPAIGN_DONATE, API.IS_SUCCESS);
+                } else {
+                    activity.onActivityResult(API.CAMPAIGN_DONATE, API.ERROR_UNKNOWN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                activity.onActivityResult(API.CAMPAIGN_DONATE, API.ERROR_NO_CONNECTION);
             }
         });
     }

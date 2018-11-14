@@ -2,6 +2,7 @@ package in.gotongroyong.gotongroyong.api;
 
 import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
 import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
+import in.gotongroyong.gotongroyong.data.body.DonateBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
@@ -61,6 +62,9 @@ public interface GotongRoyongService {
 
     @POST("/api/donates/campaign-ads/create")
     Call<BaseResponse<GenerateAdsResponse>> generateAds(@Header("Authorization") String api_token, @Body GenerateAdsBody body);
+
+    @POST("/api/donates/campaign-ads/donate-success")
+    Call<BaseResponse<String>> donate(@Header("Authorization") String api_token, @Body DonateBody body);
 
     @POST("/api/donates/campaign-ads/share-success")
     Call<BaseResponse<String>> share(@Body ShareBody body);

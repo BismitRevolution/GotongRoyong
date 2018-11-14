@@ -34,6 +34,7 @@ public class API {
     public static final int CAMPAING_LIST_UPDATE = 601;
     public static final int CAMPAIGN_DETAIL = 602;
     public static final int CAMPAIGN_SHARE = 603;
+    public static final int CAMPAIGN_DONATE = 604;
 
 //    HERO
     public static final int HERO_LIST_INIT = 700;
