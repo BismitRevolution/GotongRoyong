@@ -54,7 +54,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
     private GLSurfaceView surfaceView;
     private MediaPlayer mediaPlayer;
 
-//    private boolean isVideo;
+    private boolean isVideo;
     private int id_donation;
     private int id_campaign;
 //    private ArrayList<String> resources;
@@ -105,12 +105,16 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
 
     private void openLink() {
         Log.d(STORY_TAG, "SWIPE LINK TO " + this.websiteUrl);
-        if (isFound) {
+        if (isFound && isLoaded) {
             if (this.websiteUrl.equals("")) {
                 Toast.makeText(getApplicationContext(), "Link is unavailable!", Toast.LENGTH_SHORT).show();
             } else {
                 GotongRoyongAPI.adsClick(this, new AdsClickBody(this.id_donation));
-                Router.gotoLink(getApplicationContext(), this.websiteUrl);
+                try {
+                    Router.gotoLink(getApplicationContext(), this.websiteUrl);
+                } catch (Exception e) {
+                    errorUnknown();
+                }
             }
         }
     }
@@ -216,8 +220,10 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
 
         if (isVideo(ads.getAdsCategory())) {
 //            setVideoStory(ads.getContentUrl());
+            this.isVideo = true;
             setSurfaceStory(ads.getContentUrl());
         } else {
+            this.isVideo = false;
             setImageStory(ads.getContentUrl());
         }
     }
@@ -324,6 +330,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
             Picasso.get().load(url).into(image, new Callback() {
                 @Override
                 public void onSuccess() {
+                    isLoaded = true;
                     stopLoading();
                     showFeature();
                 }
@@ -382,14 +389,18 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
             int action = MotionEventCompat.getActionMasked(event);
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    mediaPlayer.seekTo(0);
-                    mediaPlayer.start();
+                    if (this.isVideo) {
+                        mediaPlayer.seekTo(0);
+                        mediaPlayer.start();
+                    }
 //                        video.seekTo(0);
 //                        video.start();
                     timer.start();
                     break;
                 case MotionEvent.ACTION_UP:
-                    mediaPlayer.pause();
+                    if (this.isVideo) {
+                        mediaPlayer.pause();
+                    }
 //                        video.pause(\);
                     timer.cancel();
                     break;
@@ -452,8 +463,8 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
                 if (resultCode == API.IS_SUCCESS) {
                     try {
                         GenerateAdsResponse adsResponse = (GenerateAdsResponse) response;
-                        isFound = true;
                         fetchData(adsResponse);
+                        isFound = true;
                     } catch (Exception e) {
                         errorUnknown();
                         showErrorPanel();
