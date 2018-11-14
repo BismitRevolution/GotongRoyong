@@ -12,6 +12,11 @@
         android:text="@string/nav_title"/>
 
     <android.opengl.GLSurfaceView
+        android:id="@+id/gl_sv_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <SurfaceView
         android:id="@+id/sv_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

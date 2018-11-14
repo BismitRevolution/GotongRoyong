@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,7 +42,8 @@ public class TestActivity extends AppCompatActivity {
     private final String FACEBOOK_APP_ID = "502859973522287";
     private final String FACEBOOK_APP_SECRET = "bc6e906b7ea40c514154b64d8a2a3961";
 
-    private GLSurfaceView surfaceView;
+//    private GLSurfaceView glSurfaceView;
+    private SurfaceView surfaceView;
     private MediaPlayer mediaPlayer;
 
     class MyGLRenderer implements GLSurfaceView.Renderer {
@@ -73,9 +75,11 @@ public class TestActivity extends AppCompatActivity {
         String url = "https://gotongroyong.online/Uploads/ads-content/7/1540609561/3-TVC-ELZATTA-2018.mp4";
         Uri uri = Uri.parse(url);
 
+//        glSurfaceView = findViewById(R.id.gl_sv_test);
+//        glSurfaceView.setRenderer(new MyGLRenderer());
         surfaceView = findViewById(R.id.sv_test);
-        surfaceView.setRenderer(new MyGLRenderer());
         mediaPlayer = new MediaPlayer();
+//        SurfaceHolder holder = glSurfaceView.getHolder();
         SurfaceHolder holder = surfaceView.getHolder();
 
         holder.addCallback(new SurfaceHolder.Callback() {
