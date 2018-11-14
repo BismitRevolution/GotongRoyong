@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import in.gotongroyong.gotongroyong.ConfirmationActivity;
 import in.gotongroyong.gotongroyong.EmptyActivity;
 import in.gotongroyong.gotongroyong.LoginActivity;
 import in.gotongroyong.gotongroyong.MainScreen;
@@ -38,6 +39,12 @@ public class Router {
 //        story.putExtra(StoryActivity.STORY_VIDEO_TYPE, isVideoType);
 //        story.putStringArrayListExtra(StoryActivity.STORY_RESOURCES_URL, resources);
         context.startActivity(story);
+    }
+
+    public static void gotoConfirmation(Context context, int campaign_id) {
+        Intent confirmation = new Intent(context, ConfirmationActivity.class);
+        confirmation.putExtra(ConfirmationActivity.CONFIRMATION_CAMPAIGN_ID, campaign_id);
+        context.startActivity(confirmation);
     }
 
     public static void gotoMain(Context context) {

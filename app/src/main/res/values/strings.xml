@@ -61,6 +61,10 @@
     <string name="campaign_participation_value">%s donation</string>
     <string name="campaign_participation_placeholder">0 donation</string>
 
+    <string name="confirmation_title">Selamat, Anda telah berdonasi!</string>
+    <string name="confirmation_description_value">Anda adalah pahlawan yang telah berdonasi pada campaign \"%s\" \noleh %s</string>
+    <string name="confirmation_share_value">Ayo sebarkan lebih luas!\n1 share = sekitar 12 donatur/pahlawan</string>
+
     <string name="detail_description">Deskripsi</string>
 
     <string name="pahlawan_subtitle">Mereka adalah pahlawan kebaikan.</string>

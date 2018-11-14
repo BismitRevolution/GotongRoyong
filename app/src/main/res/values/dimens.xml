@@ -11,12 +11,15 @@
     <dimen name="spinner_lg">80dp</dimen>
 
     <dimen name="campaign_banner_height">300dp</dimen>
+    <dimen name="campaign_confirmation_height">200dp</dimen>
     <dimen name="campaign_pic">30dp</dimen>
     <dimen name="campaign_title">20sp</dimen>
     <dimen name="campaign_client">14sp</dimen>
     <dimen name="campaign_data_name">7sp</dimen>
     <dimen name="campaign_counter_data">12sp</dimen>
     <dimen name="campaign_counter_day">14sp</dimen>
+
+    <dimen name="confirmation_width">400dp</dimen>
 
     <dimen name="drawer_lg">14sp</dimen>
     <dimen name="drawer_xs">10sp</dimen>

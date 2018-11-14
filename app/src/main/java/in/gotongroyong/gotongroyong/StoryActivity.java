@@ -56,6 +56,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
 
 //    private boolean isVideo;
     private int id_donation;
+    private int id_campaign;
 //    private ArrayList<String> resources;
     private String websiteUrl;
     private CountDownTimer timer;
@@ -188,9 +189,14 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
             @Override
             public void onFinish() {
                 Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_LONG).show();
+                confirm(id_campaign);
                 finish();
             }
         };
+    }
+
+    private void confirm(int id_campaign) {
+        Router.gotoConfirmation(getApplicationContext(), id_campaign);
     }
 
     private void fetchData(GenerateAdsResponse response) {
@@ -198,6 +204,7 @@ public class StoryActivity extends AppCompatActivity implements ResultActivity, 
         AdsResponse ads = response.getAdsData();
 
         this.id_donation = donation.getIdAds();
+        this.id_campaign = donation.getCampaignId();
 
         createTimer(ads.getDuration() * 1000);
         this.websiteUrl = ads.getWebsiteUrl();

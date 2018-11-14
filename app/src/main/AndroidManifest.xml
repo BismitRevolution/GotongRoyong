@@ -42,6 +42,9 @@
         <activity android:name=".StoryActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
 
+        <activity android:name=".ConfirmationActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+
         <activity android:name=".EmptyActivity" />
 
         <activity android:name=".TestActivity" />
