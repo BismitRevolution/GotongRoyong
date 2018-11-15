@@ -4,8 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/darkGray">
 
-    <VideoView
-        android:id="@+id/story_video"
+    <!--<VideoView-->
+        <!--android:id="@+id/story_video"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:visibility="gone"/>-->
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/story_surface"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"/>

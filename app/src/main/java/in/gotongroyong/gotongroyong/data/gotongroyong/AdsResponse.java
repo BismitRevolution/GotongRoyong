@@ -1,5 +1,7 @@
 package in.gotongroyong.gotongroyong.data.gotongroyong;
 
+import in.gotongroyong.gotongroyong.entity.API;
+
 public class AdsResponse {
 
     private int id;
@@ -29,7 +31,7 @@ public class AdsResponse {
     }
 
     public String getContentUrl() {
-        return this.content_url;
+        return API.getBaseApiUrl() + "/" + this.content_url;
     }
 
     public String getWebsiteUrl() {
@@ -41,6 +43,6 @@ public class AdsResponse {
     }
 
     public String getAdvLogo() {
-        return this.advertiser_logo;
+        return API.getBaseApiUrl() + "/" + this.advertiser_logo;
     }
 }

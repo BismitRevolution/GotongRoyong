@@ -11,6 +11,7 @@ import in.gotongroyong.gotongroyong.ResultActivity;
 import in.gotongroyong.gotongroyong.data.BaseResponse;
 import in.gotongroyong.gotongroyong.data.body.AdsClickBody;
 import in.gotongroyong.gotongroyong.data.body.CampaignDetailBody;
+import in.gotongroyong.gotongroyong.data.body.DonateBody;
 import in.gotongroyong.gotongroyong.data.body.EmailLoginBody;
 import in.gotongroyong.gotongroyong.data.body.EmailRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.FacebookLoginBody;
@@ -19,6 +20,7 @@ import in.gotongroyong.gotongroyong.data.body.GenerateAdsBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleLoginBody;
 import in.gotongroyong.gotongroyong.data.body.GoogleRegisterBody;
 import in.gotongroyong.gotongroyong.data.body.ShareBody;
+import in.gotongroyong.gotongroyong.data.body.UpdateProfileBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignListResponse;
 import in.gotongroyong.gotongroyong.data.gotongroyong.GenerateAdsResponse;
@@ -35,6 +37,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GotongRoyongAPI {
+
+    private static String token_header = "Bearer ";
 
     private static GotongRoyongService service = new Retrofit.Builder()
             .baseUrl(API.getBaseApiUrl())
@@ -229,7 +233,7 @@ public class GotongRoyongAPI {
     }
 
     public static void getUserData(final ResponseActivity<LoginResponse> activity, String api_token) {
-        Call<BaseResponse<LoginResponse>> call = service.getUserData(api_token);
+        Call<BaseResponse<LoginResponse>> call = service.getUserData(token_header + api_token);
         call.enqueue(new Callback<BaseResponse<LoginResponse>>() {
             @Override
             public void onResponse(Call<BaseResponse<LoginResponse>> call, Response<BaseResponse<LoginResponse>> response) {
@@ -248,8 +252,27 @@ public class GotongRoyongAPI {
         });
     }
 
+    public static void updateProfile(final ResultActivity activity, String api_token, UpdateProfileBody body) {
+        Call<BaseResponse<String>> call = service.updateProfile(token_header + api_token, body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    activity.onActivityResult(API.HERO_UPDATE_PROFILE, API.IS_SUCCESS);
+                } else {
+                    activity.onActivityResult(API.HERO_UPDATE_PROFILE, API.ERROR_UNKNOWN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                activity.onActivityResult(API.HERO_UPDATE_PROFILE, API.ERROR_NO_CONNECTION);
+            }
+        });
+    }
+
     public static void generateAds(final ResponseActivity<GenerateAdsResponse> activity, String api_token, GenerateAdsBody body) {
-        Call<BaseResponse<GenerateAdsResponse>> call = service.generateAds(api_token, body);
+        Call<BaseResponse<GenerateAdsResponse>> call = service.generateAds(token_header + api_token, body);
         call.enqueue(new Callback<BaseResponse<GenerateAdsResponse>>() {
             @Override
             public void onResponse(Call<BaseResponse<GenerateAdsResponse>> call, Response<BaseResponse<GenerateAdsResponse>> response) {
@@ -264,6 +287,26 @@ public class GotongRoyongAPI {
             @Override
             public void onFailure(Call<BaseResponse<GenerateAdsResponse>> call, Throwable t) {
                 activity.onActivityResponse(API.ADS_GENERATE, API.ERROR_NO_CONNECTION, null);
+            }
+        });
+    }
+
+    public static void donate(final ResultActivity activity, String api_token, DonateBody body) {
+        Call<BaseResponse<String>> call = service.donate(token_header + api_token, body);
+        call.enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                if (response.isSuccessful()) {
+                    String message = response.body().getPayload();
+                    activity.onActivityResult(API.CAMPAIGN_DONATE, API.IS_SUCCESS);
+                } else {
+                    activity.onActivityResult(API.CAMPAIGN_DONATE, API.ERROR_UNKNOWN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                activity.onActivityResult(API.CAMPAIGN_DONATE, API.ERROR_NO_CONNECTION);
             }
         });
     }
@@ -319,6 +362,7 @@ public class GotongRoyongAPI {
         String name = loggedUser.getDisplayName();
 
         String api_token = response.getApiToken();
+//        String username = response.getUsername();
 
         UserDataResponse hero = response.getDataPahlawan();
         int totalDonation = hero.getCountDonations();
@@ -328,6 +372,7 @@ public class GotongRoyongAPI {
         SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
         editor.putString(Preferences.USER_ID, id);
         editor.putString(Preferences.USER_API_TOKEN, api_token);
+//        editor.putString(Preferences.USER_USERNAME, username);
         editor.putString(Preferences.USER_NAME, name);
         editor.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
         editor.putInt(Preferences.USER_TOTAL_SHARE, totalShare);
@@ -341,6 +386,7 @@ public class GotongRoyongAPI {
         String name = loggedUser.getDisplayName();
 
         String api_token = response.getApiToken();
+//        String username = response.getUsername();
 
         UserDataResponse hero = response.getDataPahlawan();
         int totalDonation = hero.getCountDonations();
@@ -350,6 +396,7 @@ public class GotongRoyongAPI {
         SharedPreferences.Editor editor = context.getSharedPreferences(Preferences.SETTING_USER, Context.MODE_PRIVATE).edit();
         editor.putString(Preferences.USER_ID, id);
         editor.putString(Preferences.USER_API_TOKEN, api_token);
+//        editor.putString(Preferences.USER_USERNAME, username);
         editor.putString(Preferences.USER_NAME, name);
         editor.putInt(Preferences.USER_TOTAL_DONATION, totalDonation);
         editor.putInt(Preferences.USER_TOTAL_SHARE, totalShare);

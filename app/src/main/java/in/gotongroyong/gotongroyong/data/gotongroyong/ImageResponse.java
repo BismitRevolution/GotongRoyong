@@ -8,6 +8,6 @@ public class ImageResponse {
     private String img_url;
 
     public String getImageUrl() {
-        return API.getBaseApiUrl() + this.img_url;
+        return API.getBaseApiUrl() + "/" + this.img_url;
     }
 }

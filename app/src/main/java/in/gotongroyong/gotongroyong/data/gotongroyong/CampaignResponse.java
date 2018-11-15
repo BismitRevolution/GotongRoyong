@@ -35,7 +35,7 @@ public class CampaignResponse {
     }
 
     public String getImageProfile() {
-        return API.getBaseApiUrl() + this.image_profile;
+        return API.getBaseApiUrl() + "/" + this.image_profile;
     }
 
     public int getCountDonations() {

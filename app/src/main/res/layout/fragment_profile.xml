@@ -87,13 +87,29 @@
                     android:textSize="@dimen/drawer_xs"
                     android:textStyle="italic"/>
 
+                <TextView
+                    android:id="@+id/field_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/profile_subtitle"
+                    android:textColor="@android:color/holo_red_dark"/>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/themeOrange"
+                    android:hint="@string/profile_email"
+                    android:inputType="textEmailAddress"
+                    android:textSize="@dimen/drawer_lg" />
+
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_name"
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/drawer_lg"
-                    android:hint="@string/load_retrieve"
+                    android:hint="@string/profile_full_name"
                     android:backgroundTint="@color/themeOrange" />
 
                 <android.support.v7.widget.AppCompatEditText
@@ -102,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/drawer_lg"
-                    android:hint="@string/load_retrieve"
+                    android:hint="@string/profile_birthplace"
                     android:backgroundTint="@color/themeOrange" />
 
                 <android.support.v7.widget.AppCompatEditText
@@ -113,26 +129,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/drawer_lg"
-                    android:hint="@string/load_retrieve"
+                    android:hint="@string/profile_birthdate"
                     android:backgroundTint="@color/themeOrange" />
 
                 <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/field_city"
+                    android:id="@+id/field_username"
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/drawer_lg"
-                    android:hint="@string/load_retrieve"
-                    android:backgroundTint="@color/themeOrange" />
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/field_email"
-                    android:inputType="textEmailAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/drawer_lg"
-                    android:hint="@string/load_retrieve"
-                    android:backgroundTint="@color/themeOrange" />
+                    android:hint="@string/profile_username"
+                    android:backgroundTint="@color/themeOrange"
+                    android:visibility="gone"/>
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/field_password"
@@ -182,7 +190,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/drawer_lg"
-                    android:hint="@string/load_retrieve"/>
+                    android:hint="@string/profile_phone_number"/>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_link_facebook"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
+                    android:hint="@string/profile_link_facebook"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_link_twitter"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
+                    android:hint="@string/profile_link_twitter"
+                    android:backgroundTint="@color/themeOrange" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/field_link_instagram"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/drawer_lg"
+                    android:hint="@string/profile_link_instagram"
+                    android:backgroundTint="@color/themeOrange" />
 
                 <!--<LinearLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -210,12 +245,13 @@
                 <!--</LinearLayout>-->
 
                 <Button
+                    android:id="@+id/btn_update"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_default_height"
                     android:layout_marginTop="@dimen/base_padding"
                     android:backgroundTint="@color/themeOrange"
                     android:text="@string/profile_btn_update"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white" />
             </LinearLayout>
 
         </LinearLayout>

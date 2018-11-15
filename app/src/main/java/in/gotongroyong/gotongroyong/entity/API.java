@@ -34,11 +34,13 @@ public class API {
     public static final int CAMPAING_LIST_UPDATE = 601;
     public static final int CAMPAIGN_DETAIL = 602;
     public static final int CAMPAIGN_SHARE = 603;
+    public static final int CAMPAIGN_DONATE = 604;
 
 //    HERO
     public static final int HERO_LIST_INIT = 700;
     public static final int HERO_LIST_UPDATE = 701;
     public static final int HERO_USER_DATA = 702;
+    public static final int HERO_UPDATE_PROFILE = 703;
 
 //    ADS
     public static final int ADS_GENERATE = 800;

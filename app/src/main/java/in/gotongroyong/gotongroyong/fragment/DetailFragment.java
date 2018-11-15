@@ -11,20 +11,26 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 import in.gotongroyong.gotongroyong.R;
+import in.gotongroyong.gotongroyong.ResultActivity;
+import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.data.body.ShareBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignDetailResponse;
+import in.gotongroyong.gotongroyong.entity.API;
 
-public class DetailFragment extends Fragment implements BaseFragment {
+public class DetailFragment extends Fragment implements BaseFragment, ResultActivity {
     private View root;
     private String title;
 
@@ -69,6 +75,8 @@ public class DetailFragment extends Fragment implements BaseFragment {
         double percentage = ((double) data.getCountDonations() / (double) data.getTargetDonation()) * 100;
         progressBar.setProgress((int) percentage);
 
+        ((WebView) root.findViewById(R.id.detail_webview)).loadData(data.getDescription(), "text/html; charset=UTF-8", null);
+
         root.findViewById(R.id.btn_donate).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,10 +87,32 @@ public class DetailFragment extends Fragment implements BaseFragment {
             }
         });
 
+        root.findViewById(R.id.btn_data_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share(data.getCampaignId(), data.getTitle());
+            }
+        });
+    }
+
+    private void share(int id, String title) {
+        Router.share(getContext(), id, title);
+        GotongRoyongAPI.share(this, new ShareBody(id));
     }
 
     @Override
     public String getTitle() {
         return this.title;
+    }
+
+    @Override
+    public void onActivityResult(int responseCode, int resultCode) {
+        switch (responseCode) {
+            case API.CAMPAIGN_SHARE:
+                if (resultCode == API.IS_SUCCESS) {
+                    // Do something?
+                }
+                break;
+        }
     }
 }

@@ -21,6 +21,10 @@ public class RegisterResponse {
         return this.api_token;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     public String getFullname() {
         return this.fullname;
     }

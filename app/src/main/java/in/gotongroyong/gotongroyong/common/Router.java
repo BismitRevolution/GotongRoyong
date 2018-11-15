@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import in.gotongroyong.gotongroyong.ConfirmationActivity;
 import in.gotongroyong.gotongroyong.EmptyActivity;
 import in.gotongroyong.gotongroyong.LoginActivity;
 import in.gotongroyong.gotongroyong.MainScreen;
@@ -40,6 +41,12 @@ public class Router {
         context.startActivity(story);
     }
 
+    public static void gotoConfirmation(Context context, int campaign_id) {
+        Intent confirmation = new Intent(context, ConfirmationActivity.class);
+        confirmation.putExtra(ConfirmationActivity.CONFIRMATION_CAMPAIGN_ID, campaign_id);
+        context.startActivity(confirmation);
+    }
+
     public static void gotoMain(Context context) {
         context.startActivity(new Intent(context, MainScreen.class));
     }
@@ -61,6 +68,16 @@ public class Router {
         Intent link = new Intent(Intent.ACTION_VIEW);
         link.setData(Uri.parse(url));
         context.startActivity(link);
+    }
+
+    public static void share(Context context, int campaign_id, String campaign_title) {
+        String deep_play_store = "https://play.google.com/store/apps/details?id=in.gotongroyong.gotongroyong&campaign=" + campaign_id;
+        String message = campaign_title + "\n" + deep_play_store;
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setType("text/plain");
+        context.startActivity(intent);
     }
 
     public static void sentEmail(Context context) {
