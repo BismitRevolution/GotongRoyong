@@ -66,6 +66,7 @@
     <string name="confirmation_share_value">Ayo sebarkan lebih luas!\n1 share = sekitar 12 donatur/pahlawan</string>
 
     <string name="detail_description">Deskripsi</string>
+    <string name="detail_deep_link">Detail Campaign</string>
 
     <string name="pahlawan_subtitle">Mereka adalah pahlawan kebaikan.</string>
     <string name="pahlawan_lihat_profil">lihat profil di</string>

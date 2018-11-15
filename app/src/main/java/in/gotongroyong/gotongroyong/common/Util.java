@@ -1,5 +1,6 @@
 package in.gotongroyong.gotongroyong.common;
 
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Patterns;
 
@@ -22,5 +23,12 @@ public class Util {
 
     public static boolean isValidEmail(CharSequence text) {
         return (!TextUtils.isEmpty(text) && Patterns.EMAIL_ADDRESS.matcher(text).matches());
+    }
+
+    public static String getDataUri(Uri uri) {
+        String link = uri.toString();
+        String[] split = link.split("/");
+        String[] value = split[split.length - 1].split("=");
+        return value[value.length - 1];
     }
 }

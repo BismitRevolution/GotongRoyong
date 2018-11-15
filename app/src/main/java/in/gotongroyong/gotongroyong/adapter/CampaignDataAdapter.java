@@ -1,5 +1,6 @@
 package in.gotongroyong.gotongroyong.adapter;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -18,14 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.gotongroyong.gotongroyong.R;
+import in.gotongroyong.gotongroyong.ResultActivity;
+import in.gotongroyong.gotongroyong.api.GotongRoyongAPI;
 import in.gotongroyong.gotongroyong.common.Router;
 import in.gotongroyong.gotongroyong.common.Util;
+import in.gotongroyong.gotongroyong.data.body.ShareBody;
 import in.gotongroyong.gotongroyong.data.gotongroyong.CampaignResponse;
+import in.gotongroyong.gotongroyong.entity.API;
 
 public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapter.CampaignViewHolder> {
     private List<CampaignResponse> dataset;
 
-    public static class CampaignViewHolder extends RecyclerView.ViewHolder {
+    public static class CampaignViewHolder extends RecyclerView.ViewHolder implements ResultActivity {
         private RelativeLayout layout;
 
         public CampaignViewHolder(RelativeLayout layout) {
@@ -67,6 +72,13 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
                 }
             });
 
+            layout.findViewById(R.id.btn_data_share).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    share(layout.getContext(), data.getCampaignId(), data.getTitle());
+                }
+            });
+
             layout.findViewById(R.id.campaign).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,6 +88,22 @@ public class CampaignDataAdapter extends RecyclerView.Adapter<CampaignDataAdapte
 
             ImageView bg = layout.findViewById(R.id.data_bg);
             Picasso.get().load(data.getImageList().get(0).getImageUrl()).into(bg);
+        }
+
+        private void share(Context context, int id, String title) {
+            Router.share(context, id, title);
+            GotongRoyongAPI.share(this, new ShareBody(id));
+        }
+
+        @Override
+        public void onActivityResult(int responseCode, int resultCode) {
+            switch (responseCode) {
+                case API.CAMPAIGN_SHARE:
+                    if (resultCode == API.IS_SUCCESS) {
+                        // Do something?
+                    }
+                    break;
+            }
         }
     }
 

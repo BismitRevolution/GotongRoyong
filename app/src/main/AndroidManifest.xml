@@ -45,7 +45,29 @@
         <activity android:name=".ConfirmationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
-        <activity android:name=".EmptyActivity" />
+        <activity android:name=".EmptyActivity">
+            <!--<intent-filter android:label="@string/detail_deep_link">-->
+                <!--<action android:name="android.intent.action.VIEW" />-->
+                <!--<category android:name="android.intent.category.DEFAULT" />-->
+                <!--<category android:name="android.intent.category.BROWSABLE" />-->
+                <!--&lt;!&ndash; Accepts URIs that begin with "gotongroyong://campaign” &ndash;&gt;-->
+                <!--<data android:scheme="gotongroyong"-->
+                    <!--android:host="campaign" />-->
+            <!--</intent-filter>-->
+            <intent-filter android:label="@string/detail_deep_link">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Accepts URIs that begin with "http://www.gotongroyong.in/camapaign” -->
+                <!--<data android:scheme="http"-->
+                    <!--android:host="www.gotongroyong.in"-->
+                    <!--android:pathPrefix="/campaign" />-->
+                <data android:scheme="https"
+                    android:host="play.google.com"
+                    android:pathPrefix="/store/apps" />
+                <!-- note that the leading "/" is required for pathPrefix-->
+            </intent-filter>
+        </activity>
 
         <activity android:name=".TestActivity" />
         <activity android:name=".LoadingScreen"

@@ -46,20 +46,20 @@ public class TestActivity extends AppCompatActivity {
     private SurfaceView surfaceView;
     private MediaPlayer mediaPlayer;
 
-    class MyGLRenderer implements GLSurfaceView.Renderer {
-        @Override
-        public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-            gl.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        }
-
-        public void onSurfaceChanged(GL10 gl, int w, int h) {
-            gl.glViewport(0, 0, w, h);
-        }
-
-        public void onDrawFrame(GL10 gl) {
-            gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-        }
-    }
+//    class MyGLRenderer implements GLSurfaceView.Renderer {
+//        @Override
+//        public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+//            gl.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+//        }
+//
+//        public void onSurfaceChanged(GL10 gl, int w, int h) {
+//            gl.glViewport(0, 0, w, h);
+//        }
+//
+//        public void onDrawFrame(GL10 gl) {
+//            gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+//        }
+//    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,58 +68,75 @@ public class TestActivity extends AppCompatActivity {
         findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testAPI();
+//                testAPI();
+                share();
             }
         });
 
-        String url = "https://gotongroyong.online/Uploads/ads-content/7/1540609561/3-TVC-ELZATTA-2018.mp4";
-        Uri uri = Uri.parse(url);
+
+//        String url = "https://gotongroyong.online/Uploads/ads-content/7/1540609561/3-TVC-ELZATTA-2018.mp4";
+//        Uri uri = Uri.parse(url);
 
 //        glSurfaceView = findViewById(R.id.gl_sv_test);
 //        glSurfaceView.setRenderer(new MyGLRenderer());
-        surfaceView = findViewById(R.id.sv_test);
-        mediaPlayer = new MediaPlayer();
+//        surfaceView = findViewById(R.id.sv_test);
+//        mediaPlayer = new MediaPlayer();
 //        SurfaceHolder holder = glSurfaceView.getHolder();
-        SurfaceHolder holder = surfaceView.getHolder();
+//        SurfaceHolder holder = surfaceView.getHolder();
 
-        holder.addCallback(new SurfaceHolder.Callback() {
-            @Override
-            public void surfaceCreated(SurfaceHolder holder) {
-                mediaPlayer.setDisplay(holder);
-            }
+//        holder.addCallback(new SurfaceHolder.Callback() {
+//            @Override
+//            public void surfaceCreated(SurfaceHolder holder) {
+//                mediaPlayer.setDisplay(holder);
+//            }
+//
+//            @Override
+//            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+//
+//            }
+//
+//            @Override
+//            public void surfaceDestroyed(SurfaceHolder holder) {
+//                mediaPlayer.setDisplay(null);
+//            }
+//        });
 
-            @Override
-            public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+//        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//            @Override
+//            public void onPrepared(MediaPlayer mp) {
+//                mp.start();
+//            }
+//        });
 
-            }
+//        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
-            @Override
-            public void surfaceDestroyed(SurfaceHolder holder) {
-                mediaPlayer.setDisplay(null);
-            }
-        });
-
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.start();
-            }
-        });
-
-        holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-
-        try {
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//            mediaPlayer.setDataSource(url);
+//            mediaPlayer.prepare();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void share() {
+//        String pkg = "id.ac.ui.cs.mobileprogramming.ibrahim.gitprofile";
+//        String youtube = "com.google.android.youtube";
+//        intent.setData(Uri.parse("https://play.google.com/store/apps/details?id=" + pkg));
+//        intent.setPackage(youtube);
+//        String shareLine = "https://line.me/R/msg/text/?" + pkg;
+        String gtg = "in.gotongroyong.gotongroyong";
+        String deep_link = "gotongroyong://campaign/1";
+        String deep_link_http = "http://www.gotongroyong.in/campaign/1";
+        String deep_play_store = "https://play.google.com/store/apps/details?id=in.gotongroyong.gotongroyong&campaign=1";
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, deep_play_store);
+        intent.setType("text/plain");
+        startActivity(intent);
+
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(shareLine));
+//        startActivity(intent);
     }
 
     private void testAPI() {

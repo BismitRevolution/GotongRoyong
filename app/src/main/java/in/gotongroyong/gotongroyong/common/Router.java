@@ -70,6 +70,16 @@ public class Router {
         context.startActivity(link);
     }
 
+    public static void share(Context context, int campaign_id, String campaign_title) {
+        String deep_play_store = "https://play.google.com/store/apps/details?id=in.gotongroyong.gotongroyong&campaign=" + campaign_id;
+        String message = campaign_title + "\n" + deep_play_store;
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setType("text/plain");
+        context.startActivity(intent);
+    }
+
     public static void sentEmail(Context context) {
         Intent email = new Intent(Intent.ACTION_SENDTO);
         email.setData(Uri.parse("mailto:"));

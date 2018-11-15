@@ -3,6 +3,7 @@ package in.gotongroyong.gotongroyong;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -62,15 +63,29 @@ public class EmptyActivity extends AppCompatActivity implements ResponseActivity
         setPage();
     }
 
+    private void receiveIntent() {
+        Intent intent = getIntent();
+//        String action = intent.getAction();
+        Uri data = intent.getData();
+        int id = Integer.parseInt(Util.getDataUri(data));
+        getSupportFragmentManager().beginTransaction().add(R.id.container, detailFragment).commit();
+        GotongRoyongAPI.getCampaign(this, new CampaignDetailBody(id));
+        getSupportActionBar().setTitle(detailFragment.getTitle());
+    }
+
     private void setPage() {
         Intent intent = getIntent();
-        switch (intent.getStringExtra(ACTIVITY_TYPE)) {
-            case ACTIVITY_DETAIL:
-                setDetailFragment();
-                break;
-            case ACTIVITY_ABOUT:
-                setAboutFragment();
-                break;
+        try {
+            switch (intent.getStringExtra(ACTIVITY_TYPE)) {
+                case ACTIVITY_DETAIL:
+                    setDetailFragment();
+                    break;
+                case ACTIVITY_ABOUT:
+                    setAboutFragment();
+                    break;
+            }
+        } catch (Exception e) {
+            receiveIntent();
         }
     }
 
