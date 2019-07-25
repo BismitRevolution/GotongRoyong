@@ -7,10 +7,11 @@ public class API {
 
     public static String APP_MODE = MODE_PROD;
 
-        public static final String TEST_URL = "http://go-webservice.herokuapp.com";
+    public static final String TEST_URL = "http://go-webservice.herokuapp.com";
     public static final String GOTONG_ROYONG_LOCAL_URL = "http://localhost:8000";
     public static final String GOTONG_ROYONG_DEV_URL = "http://gotongroyong.cymonevo.com";
-    public static final String GOTONG_ROYONG_PROD_URL = "https://gotongroyong.online";
+//    public static final String GOTONG_ROYONG_PROD_URL = "https://gotongroyong.id";
+    public static final String GOTONG_ROYONG_PROD_URL = "https://gotong-royong.id/api";
 
 //    AUTHENTICATION
     public static final int AUTH_EMAIL_LOGIN = 110;
